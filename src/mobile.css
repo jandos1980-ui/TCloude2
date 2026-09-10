@@ -60,7 +60,8 @@
 @media(prefers-reduced-motion:reduce){#story{height:auto}.stage{position:relative;height:85svh;min-height:580px}.chapter-nav,.cloud-scene,.cloud-pause{display:none}.stage-bottom{bottom:28px}.skip-story{display:flex}.scene-media{transform:none!important}}
 
 /* Smooth scrolling uses the same Lenis version and timing as augen.pro. */
-html { scroll-behavior: auto; }
+html:not(.lenis) { scroll-behavior: smooth; }
+html.lenis { scroll-behavior: auto; }
 html.lenis { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }

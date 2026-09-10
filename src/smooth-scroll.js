@@ -21,9 +21,12 @@ export function initSmoothScroll() {
     cancelAnimationFrame(frame);
     lenis?.destroy();
     lenis = undefined;
+    document.documentElement.dataset.tauSmoothScroll = 'native';
     if (reduced.matches) return;
     // AUGEN's smoothScroll plugin: Lenis 1.0.39, identical duration and easing.
     lenis = new Lenis({duration: .8, easing: t => 1 - Math.pow(1 - t, 4)});
+    window.tauSmoothScroll = lenis;
+    document.documentElement.dataset.tauSmoothScroll = 'lenis';
     if (locked) lenis.stop();
     const tick = time => {lenis.raf(time); frame = requestAnimationFrame(tick)};
     frame = requestAnimationFrame(tick);

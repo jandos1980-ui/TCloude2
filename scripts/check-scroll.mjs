@@ -1,7 +1,7 @@
 import {chromium} from 'playwright';
 const browser=await chromium.launch({channel:'chrome',headless:true});
 const page=await browser.newPage({viewport:{width:1440,height:900}});
-await page.goto('http://127.0.0.1:5173/');
+await page.goto(process.env.TAU_TEST_URL || 'http://127.0.0.1:5173/');
 await page.waitForTimeout(500);
 await page.mouse.wheel(0,600);
 await page.waitForTimeout(100);const early=await page.evaluate(()=>scrollY);
@@ -17,5 +17,5 @@ const colors=await next.evaluate(e=>({bg:getComputedStyle(e).backgroundColor,col
 if(colors.bg!=='rgb(255, 255, 255)'||colors.color!=='rgb(0, 0, 0)')throw Error(JSON.stringify(colors));
 await page.getByRole('button',{name:'Предыдущее решение'}).click();
 if(await page.locator('#service-panel').getAttribute('data-solution')!=='colocation')throw Error('Previous failed');
-console.log(JSON.stringify({early,final,top,colors,version:await page.evaluate(()=>window.lenisVersion)}));
+console.log(JSON.stringify({early,final,top,colors,version:await page.evaluate(()=>window.lenisVersion),mode:await page.evaluate(()=>document.documentElement.dataset.tauSmoothScroll)}));
 await browser.close();
