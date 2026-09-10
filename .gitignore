@@ -2,3 +2,5 @@ node_modules/
 dist/
 test-results/
 *.log
+public/media/sequence*/frames-*.bin
+public/media/sequence*/playback.json
