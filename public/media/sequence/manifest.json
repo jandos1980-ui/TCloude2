@@ -1,12 +1,12 @@
 {
   "count": 385,
-  "width": 1280,
-  "height": 720,
+  "width": 1920,
+  "height": 1080,
   "fps": 24,
   "base": "/media/sequence",
   "pattern": "%04d.webp",
   "poster": "/media/exterior.jpeg",
-  "bytes": 8638734,
+  "bytes": 18344636,
   "beats": [
     [
       0,
@@ -24,5 +24,6 @@
       0.72,
       1
     ]
-  ]
+  ],
+  "provenance": "Lanczos upscale from original 1280x720 film, restrained sharpening, WebP quality 82; not native 1080p footage"
 }

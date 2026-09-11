@@ -12,18 +12,30 @@
  #mobile-nav a{display:flex;align-items:center;min-height:52px;font-size:18px;padding:8px 4px;border-bottom:1px solid #dce6eb}
  .menu-close{display:block;align-self:flex-end;min-height:44px;padding:8px 12px;border:0;background:#e3edf2;color:#183343;font-size:13px}
  #story{height:390svh}
- .stage{height:100svh;min-height:580px}
+ .stage{height:100svh;min-height:0}
  .stage-top{display:none}
- .chapters{top:calc(var(--mobile-header) + 25px);left:22px;width:calc(100% - 44px)}
+ .chapters{top:auto;bottom:calc(130px + env(safe-area-inset-bottom,0px));left:22px;width:calc(100% - 44px)}
+ .chapter{position:relative;display:none}
+ .chapter.active{display:block}
+ .scene-media{transform:translateY(var(--mobile-lift,0%))}
+ .stage[data-chapter="3"]{background:#102432}
+ .stage[data-chapter="3"]:not(.cloud-finale) .shade{background:linear-gradient(transparent 40%,#10243255 58%,#102432 80%)}
+ .stage[data-chapter="3"] .chapters{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
+ .stage[data-chapter="3"] .chapter h2{font-size:clamp(22px,6vw,26px);letter-spacing:-.8px;white-space:nowrap}
+ .stage[data-chapter="3"] .chapter .button{margin-top:13px}
+ .stage[data-chapter="3"][data-reveal="false"] .chapters{visibility:hidden}
+ .stage[data-chapter="3"][data-reveal="false"] .chapter{visibility:hidden}
+ .stage[data-chapter="3"][data-reveal="true"] .stage-bottom{display:none}
  .desktop-copy{display:none}.mobile-copy{display:inline}
  [data-chapter="0"] h1,.chapter h2{font-size:clamp(30px,8.8vw,41px);line-height:1.1;letter-spacing:-1.4px;max-width:370px}
  .chapter .eyebrow,.chapter .hero-description{display:none}
  .chapter .button{margin-top:21px;min-height:50px!important;max-width:100%;padding:14px 18px!important;font-size:12px!important;gap:30px}
- .stage:not(.cloud-finale) .shade{background:linear-gradient(#122b3de0 0%,#142f4982 27%,transparent 56%,#112a42b3 100%)}
+ .stage:not(.cloud-finale) .shade{background:linear-gradient(transparent 35%,#10243255 55%,#102432ed 83%,#102432 100%)}
+ .stage[data-chapter="1"] .chapter,.stage[data-chapter="2"] .chapter{visibility:hidden}
  .stage[data-chapter="1"] .chapters,.stage[data-chapter="2"] .chapters{top:auto;height:45px;bottom:calc(105px + env(safe-area-inset-bottom,0px))}
  .stage[data-chapter="1"] .chapter h2,.stage[data-chapter="2"] .chapter h2{font-size:25px}
  .stage[data-chapter="1"] .chapter .button,.stage[data-chapter="2"] .chapter .button{display:none}
- .stage-bottom{bottom:calc(87px + env(safe-area-inset-bottom,0px));left:22px;right:22px}
+ .stage-bottom{bottom:calc(77px + env(safe-area-inset-bottom,0px));left:22px;right:22px}
  .scroll-note{visibility:visible;font-size:7px}.scroll-note span:last-child{max-width:105px}.scroll-icon{height:30px;width:22px}
  .skip-story{right:0;bottom:0;min-height:44px;display:flex;align-items:center;font-size:11px}
  .chapter-counter{display:none}
@@ -58,6 +70,7 @@
 @media(max-width:360px){.chapter-nav button>span:last-of-type{font-size:7px}.location-top{flex-direction:column}.cloud-finale .chapter h2{font-size:30px}.contact h2{font-size:28px}}
 @media(max-width:600px) and (max-height:720px){.cloud-art{width:65%;left:17.5%;top:calc(var(--mobile-header) + 6px);height:190px;min-height:0}.cloud-finale .chapters{height:150px;bottom:132px}.cloud-finale .chapter h2{font-size:29px}.cloud-finale .chapter .button{margin-top:12px}.cloud-orbits{top:34%}.cloud-vignette{background:linear-gradient(#061524 5%,transparent 22%,transparent 43%,#061524 52%)}}
 @media(prefers-reduced-motion:reduce){#story{height:auto}.stage{position:relative;height:85svh;min-height:580px}.chapter-nav,.cloud-scene,.cloud-pause{display:none}.stage-bottom{bottom:28px}.skip-story{display:flex}.scene-media{transform:none!important}}
+@media(max-width:600px) and (prefers-reduced-motion:reduce){.stage{height:100svh;min-height:0}}
 
 /* Smooth scrolling uses the same Lenis version and timing as augen.pro. */
 html:not(.lenis) { scroll-behavior: smooth; }

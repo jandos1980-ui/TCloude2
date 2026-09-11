@@ -1,7 +1,12 @@
 export function createFrameSource(manifest, signal) {
-  // Retain compressed images (8.6 MB desktop / 2.5 MB mobile), not decoded bitmaps.
+  // Retain compressed images; decoded bitmaps stay in the bounded story cache.
   const blobs = new Map(), waiting = new Map();
   let finished = !manifest.stream;
+  signal.addEventListener('abort', () => {
+    blobs.clear();
+    for (const resolve of waiting.values()) resolve(null);
+    waiting.clear();
+  }, {once: true});
   function release(index, blob) {
     blobs.set(index, blob);
     waiting.get(index)?.(blob);
@@ -48,7 +53,11 @@ export function createFrameSource(manifest, signal) {
   return async index => {
     signal.throwIfAborted();
     let blob = blobs.get(index);
-    if (!blob && !finished) blob = await new Promise(resolve => waiting.set(index, resolve));
+    // A jump to the finale must not wait for every preceding frame to download.
+    if (!blob && !finished) blob = await new Promise(resolve => {
+      const timer = setTimeout(() => {waiting.delete(index); resolve(null);}, 600);
+      waiting.set(index, value => {clearTimeout(timer); resolve(value);});
+    });
     signal.throwIfAborted();
     if (blob) return blob;
     const response = await fetch(`${manifest.base}/${String(index).padStart(4, '0')}.webp`, {signal});

@@ -1,11 +1,11 @@
 {
   "count": 289,
-  "width": 404,
-  "height": 720,
+  "width": 606,
+  "height": 1080,
   "fps": 18,
   "base": "/media/sequence-mobile",
   "poster": "/media/mobile-opening.webp",
-  "bytes": 2513092,
+  "bytes": 5110746,
   "beats": [
     [
       0,
@@ -24,5 +24,5 @@
       1
     ]
   ],
-  "provenance": "Portrait crop adaptation of existing generated landscape film; not separately generated"
+  "provenance": "Lanczos upscale from original 1280x720 film, restrained sharpening, WebP quality 82; not native 1080p footage"
 }

@@ -7,7 +7,7 @@ try {
   const errors = [], requests = [];
   page.on('pageerror', error => errors.push(error.message));
   page.on('request', request => requests.push(request.url()));
-  await page.route(/\/media\/sequence\//, async route => {
+  await page.route(/\/media\/energy-sequence\//, async route => {
     const response = await route.fetch();
     await new Promise(resolve => setTimeout(resolve, 300));
     await route.fulfill({response});
@@ -30,7 +30,7 @@ try {
   await page.mouse.wheel(0, -3000);
   await page.waitForTimeout(1100);
   assert(await page.evaluate(() => scrollY < 3), 'Reverse scrolling failed');
-  assert.equal(requests.filter(url => /\d{4}\.webp/.test(url)).length, 0);
+  assert(requests.filter(url => /\d{4}\.webp/.test(url)).length <= 12, 'Too many priority frame requests');
   assert.equal(requests.filter(url => url.endsWith('.bin')).length, 1);
   assert.deepEqual(errors, []);
   await page.unrouteAll({behavior: 'wait'});

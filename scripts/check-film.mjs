@@ -1,7 +1,7 @@
 import {chromium} from 'playwright';
 import {readFile,readdir,stat} from 'node:fs/promises';
-const m=JSON.parse(await readFile('public/media/sequence/manifest.json','utf8'));
-for(let i=0;i<m.count;i++){const s=await stat(`public/media/sequence/${String(i).padStart(4,'0')}.webp`);if(s.size===0)throw Error('Empty frame '+i)}
+const m=JSON.parse(await readFile('public/media/energy-sequence/manifest.json','utf8'));
+for(let i=0;i<m.count;i++){const s=await stat(`public/media/energy-sequence/${String(i).padStart(4,'0')}.webp`);if(s.size===0)throw Error('Empty frame '+i)}
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
 const p=await browser.newPage({viewport:{width:1440,height:900}});const bad=[];p.on('response',r=>{if(r.url().includes('/media/')&&r.status()>=400)bad.push(r.url())});
 await p.goto('http://127.0.0.1:5173');await p.waitForFunction(()=>getComputedStyle(document.querySelector('#film')).opacity==='1');

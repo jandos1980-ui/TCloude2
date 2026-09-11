@@ -2,7 +2,7 @@ import {readFile, writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 
 // One streaming response removes a network round trip for every animation frame.
-for (const directory of ['sequence', 'sequence-mobile']) {
+for (const directory of ['sequence', 'sequence-mobile', 'energy-sequence', 'energy-sequence-mobile']) {
   const root = new URL(`../public/media/${directory}/`, import.meta.url);
   const manifest = JSON.parse(await readFile(new URL('manifest.json', root), 'utf8'));
   const frames = await Promise.all(Array.from({length: manifest.count}, (_, i) =>

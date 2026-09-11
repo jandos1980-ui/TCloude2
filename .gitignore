@@ -4,3 +4,9 @@ test-results/
 *.log
 public/media/sequence*/frames-*.bin
 public/media/sequence*/playback.json
+public/media/energy-sequence*/frames-*.bin
+public/media/energy-sequence*/playback.json
+
+public/media/.staging/
+
+.media-staging/

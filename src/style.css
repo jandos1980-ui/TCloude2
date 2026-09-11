@@ -64,3 +64,16 @@
 .chapter .button{font-size:13px;min-height:54px;padding:16px 24px;gap:48px}
 @media(max-width:600px){.hero-description{font-size:13px;line-height:1.8}.chapter .button{font-size:12px;min-height:54px;padding:16px 22px}.light-finale .hero-description{font-size:12px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}#story{height:300svh}.chapter{transform:none;transition:opacity 150ms ease,visibility 150ms}.scene-media{will-change:auto}.button{transition:background 150ms ease}.button:active{transform:none}}
+
+/* Dedicated desktop holds and unobstructed travel beats. */
+@media(min-width:601px) and (prefers-reduced-motion:no-preference){
+ #story{height:700svh}
+ .stage[data-copy="-1"] .shade{background:linear-gradient(0deg,#07151a99,transparent 25%,transparent 80%,#07151a33)}
+ .stage[data-copy="-1"] .scroll-note{visibility:hidden}
+ .chapters{left:6.2%;top:26%;width:44%}
+ .chapter h1,.chapter h2{font-size:clamp(38px,4.4vw,66px);letter-spacing:-2.5px}
+ .stage[data-copy="3"] .chapters{top:28%;width:37%}
+ .stage[data-copy="3"] .hero-description{max-width:370px}
+}
+
+@media(min-width:601px){.stage[data-copy="3"] .scroll-note{visibility:hidden}}

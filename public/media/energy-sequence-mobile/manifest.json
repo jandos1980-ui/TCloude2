@@ -1,0 +1,28 @@
+{
+  "count": 361,
+  "width": 720,
+  "height": 1280,
+  "fps": 18,
+  "base": "/media/energy-sequence-mobile",
+  "poster": "/media/energy-poster-0-mobile.webp",
+  "bytes": 10586172,
+  "beats": [
+    [
+      0,
+      0.25
+    ],
+    [
+      0.25,
+      0.5
+    ],
+    [
+      0.5,
+      0.7
+    ],
+    [
+      0.7,
+      1
+    ]
+  ],
+  "provenance": "Dedicated 9:16 Seedance 2.5 generation b3fba704-aa65-43e8-8004-e909e40ef89e; portrait edge cleanup crop 972x1728 at 54,0 removes generated white bottom border; 18 fps WebP 82"
+}
