@@ -34,7 +34,8 @@ export function createFrameSource(manifest, signal, {mobile = false} = {}) {
   if (mobile) return createMobileFrameSource(manifest, signal);
   // Retain compressed images; decoded bitmaps stay in the bounded story cache.
   const blobs = new Map(), waiting = new Map();
-  let finished = !manifest.stream;
+  const streams = manifest.streams ?? (manifest.stream ? [manifest.stream] : []);
+  let finished = streams.length === 0;
   signal.addEventListener('abort', () => {
     blobs.clear();
     for (const resolve of waiting.values()) resolve(null);
@@ -48,13 +49,22 @@ export function createFrameSource(manifest, signal, {mobile = false} = {}) {
   async function stream() {
     let reader;
     try {
-      const response = await fetch(manifest.stream, {signal});
-      if (!response.ok || !response.body) throw Error('Sequence stream unavailable');
-      reader = response.body.getReader();
+      async function* chunks() {
+        for (const url of streams) {
+          const response = await fetch(url, {signal});
+          if (!response.ok || !response.body) throw Error('Sequence stream unavailable');
+          reader = response.body.getReader();
+          while (true) {
+            const {done, value} = await reader.read();
+            if (done) break;
+            yield value;
+          }
+          reader.releaseLock();
+          reader = null;
+        }
+      }
       let buffer = new Uint8Array(), headerLength, sizes, index = 0;
-      while (true) {
-        const {done, value} = await reader.read();
-        if (done) break;
+      for await (const value of chunks()) {
         const next = new Uint8Array(buffer.length + value.length);
         next.set(buffer); next.set(value, buffer.length); buffer = next;
         if (headerLength === undefined && buffer.length >= 4) {
@@ -82,7 +92,7 @@ export function createFrameSource(manifest, signal, {mobile = false} = {}) {
       waiting.clear();
     }
   }
-  if (manifest.stream) void stream();
+  if (streams.length) void stream();
   return async index => {
     signal.throwIfAborted();
     let blob = blobs.get(index);
