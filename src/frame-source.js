@@ -1,4 +1,37 @@
-export function createFrameSource(manifest, signal) {
+// Mobile fetches only the requested neighborhood, retaining the original WebP bytes.
+export function createMobileFrameSource(manifest, signal) {
+  const blobs = new Map(), requests = new Map();
+  let center = 0, enabled = true;
+  const source = async index => {
+    signal.throwIfAborted();
+    if (!enabled || Math.abs(index - center) > 12) throw new DOMException('Outside active story', 'AbortError');
+    if (blobs.has(index)) return blobs.get(index);
+    if (requests.has(index)) return requests.get(index).promise;
+    const controller = new AbortController();
+    const promise = (async () => {
+      try {
+        const response = await fetch(`${manifest.base}/${String(index).padStart(4, '0')}.webp`, {signal: controller.signal});
+        if (!response.ok) throw Error(response.status);
+        const blob = await response.blob();
+        controller.signal.throwIfAborted();
+        if (enabled && Math.abs(index - center) <= 12) blobs.set(index, blob);
+        return blob;
+      } finally { requests.delete(index); }
+    })();
+    requests.set(index, {controller, promise});
+    return promise;
+  };
+  source.setWindow = (index, visible = true) => {
+    center = index; enabled = visible;
+    for (const [i, request] of requests) if (!visible || Math.abs(i - index) > 12) request.controller.abort();
+    for (const i of blobs.keys()) if (!visible || Math.abs(i - index) > 12) blobs.delete(i);
+  };
+  signal.addEventListener('abort', () => source.setWindow(center, false), {once:true});
+  return source;
+}
+
+export function createFrameSource(manifest, signal, {mobile = false} = {}) {
+  if (mobile) return createMobileFrameSource(manifest, signal);
   // Retain compressed images; decoded bitmaps stay in the bounded story cache.
   const blobs = new Map(), waiting = new Map();
   let finished = !manifest.stream;
