@@ -1,0 +1,18 @@
+{
+  "submittedAt": "2026-09-14T13:01:30.380Z",
+  "model": "bytedance/seedance-2-5",
+  "duration": 12,
+  "resolution": "1080p",
+  "jobId": "a00d0659-1efe-4ad7-ab35-34f292e02ad7",
+  "status": "completed",
+  "raw": {
+    "created_at": "2026-09-14T13:01:25.188Z",
+    "completed_at": null,
+    "job_id": "a00d0659-1efe-4ad7-ab35-34f292e02ad7",
+    "status": "scheduled",
+    "type": "videoV2"
+  },
+  "completedAt": "2026-09-14T13:08:09.958Z",
+  "resultUrl": "https://app-uploads.krea.ai/public/01cce769-8d95-43b3-9425-ec58f1519b4a-video.mp4",
+  "localPath": "public/media/tau-cloud-hero-12s-krea.mp4"
+}

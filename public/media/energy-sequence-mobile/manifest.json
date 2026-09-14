@@ -1,0 +1,28 @@
+{
+  "count": 217,
+  "width": 720,
+  "height": 1280,
+  "fps": 18,
+  "base": "/media/energy-sequence-mobile",
+  "poster": "/media/energy-poster-0-mobile.webp",
+  "bytes": 11163206,
+  "beats": [
+    [
+      0,
+      0.1667
+    ],
+    [
+      0.1667,
+      0.4167
+    ],
+    [
+      0.4167,
+      0.6667
+    ],
+    [
+      0.6667,
+      1
+    ]
+  ],
+  "provenance": "Krea Seedance 2.5 job a00d0659-1efe-4ad7-ab35-34f292e02ad7; 12s infrastructure scenario; Astana, generator, UPS, capsule and empty operations-room references; no Almaty, energy sphere, sky-beam sequence, or people; center portrait crop scaled to 720x1280"
+}

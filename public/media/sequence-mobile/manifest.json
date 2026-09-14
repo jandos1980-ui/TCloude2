@@ -1,0 +1,28 @@
+{
+  "count": 289,
+  "width": 606,
+  "height": 1080,
+  "fps": 18,
+  "base": "/media/sequence-mobile",
+  "poster": "/media/mobile-opening.webp",
+  "bytes": 5110746,
+  "beats": [
+    [
+      0,
+      0.33
+    ],
+    [
+      0.33,
+      0.53
+    ],
+    [
+      0.53,
+      0.72
+    ],
+    [
+      0.72,
+      1
+    ]
+  ],
+  "provenance": "Lanczos upscale from original 1280x720 film, restrained sharpening, WebP quality 82; not native 1080p footage"
+}

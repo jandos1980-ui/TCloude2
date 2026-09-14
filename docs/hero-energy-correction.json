@@ -1,0 +1,15 @@
+{
+  "job_id": "64277ab2-4f07-4983-a8cc-b66141fca1f9",
+  "source_job_id": "d187d9b9-1bd8-4cd9-b645-c7a3c0b1c3f4",
+  "logo_media_id": "5b129b13-754f-4b86-b8e9-9e4cc42c24fb",
+  "model": "hf_mult_replace_object",
+  "resolution": "1080p",
+  "status": "completed",
+  "corrections": [
+    "Replace facade scribble with supplied TAU CLOUD neon logo",
+    "Remove inherited Kling watermark"
+  ],
+  "preserve": "20-second timing, camera movement, architecture, energy and clouds",
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3JAqVb8Ee6W0lTkEVYaymODjL3A/hf_20260911_094808_64277ab2-4f07-4983-a8cc-b66141fca1f9.mp4",
+  "local_file": "public/media/tau-cloud-energy-corrected.mp4"
+}

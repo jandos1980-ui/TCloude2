@@ -1,0 +1,17 @@
+{
+  "jobId": "5fe7c0a5-f33a-4b58-bf59-85236079bab8",
+  "model": "hf_mult_replace_object",
+  "resolution": "1080p",
+  "sourceJob": "64277ab2-4f07-4983-a8cc-b66141fca1f9",
+  "referenceMedia": "7c308978-146b-415f-a1cd-af36a995509d",
+  "status": "first_video_rejected_on_visual_review",
+  "brief": "Replace low grey storm cloud with high white clouds. Blue-cyan energy rises far above the data center, strikes the cloud layer and spreads laterally in every direction. Photorealistic cinematic light; reference scribbles are directional annotations only. Preserve opening, entrance, corridor, architecture and camera continuity.",
+  "review": "Low grey cloud remains; source facade icon disappeared. Not integrated.",
+  "localRejectedVideo": "public/media/tau-cloud-white-clouds.mp4",
+  "keyframeJob": "508b17cf-b229-4c64-aaaa-f3499541efa7",
+  "keyframe": "public/media/white-cloud-keyframe.png",
+  "followupModel": "seedance_2_5",
+  "followupStatus": "not_submitted_insufficient_credits",
+  "remainingCredits": 60,
+  "workspace": "3ec9362d-a31b-41f6-9d4c-d44e28c36eac"
+}
