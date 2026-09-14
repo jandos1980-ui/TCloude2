@@ -31,8 +31,9 @@
  .chapter .eyebrow,.chapter .hero-description{display:none}
  .chapter .button{margin-top:21px;min-height:50px!important;max-width:100%;padding:14px 18px!important;font-size:12px!important;gap:30px}
  .stage:not(.cloud-finale) .shade{background:linear-gradient(transparent 35%,#10243255 55%,#102432ed 83%,#102432 100%)}
- .stage[data-chapter="1"] .chapter,.stage[data-chapter="2"] .chapter{visibility:hidden}
- .stage[data-chapter="1"] .chapters,.stage[data-chapter="2"] .chapters{top:auto;height:45px;bottom:calc(105px + env(safe-area-inset-bottom,0px))}
+ .stage[data-chapter="1"] .chapter.active,.stage[data-chapter="2"] .chapter.active{visibility:visible}
+ .stage[data-chapter="1"] .chapters,.stage[data-chapter="2"] .chapters{top:auto;height:auto;bottom:calc(145px + env(safe-area-inset-bottom,0px))}
+ .stage[data-chapter="1"] .hero-description,.stage[data-chapter="2"] .hero-description,.stage[data-chapter="3"] .hero-description{display:block;font-size:13px;line-height:1.55;margin:12px 0 0;max-width:340px}
  .stage[data-chapter="1"] .chapter h2,.stage[data-chapter="2"] .chapter h2{font-size:25px}
  .stage[data-chapter="1"] .chapter .button,.stage[data-chapter="2"] .chapter .button{display:none}
  .stage-bottom{bottom:calc(77px + env(safe-area-inset-bottom,0px));left:22px;right:22px}

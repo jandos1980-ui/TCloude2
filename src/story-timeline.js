@@ -1,10 +1,10 @@
-// Normalized scroll intervals are independent of source clip duration.
+// Augen-style pinned scroll: compact travel, clear copy beats, no long dead holds.
+export const storyStops = [0, .18, .43, .68, 1];
 export const desktopTimeline = [
- {end:.10,from:0,to:0,copy:0},
- {end:.30,from:0,to:.25,copy:-1},
- {end:.40,from:.25,to:.25,copy:1},
- {end:.65,from:.25,to:.70,copy:-1},
- {end:.85,from:.70,to:1,copy:-1},
+ {end:.18,from:0,to:.1667,copy:0},
+ {end:.43,from:.1667,to:.4167,copy:1},
+ {end:.68,from:.4167,to:.6667,copy:2},
+ {end:.88,from:.6667,to:1,copy:-1},
  {end:1,from:1,to:1,copy:3},
 ];
 export function desktopMoment(progress){

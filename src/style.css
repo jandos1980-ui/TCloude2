@@ -67,7 +67,7 @@
 
 /* Dedicated desktop holds and unobstructed travel beats. */
 @media(min-width:601px) and (prefers-reduced-motion:no-preference){
- #story{height:700svh}
+ #story{height:520svh}
  .stage[data-copy="-1"] .shade{background:linear-gradient(0deg,#07151a99,transparent 25%,transparent 80%,#07151a33)}
  .stage[data-copy="-1"] .scroll-note{visibility:hidden}
  .chapters{left:6.2%;top:26%;width:44%}
