@@ -19,7 +19,7 @@ try{
   await page.goto(process.env.TAU_TEST_URL||'http://127.0.0.1:5174/');
   await page.waitForFunction(()=>document.querySelector('#film').style.opacity==='1');
   // Jump across scenes in both directions while frames are still arriving.
-  for(const [progress,chapter] of [[.55,2],[.25,1],[.71,3],[.95,-1],[0,0]]){
+  for(const [progress,chapter] of [[.55,2],[.25,1],[.71,3],[.95,4],[0,0]]){
    console.log(`${width}px: checking chapter ${chapter}`);
    await page.evaluate(progress=>{
     const story=document.querySelector('#story'),stage=story.querySelector('.stage');

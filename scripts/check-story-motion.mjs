@@ -7,7 +7,7 @@ try{
   page.setDefaultTimeout(15000);page.on('pageerror',e=>errors.push(e.message));
   await page.goto(process.env.TAU_TEST_URL||'http://127.0.0.1:5174/');
   const jump=async progress=>page.evaluate(v=>{const s=document.querySelector('#story');window.tauSmoothScroll.scrollTo(s.offsetTop+v*(s.offsetHeight-document.querySelector('.stage').offsetHeight),{immediate:true});},progress);
-  for(const [progress,scene,copy] of [[.55,3,2],[.7,4,3],[.9,5,-1],[.7,4,3]]){
+  for(const [progress,scene,copy] of [[.55,3,2],[.7,4,3],[.9,5,4],[.7,4,3]]){
    await jump(progress);
    await page.waitForFunction(scene=>document.querySelector('.stage').dataset.scene===String(scene),scene);
    assert.equal(await page.locator('.stage').getAttribute('data-copy'),String(copy));

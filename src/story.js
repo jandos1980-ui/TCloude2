@@ -69,8 +69,9 @@ export function initStory(){
   active=copy>=0?copy:3;
   story.querySelectorAll('.chapter').forEach((e,i)=>{e.classList.toggle('active',i===copy);e.inert=i!==copy;});
   stage.dataset.copy=String(copy);stage.dataset.chapter=String(active);stage.dataset.scene=String(scene);stage.dataset.reveal=String(scene>=4);
-  story.querySelector('.chapter-counter').innerHTML=`0${active+1} <span>/ 04</span>`;
-  story.querySelectorAll('[data-jump]').forEach((b,i)=>{b.classList.toggle('current',i===active);b.setAttribute('aria-pressed',String(i===active));b.querySelector('i').style.transform=`scaleX(${Math.max(0,Math.min(1,(progress-stops[i])/(stops[i+1]-stops[i])))})`;});
+  story.querySelector('.chapter-counter').innerHTML=`0${active+1} <span>/ 05</span>`;
+  const navStops=mobile.matches?[0,.212,.46,.63,.857,1]:[0,.2,.454,.644,.774,1];
+  story.querySelectorAll('[data-jump]').forEach((b,i)=>{b.classList.toggle('current',i===active);b.setAttribute('aria-pressed',String(i===active));b.querySelector('i').style.transform=`scaleX(${Math.max(0,Math.min(1,(progress-navStops[i])/(navStops[i+1]-navStops[i])))})`;});
   if(manifest&&!reduce.matches){draw();queue();if(!objectTick&&visible&&!document.hidden)objectTick=requestAnimationFrame(animateObjects);}
   else canvas.style.opacity='0';
  }
@@ -78,5 +79,5 @@ export function initStory(){
  async function select(){generation++;const token=generation;controller.abort();controller=new AbortController();cache.forEach(b=>b.close());cache.clear();pending.clear();failed.clear();busy=0;manifest=null;active=-1;scene=-1;drawn=-1;cancelAnimationFrame(objectTick);objectTick=0;fade?.cancel();canvas.style.opacity='0';update();if(reduce.matches)return;try{const base=(mobile.matches?storyMedia.mobile:storyMedia.desktop).base;let response=await fetch(`${base}/playback.json`,{signal:controller.signal});if(!response.ok||!response.headers.get('content-type')?.includes('json'))response=await fetch(`${base}/manifest.json`,{signal:controller.signal});if(!response.ok)return;const data=await response.json();if(token!==generation)return;if(mobile.matches){await poster.decode().catch(()=>{});if(token!==generation)return}manifest=data;frameSource=createFrameSource(data,controller.signal,{mobile:mobile.matches});schedule()}catch{}}
  mobile.addEventListener('change',preloadPosters);preloadPosters();
  mobile.addEventListener('change',select);reduce.addEventListener('change',select);addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);document.addEventListener('visibilitychange',schedule);addEventListener('pagehide',()=>{generation++;controller.abort();cancelAnimationFrame(objectTick);fade?.cancel();cache.forEach(b=>b.close());cache.clear()});
- story.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>scrollPageTo(story.offsetTop+[.025,.26,.55,.72][+b.dataset.jump]*(story.offsetHeight-stage.offsetHeight)));select();
+ story.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>scrollPageTo(story.offsetTop+[.025,.26,.55,.72,.93][+b.dataset.jump]*(story.offsetHeight-stage.offsetHeight)));select();
 }
