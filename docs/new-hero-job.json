@@ -1,0 +1,15 @@
+{
+  "jobId": "1fdb9513-984f-43f2-aabc-a153cdf79e85",
+  "model": "bytedance/seedance-2-fast",
+  "status": "completed",
+  "createdAt": "2026-09-14T11:17:57.214Z",
+  "completedAt": "2026-09-14T11:21:55.957Z",
+  "resultUrl": "https://app-uploads.krea.ai/public/52065ad9-a2c1-4152-922c-5fce7d87efb7-video.mp4",
+  "localPath": "public/media/tau-cloud-krea-new.mp4",
+  "duration": 15.10,
+  "width": 1280,
+  "height": 720,
+  "approved": true,
+  "qa": "Opening and server capsules match references; from approximately 9 seconds the final exterior introduces a different multi-storey building. Not promoted to website frame streams.",
+  "integration": "pending corrected finale"
+}

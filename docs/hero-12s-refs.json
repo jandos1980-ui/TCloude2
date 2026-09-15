@@ -1,0 +1,54 @@
+{
+  "duration": 12,
+  "model": "bytedance/seedance-2-5",
+  "status": "approved-submission-rejected-insufficient-balance",
+  "references": [
+    {
+      "reference": "@Image1",
+      "key": "astana-new",
+      "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789383681250-astana-new.webp"
+    },
+    {
+      "reference": "@Image2",
+      "key": "generator",
+      "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789385665267-generator.webp"
+    },
+    {
+      "reference": "@Image3",
+      "key": "ups",
+      "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789385666896-ups.webp"
+    },
+    {
+      "reference": "@Image4",
+      "key": "ups-blue",
+      "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789385670043-ups-blue.webp"
+    },
+    {
+      "reference": "@Image5",
+      "key": "capsule-front",
+      "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789385671940-capsule-front.webp"
+    },
+    {
+      "reference": "@Image6",
+      "key": "capsule-angle",
+      "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789383684276-capsule-angle.webp"
+    },
+    {
+      "reference": "@Image7",
+      "key": "capsule-wide",
+      "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789383686361-capsule-wide.webp"
+    },
+    {
+      "reference": "@Image8",
+      "key": "operations-empty",
+      "url": "https://app-uploads.krea.ai/public/1408fbe5-7b98-4ee5-92d1-f9ff10597912-image.jpeg"
+    }
+  ],
+  "excluded": [
+    "almaty-new",
+    "energy-reference"
+  ],
+  "imageEditJob": "1408fbe5-7b98-4ee5-92d1-f9ff10597912",
+  "resolution": "1080p",
+  "lastError": "Krea HTTP 402 INSUFFICIENT_BALANCE; no video job created"
+}

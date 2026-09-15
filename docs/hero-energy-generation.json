@@ -1,0 +1,38 @@
+{
+  "status": "completed",
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3JAqVb8Ee6W0lTkEVYaymODjL3A/hf_20260911_092115_d187d9b9-1bd8-4cd9-b645-c7a3c0b1c3f4.mp4",
+  "job_id": "d187d9b9-1bd8-4cd9-b645-c7a3c0b1c3f4",
+  "previous_job_ids": [
+    "3ec7faae-314e-4434-b814-5cc05d947d20",
+    "bff5367e-ea32-4b4d-a9f5-6ebc71c51c7a"
+  ],
+  "workspace_id": "3ec9362d-a31b-41f6-9d4c-d44e28c36eac",
+  "submitted_at": "2026-09-11",
+  "params": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "duration": 20,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "medias": [
+      {
+        "role": "start_image",
+        "value": "fe8d3256-fcb7-4308-9397-c0681f8aca17"
+      },
+      {
+        "role": "image",
+        "value": "5b129b13-754f-4b86-b8e9-9e4cc42c24fb"
+      },
+      {
+        "role": "image",
+        "value": "7d064778-e6d8-49d0-a41f-05f903aea16e"
+      },
+      {
+        "role": "video",
+        "value": "3ee49071-2ced-4a81-b803-5145eb816a1b"
+      }
+    ],
+    "prompt": "Create a 20-second silent cinematic TAU CLOUD website hero film. Reference video is for its opening exterior approach and entry only: preserve that opening composition and camera path, replace its later studio/cloud ending completely. First image is the exact real building; second image is the server aisle design. 0-4s: exterior view of this exact grey data center with black vertical fins and tall glass facade, gently approach the entrance and move inside, matching the reference video's opening. 4-7s: reveal TAU CLOUD server hall and approach the cabinets. Thin deep-blue and cyan luminous energy strands emerge from inside the racks and reflect on glass and floor. 7-11s: camera advances smoothly down the aisle to its far end. More energy flows from successive cabinets, travelling forward along the aisle, building into powerful dense blue-cyan streams. Keep racks intact and geometrically stable. 11-14s: at the far end the streams converge and sharply surge vertically upward. Camera tilts and follows through ceiling and roof with a brief luminous transition concealing passage through solid surfaces; no physical damage. 14-17s: powerful energy column reaches natural atmospheric clouds and spreads through them as luminous waves; camera starts pulling backward and looking down toward building. 17-20s: wide distant elevated establishing shot of the SAME reference data center, entire recognizable building and neighboring urban context visible below, a powerful flowing blue-cyan energy column connecting its roof to the clouds. Ease camera to a steady final hold while energy keeps flowing. Premium photorealistic architecture, volumetric light, coherent movement, controlled power. Preserve building proportions and surroundings, no isolated server cabinet or white studio scene. Main light action center-right, calmer left third for website copy. No added text, interface, captions, characters, fire, destruction, debris or explosions."
+  }
+}
