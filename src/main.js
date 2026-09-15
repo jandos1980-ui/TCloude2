@@ -12,7 +12,7 @@ document.querySelectorAll('[data-service]').forEach(b=>{b.onclick=()=>selectServ
 document.querySelectorAll('[data-service-direction]').forEach(button=>button.onclick=()=>selectService((currentService+Number(button.dataset.serviceDirection)+services.length)%services.length));
 initSmoothScroll();
 initMobileNav();
-document.querySelectorAll('[data-location]').forEach(a=>a.onclick=()=>{document.querySelector('select').selectedIndex=0;document.querySelector('textarea').value=`Интересует площадка: ${sites[+a.dataset.location].city}, ${sites[+a.dataset.location].address}. `});
+document.querySelectorAll('[data-location]').forEach(a=>a.onclick=()=>{document.querySelector('select').selectedIndex=0;document.querySelector('textarea').value=`Интересует площадка: TC ${String(+a.dataset.location+1).padStart(2,'0')} — ${[sites[+a.dataset.location].city,sites[+a.dataset.location].address].filter(Boolean).join(', ')}. `});
 document.querySelector('#brief').onsubmit=e=>{e.preventDefault();const d=new FormData(e.target);const body=`БРИФ ПРОЕКТА TAU CLOUD\n\nИмя: ${d.get('name')}\nEmail: ${d.get('email')}\nРешение: ${d.get('service')}\n\nО проекте:\n${d.get('message')||'Не указано'}\n\nБриф создан локально и не отправлен. Официальный сайт: https://taucloud.kz/`;const url=URL.createObjectURL(new Blob(['\ufeff',body],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='TAU-CLOUD-project-brief.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);document.querySelector('#form-status').textContent='Бриф подготовлен к скачиванию. Передайте его команде TAU CLOUD.';};
 initStory();
 
