@@ -1,0 +1,42 @@
+[
+  {
+    "scene": "exterior",
+    "format": "desktop",
+    "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789478258444-exterior-desktop.jpeg"
+  },
+  {
+    "scene": "exterior",
+    "format": "mobile",
+    "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789478261606-exterior-mobile.jpeg"
+  },
+  {
+    "scene": "ups",
+    "format": "desktop",
+    "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789478264816-ups-desktop.jpeg"
+  },
+  {
+    "scene": "ups",
+    "format": "mobile",
+    "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789478267671-ups-mobile.jpeg"
+  },
+  {
+    "scene": "doors",
+    "format": "desktop",
+    "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789478271227-doors-desktop.jpeg"
+  },
+  {
+    "scene": "doors",
+    "format": "mobile",
+    "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789478275289-doors-mobile.jpeg"
+  },
+  {
+    "scene": "engineer",
+    "format": "desktop",
+    "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789478279353-engineer-desktop.jpeg"
+  },
+  {
+    "scene": "engineer",
+    "format": "mobile",
+    "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789478283485-engineer-mobile.jpeg"
+  }
+]

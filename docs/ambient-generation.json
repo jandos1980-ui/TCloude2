@@ -1,0 +1,93 @@
+{
+  "model": "minimax/hailuo-2.3-fast",
+  "superseded": true,
+  "note": "Exterior jobs deleted via Krea after user requested moving camera. Current jobs are recorded in ambient-generation-current.json.",
+  "prompts": {
+    "exterior": "Locked-off tripod architectural photograph brought to life. Preserve the exact building, TAU CLOUD signage, fence and framing from the reference. White clouds drift steadily left to right across the blue sky, foliage and individual tree branches sway subtly in a light breeze; corresponding faint cloud reflections move in the glass. Building and camera stay perfectly stationary. Six seconds of restrained natural ambient motion. No pan, zoom, cuts, added people, vehicles, text, warping or architectural changes.",
+    "ups": "Locked-off tripod view of this exact UPS equipment room. Preserve every cabinet, battery rack, TAU CLOUD logo and the framing. During the first second the ceiling LED panels dim; from second 1 to second 4 the existing ceiling panels switch on sequentially from the back of the room toward the camera, one after another, with physically plausible soft reflections on the tiles. Hold all panels steadily illuminated for the last two seconds. All equipment stays motionless. No camera motion, new objects, flashing, changes to lettering or geometry.",
+    "doors": "Locked-off tripod shot of the exact server containment entrances in the reference. Preserve the rigid blue illuminated enclosures, screens, signage and all server racks. The existing paired glass entrance doors slide apart horizontally into their side housings during seconds 0 to 2, then smoothly slide back together from seconds 2 to 5 and close at the center seam. Hold closed for the final second. Glass panels translate only horizontally, never swing, bend, dissolve or merge into the racks. No camera movement, cuts, added objects or changes to text.",
+    "engineer": "A restrained cinemagraph from the exact reference photograph. Preserve the engineer's face, identity, hands, clothing, pose and the server hardware without change. The person remains still as if posing for a photo, with at most imperceptible natural breathing. Only a few tiny green and blue status LEDs on the server equipment blink slowly and asynchronously, each with a soft one-to-two-second on/off cycle. Constant room lighting. Locked camera, no zoom, pan, cuts, exaggerated glow, face changes, hand movement, morphing or new objects."
+  },
+  "jobs": [
+    {
+      "scene": "exterior",
+      "format": "desktop",
+      "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789478258444-exterior-desktop.jpeg",
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"mode\": \"async\",\n  \"completed\": false,\n  \"timedOut\": false,\n  \"job_id\": \"e9047008-4a3d-45b8-af3d-a77aead0895e\",\n  \"job\": {\n    \"created_at\": \"2026-09-15T13:18:35.520Z\",\n    \"completed_at\": null,\n    \"job_id\": \"e9047008-4a3d-45b8-af3d-a77aead0895e\",\n    \"status\": \"scheduled\",\n    \"type\": \"videoV2\"\n  }\n}"
+          }
+        ],
+        "structuredContent": {
+          "mode": "async",
+          "completed": false,
+          "timedOut": false,
+          "job_id": "e9047008-4a3d-45b8-af3d-a77aead0895e",
+          "job": {
+            "created_at": "2026-09-15T13:18:35.520Z",
+            "completed_at": null,
+            "job_id": "e9047008-4a3d-45b8-af3d-a77aead0895e",
+            "status": "scheduled",
+            "type": "videoV2"
+          }
+        },
+        "isError": false
+      }
+    },
+    {
+      "scene": "exterior",
+      "format": "mobile",
+      "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789478261606-exterior-mobile.jpeg",
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"mode\": \"async\",\n  \"completed\": false,\n  \"timedOut\": false,\n  \"job_id\": \"4fdde0ce-d702-4215-bd38-523c4914b7ca\",\n  \"job\": {\n    \"created_at\": \"2026-09-15T13:18:48.459Z\",\n    \"completed_at\": null,\n    \"job_id\": \"4fdde0ce-d702-4215-bd38-523c4914b7ca\",\n    \"status\": \"scheduled\",\n    \"type\": \"videoV2\"\n  }\n}"
+          }
+        ],
+        "structuredContent": {
+          "mode": "async",
+          "completed": false,
+          "timedOut": false,
+          "job_id": "4fdde0ce-d702-4215-bd38-523c4914b7ca",
+          "job": {
+            "created_at": "2026-09-15T13:18:48.459Z",
+            "completed_at": null,
+            "job_id": "4fdde0ce-d702-4215-bd38-523c4914b7ca",
+            "status": "scheduled",
+            "type": "videoV2"
+          }
+        },
+        "isError": false
+      }
+    },
+    {
+      "scene": "ups",
+      "format": "desktop",
+      "url": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789478264816-ups-desktop.jpeg",
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"error\": \"Generation request failed for minimax/hailuo-2.3-fast\",\n  \"status\": 429,\n  \"category\": \"video\",\n  \"model\": \"minimax/hailuo-2.3-fast\",\n  \"response\": {\n    \"message\": \"CONCURRENCY_LIMIT_REACHED\",\n    \"limit\": 2,\n    \"jobType\": \"videoV2\"\n  }\n}"
+          }
+        ],
+        "structuredContent": {
+          "error": "Generation request failed for minimax/hailuo-2.3-fast",
+          "status": 429,
+          "category": "video",
+          "model": "minimax/hailuo-2.3-fast",
+          "response": {
+            "message": "CONCURRENCY_LIMIT_REACHED",
+            "limit": 2,
+            "jobType": "videoV2"
+          },
+          "error_code": "INVALID_ARGUMENT"
+        },
+        "isError": true
+      }
+    }
+  ]
+}

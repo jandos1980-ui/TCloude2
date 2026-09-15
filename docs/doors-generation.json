@@ -1,0 +1,40 @@
+{
+  "model": "minimax/hailuo-2.3-fast",
+  "prompt": "Locked-off tripod shot of the exact server containment entrances in the reference. Preserve the rigid blue illuminated enclosures, screens, signage and all server racks. The existing paired glass entrance doors slide apart horizontally into their side housings during seconds 0 to 2, then smoothly slide back together from seconds 2 to 5 and close at the center seam. Hold closed for the final second. Glass panels translate only horizontally, never swing, bend, dissolve or merge into the racks. No camera movement, cuts, added objects or changes to text.",
+  "jobs": [
+    {
+      "scene": "doors",
+      "format": "desktop",
+      "response": {
+        "mode": "async",
+        "completed": false,
+        "timedOut": false,
+        "job_id": "8e3bff35-25dd-4df8-adc1-de0213468922",
+        "job": {
+          "created_at": "2026-09-15T14:24:24.228Z",
+          "completed_at": null,
+          "job_id": "8e3bff35-25dd-4df8-adc1-de0213468922",
+          "status": "scheduled",
+          "type": "videoV2"
+        }
+      }
+    },
+    {
+      "scene": "doors",
+      "format": "mobile",
+      "response": {
+        "mode": "async",
+        "completed": false,
+        "timedOut": false,
+        "job_id": "bb6f8413-c8b4-441e-b5dd-048866cbc2f7",
+        "job": {
+          "created_at": "2026-09-15T14:24:25.890Z",
+          "completed_at": null,
+          "job_id": "bb6f8413-c8b4-441e-b5dd-048866cbc2f7",
+          "status": "scheduled",
+          "type": "videoV2"
+        }
+      }
+    }
+  ]
+}

@@ -1,43 +1,45 @@
 import {createFrameSource} from './frame-source.js';
 import {scrollPageTo,reducedMotion} from './smooth-scroll.js';
-import {storyMedia} from './content.js';
-import {desktopMoment, storyStops} from './story-timeline.js';
+import {chapters,storyMedia} from './content.js';
+import {desktopMoment, storyStops, sourceProgress, scrollProgress, travelFactor, sceneProgress} from './story-timeline.js';
 import {sceneStarts,sceneCopies,sceneForFrame} from './story-scenes.js';
 import {drawObjectMotion} from './story-objects.js';
+import {createAmbientVideo} from './story-ambient.js';
 
 export function initStory(){
  const story=document.querySelector('#story'),stage=story.querySelector('.stage'),canvas=story.querySelector('#film'),poster=story.querySelector('#poster'),ctx=canvas.getContext('2d');
  const mobile=matchMedia('(max-width:600px)'),reduce=reducedMotion,stops=storyStops;
  let progress=0,active=-1,manifest=null,frameSource=null,wanted=0,scheduled=false,generation=0,controller=new AbortController(),busy=0,direction=1,scene=-1,drawn=-1,objectTick=0,lastTick=0,visible=true;
- const blend=document.createElement('canvas');blend.className='scene-media scene-blend';blend.setAttribute('aria-hidden','true');canvas.after(blend);
+ const ambient=createAmbientVideo(canvas);
+ const blend=document.createElement('canvas');blend.className='scene-media scene-blend';blend.setAttribute('aria-hidden','true');ambient.video.after(blend);
  const blendCtx=blend.getContext('2d');let fade;
  const cache=new Map(),pending=new Set(),failed=new Map(),posters=new Map();
  function preloadPosters(){
   const media=mobile.matches?storyMedia.mobile:storyMedia.desktop;
-  const sources=sceneStarts[mobile.matches?'mobile':'desktop'].map(i=>`${media.base}/${String(i).padStart(4,'0')}.webp`);
+  const sources=sceneStarts[mobile.matches?'mobile':'desktop'].map((i,scene)=>scene===3?`/media/ambient/doors-${mobile.matches?'mobile':'desktop'}-poster.jpg`:scene===5?chapters[4].image:`${media.base}/${String(i).padStart(4,'0')}.webp`);
   for(const src of sources){if(posters.has(src))continue;const image=new Image();image.decoding='async';image.src=src;posters.set(src,image);image.decode().catch(()=>{});}
  }
- function transitionScene(){
+ function transitionScene(nextScene=scene){
   if(reduce.matches||scene<0)return;
   const ratio=Math.min(devicePixelRatio,2),width=Math.round(stage.clientWidth*ratio),height=Math.round(stage.clientHeight*ratio);
   if(!width||!height)return;
   const snapshot=document.createElement('canvas');snapshot.width=width;snapshot.height=height;const context=snapshot.getContext('2d');
-  const source=canvas.style.opacity==='1'?canvas:poster;
-  if(source===canvas||poster.complete&&poster.naturalWidth){const w=source===canvas?canvas.width:poster.naturalWidth,h=source===canvas?canvas.height:poster.naturalHeight,s=Math.max(width/w,height/h);context.drawImage(source,(width-w*s)/2,(height-h*s)/2,w*s,h*s);}
+  const source=ambient.active?ambient.video:canvas.style.opacity==='1'?canvas:poster;
+  if(source===ambient.video||source===canvas||poster.complete&&poster.naturalWidth){const w=source===ambient.video?source.videoWidth:source===canvas?canvas.width:poster.naturalWidth,h=source===ambient.video?source.videoHeight:source===canvas?canvas.height:poster.naturalHeight,s=Math.max(width/w,height/h);context.drawImage(source,(width-w*s)/2,(height-h*s)/2,w*s,h*s);}
   const opacity=Number(getComputedStyle(blend).opacity);
   if(opacity>0&&blend.width&&blend.height){context.globalAlpha=opacity;context.drawImage(blend,0,0,width,height);}
   fade?.cancel();blend.width=width;blend.height=height;blendCtx.drawImage(snapshot,0,0);
-  fade=blend.animate([{opacity:1},{opacity:0}],{duration:250,easing:'cubic-bezier(.23,1,.32,1)'});
+  fade=blend.animate([{opacity:1},{opacity:0}],{duration:600,easing:'cubic-bezier(.22,.61,.36,1)'});
  }
  function animateObjects(time){
   objectTick=0;
   if(reduce.matches){fade?.cancel();schedule();return;}
-  if(!visible||document.hidden||![1,2,3,4,5].includes(scene))return;
+  if(ambient.active||!visible||document.hidden||![1,2,3,4].includes(scene))return;
   if(time-lastTick>=1000/30){lastTick=time;draw(time);}
   objectTick=requestAnimationFrame(animateObjects);
  }
  function draw(time=performance.now()){
-  if(!manifest||reduce.matches){canvas.style.opacity='0';return;}
+  if(ambient.active||scene===5||!manifest||reduce.matches){canvas.style.opacity='0';drawn=-1;return;}
   // A nearby frame is useful only within the current scene. Otherwise reveal its poster.
   const starts=sceneStarts[mobile.matches?'mobile':'desktop'],start=starts[scene],end=starts[scene+1]??manifest.count;
   const key=[...cache.keys()].filter(i=>i>=start&&i<end&&Math.abs(i-wanted)<=12).sort((a,b)=>Math.abs(a-wanted)-Math.abs(b-wanted))[0];
@@ -53,6 +55,7 @@ export function initStory(){
   const travel=story.offsetHeight-stage.offsetHeight,rect=story.getBoundingClientRect();
   visible=rect.bottom>0&&rect.top<innerHeight;
   progress=reduce.matches?0:Math.max(0,Math.min(1,-rect.top/Math.max(1,travel)));
+  progress=sourceProgress(progress,mobile.matches);
   const chapter=progress>=stops[3]?3:progress>=stops[2]?2:progress>=stops[1]?1:0;
   const moment=desktopMoment(progress),count=manifest?.count??(mobile.matches?217:289);
   const beats=manifest?.beats??[[0,.1667],[.1667,.4167],[.4167,.6667],[.6667,1]];
@@ -61,23 +64,26 @@ export function initStory(){
   if(wanted!==previous)direction=wanted>previous?1:-1;
   const nextScene=sceneForFrame(wanted,mobile.matches),copy=reduce.matches?0:sceneCopies[nextScene];
   if(scene!==nextScene){
-   transitionScene();scene=nextScene;
+   transitionScene(nextScene);scene=nextScene;
    const media=mobile.matches?storyMedia.mobile:storyMedia.desktop,start=sceneStarts[mobile.matches?'mobile':'desktop'][scene];
-   poster.src=`${media.base}/${String(start).padStart(4,'0')}.webp`;
-   poster.alt=['Фасад дата-центра TAU CLOUD','Дизель-генераторная установка','Источники бесперебойного питания','Серверные стойки TAU CLOUD','Операторская TAU CLOUD','Общий план серверных стоек'][scene];
+   poster.src=scene===3?`/media/ambient/doors-${mobile.matches?'mobile':'desktop'}-poster.jpg`:scene===5?chapters[4].image:`${media.base}/${String(start).padStart(4,'0')}.webp`;
+   poster.alt=['Фасад дата-центра TAU CLOUD','Дизель-генераторная установка','Источники бесперебойного питания','Серверные стойки TAU CLOUD','Операторская TAU CLOUD','Инженер в серверном зале'][scene];
   }
+  ambient.update(scene,mobile.matches,visible,reduce.matches,sceneProgress(progress,scene,mobile.matches));
   active=copy>=0?copy:3;
   story.querySelectorAll('.chapter').forEach((e,i)=>{e.classList.toggle('active',i===copy);e.inert=i!==copy;});
   stage.dataset.copy=String(copy);stage.dataset.chapter=String(active);stage.dataset.scene=String(scene);stage.dataset.reveal=String(scene>=4);
   story.querySelector('.chapter-counter').innerHTML=`0${active+1} <span>/ 05</span>`;
   const navStops=mobile.matches?[0,.212,.46,.63,.857,1]:[0,.2,.454,.644,.774,1];
   story.querySelectorAll('[data-jump]').forEach((b,i)=>{b.classList.toggle('current',i===active);b.setAttribute('aria-pressed',String(i===active));b.querySelector('i').style.transform=`scaleX(${Math.max(0,Math.min(1,(progress-navStops[i])/(navStops[i+1]-navStops[i])))})`;});
-  if(manifest&&!reduce.matches){draw();queue();if(!objectTick&&visible&&!document.hidden)objectTick=requestAnimationFrame(animateObjects);}
+  if(manifest&&!reduce.matches){draw();if(!ambient.active)queue();if(!objectTick&&visible&&!document.hidden)objectTick=requestAnimationFrame(animateObjects);}
   else canvas.style.opacity='0';
  }
  function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(update)}}
- async function select(){generation++;const token=generation;controller.abort();controller=new AbortController();cache.forEach(b=>b.close());cache.clear();pending.clear();failed.clear();busy=0;manifest=null;active=-1;scene=-1;drawn=-1;cancelAnimationFrame(objectTick);objectTick=0;fade?.cancel();canvas.style.opacity='0';update();if(reduce.matches)return;try{const base=(mobile.matches?storyMedia.mobile:storyMedia.desktop).base;let response=await fetch(`${base}/playback.json`,{signal:controller.signal});if(!response.ok||!response.headers.get('content-type')?.includes('json'))response=await fetch(`${base}/manifest.json`,{signal:controller.signal});if(!response.ok)return;const data=await response.json();if(token!==generation)return;if(mobile.matches){await poster.decode().catch(()=>{});if(token!==generation)return}manifest=data;frameSource=createFrameSource(data,controller.signal,{mobile:mobile.matches});schedule()}catch{}}
+ async function select(){story.style.setProperty('--story-travel-factor',travelFactor(mobile.matches));generation++;const token=generation;controller.abort();controller=new AbortController();cache.forEach(b=>b.close());cache.clear();pending.clear();failed.clear();busy=0;manifest=null;active=-1;scene=-1;drawn=-1;cancelAnimationFrame(objectTick);objectTick=0;fade?.cancel();canvas.style.opacity='0';update();if(reduce.matches)return;try{const base=(mobile.matches?storyMedia.mobile:storyMedia.desktop).base;let response=await fetch(`${base}/playback.json`,{signal:controller.signal});if(!response.ok||!response.headers.get('content-type')?.includes('json'))response=await fetch(`${base}/manifest.json`,{signal:controller.signal});if(!response.ok)return;const data=await response.json();if(token!==generation)return;if(mobile.matches){await poster.decode().catch(()=>{});if(token!==generation)return}manifest=data;frameSource=createFrameSource(data,controller.signal,{mobile:mobile.matches});schedule()}catch{}}
+ ambient.video.addEventListener('loadeddata',schedule);ambient.video.addEventListener('seeked',schedule);ambient.video.addEventListener('playing',schedule);ambient.video.addEventListener('error',schedule);
+ addEventListener('pagehide',()=>ambient.destroy());
  mobile.addEventListener('change',preloadPosters);preloadPosters();
  mobile.addEventListener('change',select);reduce.addEventListener('change',select);addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);document.addEventListener('visibilitychange',schedule);addEventListener('pagehide',()=>{generation++;controller.abort();cancelAnimationFrame(objectTick);fade?.cancel();cache.forEach(b=>b.close());cache.clear()});
- story.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>scrollPageTo(story.offsetTop+[.025,.26,.55,.72,.93][+b.dataset.jump]*(story.offsetHeight-stage.offsetHeight)));select();
+ story.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>scrollPageTo(story.offsetTop+scrollProgress([.025,.26,.55,.72,.93][+b.dataset.jump],mobile.matches)*(story.offsetHeight-stage.offsetHeight)));select();
 }

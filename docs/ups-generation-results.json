@@ -1,0 +1,26 @@
+[
+  {
+    "created_at": "2026-09-15T14:20:49.843Z",
+    "completed_at": "2026-09-15T14:23:34.303Z",
+    "job_id": "9395f02f-7d9e-4064-9bd5-df86943c52e0",
+    "status": "completed",
+    "type": "videoV2",
+    "result": {
+      "urls": [
+        "https://app-uploads.krea.ai/public/85bd3cfe-a7e7-4ea0-947b-ce72f6d8b029-video.mp4"
+      ]
+    }
+  },
+  {
+    "created_at": "2026-09-15T14:21:01.933Z",
+    "completed_at": "2026-09-15T14:23:27.654Z",
+    "job_id": "ed39471e-8e83-41b8-a363-dacc24c84e0e",
+    "status": "completed",
+    "type": "videoV2",
+    "result": {
+      "urls": [
+        "https://app-uploads.krea.ai/public/1fba1faf-db4b-4053-9bd5-7ff0f52632db-video.mp4"
+      ]
+    }
+  }
+]

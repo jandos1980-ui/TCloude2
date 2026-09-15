@@ -1,0 +1,42 @@
+[
+  {
+    "scene": "exterior",
+    "format": "desktop",
+    "path": "docs/ambient-refs/exterior-desktop.jpg"
+  },
+  {
+    "scene": "exterior",
+    "format": "mobile",
+    "path": "docs/ambient-refs/exterior-mobile.jpg"
+  },
+  {
+    "scene": "ups",
+    "format": "desktop",
+    "path": "docs/ambient-refs/ups-desktop.jpg"
+  },
+  {
+    "scene": "ups",
+    "format": "mobile",
+    "path": "docs/ambient-refs/ups-mobile.jpg"
+  },
+  {
+    "scene": "doors",
+    "format": "desktop",
+    "path": "docs/ambient-refs/doors-desktop.jpg"
+  },
+  {
+    "scene": "doors",
+    "format": "mobile",
+    "path": "docs/ambient-refs/doors-mobile.jpg"
+  },
+  {
+    "scene": "engineer",
+    "format": "desktop",
+    "path": "docs/ambient-refs/engineer-desktop.jpg"
+  },
+  {
+    "scene": "engineer",
+    "format": "mobile",
+    "path": "docs/ambient-refs/engineer-mobile.jpg"
+  }
+]

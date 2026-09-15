@@ -29,7 +29,7 @@ export function drawObjectMotion(ctx,bitmap,frame,mobile,time){
   ctx.beginPath();ctx.ellipse(x,y,53,88,0,0,Math.PI*2);ctx.clip();
   // Leave the foreground pipe and motor housing untouched.
   ctx.beginPath();ctx.rect(x-54,y-90,58,180);ctx.clip();
-  ctx.translate(x,y);ctx.scale(.6,1);ctx.rotate(t*2.4);
+  ctx.translate(x,y);ctx.scale(.6,1);ctx.rotate(t*1.2);
   ctx.fillStyle='rgba(128,151,165,.24)';
   for(let i=0;i<6;i++){ctx.rotate(Math.PI/3);ctx.beginPath();ctx.moveTo(8,0);ctx.quadraticCurveTo(40,-35,86,-8);ctx.quadraticCurveTo(62,18,15,13);ctx.closePath();ctx.fill();}
  }else if(scene===2){

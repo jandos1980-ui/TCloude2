@@ -1,0 +1,40 @@
+{
+  "model": "minimax/hailuo-2.3-fast",
+  "prompt": "Locked-off tripod view of this exact UPS equipment room. Preserve every cabinet, battery rack, TAU CLOUD logo and the framing. During the first second the ceiling LED panels dim; from second 1 to second 4 the existing ceiling panels switch on sequentially from the back of the room toward the camera, one after another, with physically plausible soft reflections on the tiles. Hold all panels steadily illuminated for the last two seconds. All equipment stays motionless. No camera motion, new objects, flashing, changes to lettering or geometry.",
+  "jobs": [
+    {
+      "scene": "ups",
+      "format": "desktop",
+      "response": {
+        "mode": "async",
+        "completed": false,
+        "timedOut": false,
+        "job_id": "9395f02f-7d9e-4064-9bd5-df86943c52e0",
+        "job": {
+          "created_at": "2026-09-15T14:20:49.843Z",
+          "completed_at": null,
+          "job_id": "9395f02f-7d9e-4064-9bd5-df86943c52e0",
+          "status": "scheduled",
+          "type": "videoV2"
+        }
+      }
+    },
+    {
+      "scene": "ups",
+      "format": "mobile",
+      "response": {
+        "mode": "async",
+        "completed": false,
+        "timedOut": false,
+        "job_id": "ed39471e-8e83-41b8-a363-dacc24c84e0e",
+        "job": {
+          "created_at": "2026-09-15T14:21:01.933Z",
+          "completed_at": null,
+          "job_id": "ed39471e-8e83-41b8-a363-dacc24c84e0e",
+          "status": "scheduled",
+          "type": "videoV2"
+        }
+      }
+    }
+  ]
+}

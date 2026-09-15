@@ -1,0 +1,28 @@
+{
+  "model": "minimax/hailuo-2.3-fast",
+  "reason": "Keep gaze fixed on server capsules, no turn toward camera",
+  "jobs": [
+    {
+      "scene": "engineer",
+      "format": "desktop",
+      "input": {
+        "prompt": "Animate ONLY a few tiny green and blue status LEDs on the server capsules in this photograph. All other pixels remain visually stationary. The engineer is a completely still photographic subject throughout all six seconds: his head stays in the exact original right-facing profile, nose pointing toward the server capsules on the right side of the frame, eyes fixed on those capsules. Maintain that identical gaze direction in EVERY frame from start to finish. His face never rotates toward the viewer, never makes eye contact with the camera; no head turn, no glance, no speaking, no hand or body movement. Preserve his exact face, expression, posture, fingers, clothing and the entire room. The LED indicators blink gently and asynchronously with slow one-to-two-second cycles. Locked tripod, identical first and last composition, constant room lighting, no camera movement or zoom, no new objects, no morphing.",
+        "start_image": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789478279353-engineer-desktop.jpeg",
+        "end_image": "https://app-uploads.krea.ai/e35f220d-4502-4ce4-8b18-fe46c4f8283d/1789478279353-engineer-desktop.jpeg",
+        "duration": 6,
+        "resolution": "1080p",
+        "expand_prompt": false
+      },
+      "response": {
+        "error": "Generation request failed for minimax/hailuo-2.3-fast",
+        "status": 402,
+        "category": "video",
+        "model": "minimax/hailuo-2.3-fast",
+        "response": {
+          "message": "INSUFFICIENT_BALANCE"
+        },
+        "error_code": "INVALID_ARGUMENT"
+      }
+    }
+  ]
+}

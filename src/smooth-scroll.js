@@ -8,9 +8,9 @@ export function scrollPageTo(target, options = {}) {
   const top = typeof target === 'number' ? target : target.getBoundingClientRect().top + window.scrollY;
   const distance = Math.abs(top + (options.offset || 0) - window.scrollY);
   if (lenis) lenis.scrollTo(top, {
-    duration: Math.min(.9, Math.max(.35, distance / 3000)),
+    duration: Math.min(1.4, Math.max(.55, distance / 2400)),
     lerp: 0,
-    easing: t => 1 - Math.pow(1 - t, 4),
+    easing: t => 1 - Math.pow(1 - t, 3),
     ...options,
   });
   else {
@@ -32,7 +32,7 @@ export function initSmoothScroll() {
     document.documentElement.dataset.tauSmoothScroll = 'native';
     if (reduced.matches) return;
     // Wheel interpolation follows changes of direction; touch keeps native inertia.
-    lenis = new Lenis({lerp: .12, smoothWheel: true, syncTouch: false});
+    lenis = new Lenis({lerp: .08, smoothWheel: true, syncTouch: false});
     window.tauSmoothScroll = lenis;
     document.documentElement.dataset.tauSmoothScroll = 'lenis';
     if (locked) lenis.stop();

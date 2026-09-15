@@ -1,0 +1,17 @@
+{
+  "scene": "engineer",
+  "format": "mobile",
+  "response": {
+    "mode": "async",
+    "completed": false,
+    "timedOut": false,
+    "job_id": "b85155f4-03c0-415e-9ece-653763c27192",
+    "job": {
+      "created_at": "2026-09-15T14:26:25.246Z",
+      "completed_at": null,
+      "job_id": "b85155f4-03c0-415e-9ece-653763c27192",
+      "status": "scheduled",
+      "type": "videoV2"
+    }
+  }
+}

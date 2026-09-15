@@ -1,0 +1,22 @@
+{
+  "prompt": "A restrained cinemagraph from the exact reference photograph. Preserve the engineer's face, identity, hands, clothing, pose and the server hardware without change. The person remains still as if posing for a photo, with at most imperceptible natural breathing. Only a few tiny green and blue status LEDs on the server equipment blink slowly and asynchronously, each with a soft one-to-two-second on/off cycle. Constant room lighting. Locked camera, no zoom, pan, cuts, exaggerated glow, face changes, hand movement, morphing or new objects.",
+  "jobs": [
+    {
+      "scene": "engineer",
+      "format": "desktop",
+      "response": {
+        "mode": "async",
+        "completed": false,
+        "timedOut": false,
+        "job_id": "85b76e53-acf1-46d7-853d-78e1e44a5bda",
+        "job": {
+          "created_at": "2026-09-15T14:26:04.032Z",
+          "completed_at": null,
+          "job_id": "85b76e53-acf1-46d7-853d-78e1e44a5bda",
+          "status": "scheduled",
+          "type": "videoV2"
+        }
+      }
+    }
+  ]
+}
