@@ -1,0 +1,102 @@
+{
+  "/media/logo.png": {
+    "width": 126,
+    "height": 64,
+    "variants": [
+      {
+        "width": 126,
+        "base": "/media/optimized/logo-126"
+      }
+    ]
+  },
+  "/media/capsule-angle.webp": {
+    "width": 1672,
+    "height": 942,
+    "variants": [
+      {
+        "width": 480,
+        "base": "/media/optimized/capsule-angle-480"
+      },
+      {
+        "width": 800,
+        "base": "/media/optimized/capsule-angle-800"
+      },
+      {
+        "width": 1672,
+        "base": "/media/optimized/capsule-angle-1672"
+      }
+    ]
+  },
+  "/media/cloud-infrastructure-blue.webp": {
+    "width": 1672,
+    "height": 941,
+    "variants": [
+      {
+        "width": 480,
+        "base": "/media/optimized/cloud-infrastructure-blue-480"
+      },
+      {
+        "width": 800,
+        "base": "/media/optimized/cloud-infrastructure-blue-800"
+      },
+      {
+        "width": 1672,
+        "base": "/media/optimized/cloud-infrastructure-blue-1672"
+      }
+    ]
+  },
+  "/media/platform-services.webp": {
+    "width": 1672,
+    "height": 941,
+    "variants": [
+      {
+        "width": 480,
+        "base": "/media/optimized/platform-services-480"
+      },
+      {
+        "width": 800,
+        "base": "/media/optimized/platform-services-800"
+      },
+      {
+        "width": 1672,
+        "base": "/media/optimized/platform-services-1672"
+      }
+    ]
+  },
+  "/media/datacenter-construction.webp": {
+    "width": 1672,
+    "height": 941,
+    "variants": [
+      {
+        "width": 480,
+        "base": "/media/optimized/datacenter-construction-480"
+      },
+      {
+        "width": 800,
+        "base": "/media/optimized/datacenter-construction-800"
+      },
+      {
+        "width": 1672,
+        "base": "/media/optimized/datacenter-construction-1672"
+      }
+    ]
+  },
+  "/media/ups-blue.webp": {
+    "width": 1672,
+    "height": 942,
+    "variants": [
+      {
+        "width": 480,
+        "base": "/media/optimized/ups-blue-480"
+      },
+      {
+        "width": 800,
+        "base": "/media/optimized/ups-blue-800"
+      },
+      {
+        "width": 1672,
+        "base": "/media/optimized/ups-blue-1672"
+      }
+    ]
+  }
+}
