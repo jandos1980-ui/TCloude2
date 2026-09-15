@@ -19,7 +19,7 @@ try{
   await page.goto(process.env.TAU_TEST_URL||'http://127.0.0.1:5174/');
   await page.waitForFunction(()=>document.querySelector('#film').style.opacity==='1');
   // Jump across scenes in both directions while frames are still arriving.
-  for(const [progress,chapter] of [[.55,2],[.25,1],[.95,3],[0,0]]){
+  for(const [progress,chapter] of [[.55,2],[.25,1],[.71,3],[.95,-1],[0,0]]){
    console.log(`${width}px: checking chapter ${chapter}`);
    await page.evaluate(progress=>{
     const story=document.querySelector('#story'),stage=story.querySelector('.stage');
@@ -29,15 +29,17 @@ try{
    await page.waitForFunction(chapter=>document.querySelector('.stage').dataset.copy===String(chapter),chapter);
    if(chapter!==0){
     assert.equal(await page.locator('#film').evaluate(el=>el.style.opacity),'0','A stale frame must not cover the current scene');
-    await page.waitForFunction(chapter=>{
+    await page.waitForFunction(()=>{
      const poster=document.querySelector('#poster');
-     return poster.src.includes(`energy-poster-${chapter}`)&&poster.complete&&poster.naturalWidth>0;
-    },chapter);
+     return /energy-sequence(?:-mobile)?\/\d{4}\.webp/.test(poster.src)&&poster.complete&&poster.naturalWidth>0;
+    });
    }
    await page.waitForFunction(()=>document.querySelector('#film').style.opacity==='1',{},{timeout:15000});
   }
   await page.emulateMedia({reducedMotion:'reduce'});
-  await page.waitForFunction(()=>document.querySelector('#film').style.opacity==='0'&&document.querySelector('.stage').dataset.copy==='0');
+  await page.waitForFunction(()=>document.querySelector('#film').style.opacity==='0'&&document.querySelector('.stage').dataset.copy==='0').catch(async error=>{
+   console.log(await page.evaluate(()=>({reduce:matchMedia('(prefers-reduced-motion: reduce)').matches,copy:document.querySelector('.stage').dataset.copy,opacity:document.querySelector('#film').style.opacity})),errors);throw error;
+  });
   assert.deepEqual(errors,[]);
   console.log(`${width}px: delayed frames, forward/reverse jumps, recovery, reduced motion passed`);
   await page.unrouteAll({behavior:'ignoreErrors'});

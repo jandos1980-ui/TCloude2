@@ -21,7 +21,7 @@
  .stage[data-chapter="3"]{background:#102432}
  .stage[data-chapter="3"]:not(.cloud-finale) .shade{background:linear-gradient(transparent 40%,#10243255 58%,#102432 80%)}
  .stage[data-chapter="3"] .chapters{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
- .stage[data-chapter="3"] .chapter h2{font-size:clamp(22px,6vw,26px);letter-spacing:-.8px;white-space:nowrap}
+ .stage[data-chapter="3"] .chapter h2{font-size:clamp(22px,6vw,26px);letter-spacing:-.8px;white-space:normal}
  .stage[data-chapter="3"] .chapter .button{margin-top:13px}
  .stage[data-chapter="3"][data-reveal="false"] .chapters{visibility:hidden}
  .stage[data-chapter="3"][data-reveal="false"] .chapter{visibility:hidden}

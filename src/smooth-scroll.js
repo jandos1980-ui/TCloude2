@@ -1,6 +1,7 @@
 import Lenis from '@studio-freight/lenis';
 
-const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+export const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const reduced = reducedMotion;
 let lenis, frame, locked = false;
 
 export function scrollPageTo(target, options = {}) {

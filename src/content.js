@@ -18,7 +18,7 @@ export const sites = [
  {city:'Алматы',address:'Pioneer Edge',power:'150',powerUnit:'кВт',racks:'10'}
 ];
 
-export const mobileHeadlines=['Ваши серверы.<br>Наша забота.','ДГУ и ИБП.','Серверные зоны.','Операторская 24/7.'];
+export const mobileHeadlines=['Ваши серверы.<br>Наша забота.','ДГУ и ИБП.','Серверные зоны.','Операторская.<br><em>Мониторинг 24/7.</em>'];
 export const storyMedia=Object.fromEntries(['desktop','mobile'].map(type=>[type,{
  base:'/media/energy-sequence'+(type==='mobile'?'-mobile':''),
  posters:Array.from({length:4},(_,i)=>i===0?'/media/energy-sequence'+(type==='mobile'?'-mobile':'')+'/0000.webp':'/media/energy-poster-'+i+(type==='mobile'?'-mobile':'')+'.webp')
