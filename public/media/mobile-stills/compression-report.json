@@ -1,0 +1,92 @@
+[
+  {
+    "source": "Изображение Codex 16 сент. 2026 г., 10_42_35.png",
+    "output": "public/media/mobile-stills/astana-exterior.webp",
+    "width": 941,
+    "height": 1672,
+    "pngBytes": 2410356,
+    "webpBytes": 1823446,
+    "pixelIdentical": true
+  },
+  {
+    "source": "Изображение Codex 16 сент. 2026 г., 10_43_52.png",
+    "output": "public/media/mobile-stills/datacenter-aerial.webp",
+    "width": 941,
+    "height": 1672,
+    "pngBytes": 2567757,
+    "webpBytes": 2022240,
+    "pixelIdentical": true
+  },
+  {
+    "source": "Изображение Codex 16 сент. 2026 г., 10_44_03.png",
+    "output": "public/media/mobile-stills/diesel-generator.webp",
+    "width": 941,
+    "height": 1672,
+    "pngBytes": 2634918,
+    "webpBytes": 1804572,
+    "pixelIdentical": true
+  },
+  {
+    "source": "Изображение Codex 16 сент. 2026 г., 10_44_08.png",
+    "output": "public/media/mobile-stills/ups-batteries.webp",
+    "width": 941,
+    "height": 1672,
+    "pngBytes": 2082607,
+    "webpBytes": 1436724,
+    "pixelIdentical": true
+  },
+  {
+    "source": "Изображение Codex 16 сент. 2026 г., 10_44_13.png",
+    "output": "public/media/mobile-stills/ups-room.webp",
+    "width": 941,
+    "height": 1672,
+    "pngBytes": 2070795,
+    "webpBytes": 1444152,
+    "pixelIdentical": true
+  },
+  {
+    "source": "Изображение Codex 16 сент. 2026 г., 10_44_49.png",
+    "output": "public/media/mobile-stills/ups-room-blue.webp",
+    "width": 941,
+    "height": 1672,
+    "pngBytes": 2094813,
+    "webpBytes": 1484184,
+    "pixelIdentical": true
+  },
+  {
+    "source": "Изображение Codex 16 сент. 2026 г., 10_44_24.png",
+    "output": "public/media/mobile-stills/server-capsule-angle.webp",
+    "width": 941,
+    "height": 1672,
+    "pngBytes": 2226479,
+    "webpBytes": 1582430,
+    "pixelIdentical": true
+  },
+  {
+    "source": "Изображение Codex 16 сент. 2026 г., 10_44_32.png",
+    "output": "public/media/mobile-stills/server-capsules-front.webp",
+    "width": 941,
+    "height": 1672,
+    "pngBytes": 2240395,
+    "webpBytes": 1580482,
+    "pixelIdentical": true
+  },
+  {
+    "source": "Изображение Codex 16 сент. 2026 г., 10_44_57.png",
+    "output": "public/media/mobile-stills/operations-room.webp",
+    "width": 941,
+    "height": 1672,
+    "pngBytes": 1901424,
+    "webpBytes": 1397554,
+    "pixelIdentical": true
+  },
+  {
+    "source": "Изображение Codex 16 сент. 2026 г., 10_45_04.png",
+    "output": "public/media/mobile-stills/engineer.webp",
+    "width": 941,
+    "height": 1672,
+    "pngBytes": 2168274,
+    "webpBytes": 1528536,
+    "pixelIdentical": true
+  }
+]

@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+let c=fs.readFileSync('src/content.js','utf8');const start=c.indexOf('export const chapters'),end=c.indexOf('export const services');fs.writeFileSync('src/story-content.js',c.slice(start,end));c=c.slice(0,start)+"import {chapters} from './story-content.js';\nexport {chapters} from './story-content.js';\n"+c.slice(end);fs.writeFileSync('src/content.js',c);
+let m=fs.readFileSync('src/mobile-story.js','utf8');m="import {chapters} from './story-content.js';\n"+m;m=m.slice(0,m.indexOf('const sceneDesign='))+m.slice(m.indexOf('export function renderMobileStory'));
+m=m.replace('sceneDesign[index].heading','chapters[index].title').replace('sceneDesign[index].kicker','chapters[index].kicker').replace('description.textContent=scene.text','description.innerHTML=chapters[index].text');
+m=m.replace("root.querySelector('#mobile-story-cta').hidden=false;",`const cta=root.querySelector('#mobile-story-cta');
+  cta.hidden=false;cta.href=index<3?'#contact':'#solutions';
+  cta.innerHTML=(index<3?'Обсудить размещение':'Найти своё решение')+' <span aria-hidden="true">↗</span>';
+  if(index<3)cta.setAttribute('data-colocation-cta','');else cta.removeAttribute('data-colocation-cta');`);
+m=m.replace('<span></span></button>','<span></span><small>0${i+1}</small><b>${chapters[i].label}</b></button>');
+m=m.replace('id="mobile-story-cta" href','id="mobile-story-cta" data-colocation-cta href');fs.writeFileSync('src/mobile-story.js',m);

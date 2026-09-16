@@ -6,9 +6,11 @@ import {sceneStarts,sceneCopies,sceneForFrame} from './story-scenes.js';
 import {drawObjectMotion} from './story-objects.js';
 import {createAmbientVideo} from './story-ambient.js';
 
-export function initStory(){
+export function initDesktopStory(){
+ const lifecycle=new AbortController();
+ let disposed=false,updateTick=0;
  const story=document.querySelector('#story'),stage=story.querySelector('.stage'),canvas=story.querySelector('#film'),poster=story.querySelector('#poster'),ctx=canvas.getContext('2d');
- const mobile=matchMedia('(max-width:600px)'),reduce=reducedMotion,stops=storyStops;
+ const mobile={matches:false},reduce=reducedMotion,stops=storyStops;
  let progress=0,active=-1,manifest=null,frameSource=null,wanted=0,scheduled=false,generation=0,controller=new AbortController(),busy=0,direction=1,scene=-1,drawn=-1,objectTick=0,lastTick=0,visible=true;
  const ambient=createAmbientVideo(canvas);
  const blend=document.createElement('canvas');blend.className='scene-media scene-blend';blend.setAttribute('aria-hidden','true');ambient.video.after(blend);
@@ -52,6 +54,7 @@ export function initStory(){
  function queue(){if(!manifest||reduce.matches)return;if(mobile.matches){const r=story.getBoundingClientRect(),visible=!document.hidden&&r.bottom>0&&r.top<innerHeight;frameSource.setWindow(wanted,visible);if(!visible)return;}const token=generation;for(const [i,b]of cache)if(Math.abs(i-wanted)>12){b.close();cache.delete(i)}const near=[wanted,...Array.from({length:7},(_,i)=>wanted+(i+1)*direction),...Array.from({length:3},(_,i)=>wanted-(i+1)*direction)];for(const i of near){if(busy>=3)break;if(i<0||i>=manifest.count||cache.has(i)||pending.has(i)||(failed.get(i)?.attempts>=3||failed.get(i)?.retryAt>Date.now()))continue;busy++;pending.add(i);frameSource(i).then(createImageBitmap).then(b=>{if(token!==generation||Math.abs(i-wanted)>12){b.close();return}failed.delete(i);cache.set(i,b);schedule()}).catch(e=>{if(token===generation&&e.name!=='AbortError'){const attempts=(failed.get(i)?.attempts||0)+1;failed.set(i,{attempts,retryAt:Date.now()+attempts*400});if(attempts<3)setTimeout(()=>{if(token===generation)queue()},attempts*400+10)}}).finally(()=>{if(token!==generation)return;busy--;pending.delete(i);queue()})}}
  function update(){
   scheduled=false;
+  if(disposed)return;
   const travel=story.offsetHeight-stage.offsetHeight,rect=story.getBoundingClientRect();
   visible=rect.bottom>0&&rect.top<innerHeight;
   progress=reduce.matches?0:Math.max(0,Math.min(1,-rect.top/Math.max(1,travel)));
@@ -79,11 +82,22 @@ export function initStory(){
   if(manifest&&!reduce.matches){draw();if(!ambient.active)queue();if(!objectTick&&visible&&!document.hidden)objectTick=requestAnimationFrame(animateObjects);}
   else canvas.style.opacity='0';
  }
- function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(update)}}
+ function schedule(){if(!disposed&&!scheduled){scheduled=true;updateTick=requestAnimationFrame(update)}}
  async function select(){story.style.setProperty('--story-travel-factor',travelFactor(mobile.matches));generation++;const token=generation;controller.abort();controller=new AbortController();cache.forEach(b=>b.close());cache.clear();pending.clear();failed.clear();busy=0;manifest=null;active=-1;scene=-1;drawn=-1;cancelAnimationFrame(objectTick);objectTick=0;fade?.cancel();canvas.style.opacity='0';update();if(reduce.matches)return;try{const base=(mobile.matches?storyMedia.mobile:storyMedia.desktop).base;let response=await fetch(`${base}/playback.json`,{signal:controller.signal});if(!response.ok||!response.headers.get('content-type')?.includes('json'))response=await fetch(`${base}/manifest.json`,{signal:controller.signal});if(!response.ok)return;const data=await response.json();if(token!==generation)return;if(mobile.matches){await poster.decode().catch(()=>{});if(token!==generation)return}manifest=data;frameSource=createFrameSource(data,controller.signal,{mobile:mobile.matches});schedule()}catch{}}
- ambient.video.addEventListener('loadeddata',schedule);ambient.video.addEventListener('seeked',schedule);ambient.video.addEventListener('playing',schedule);ambient.video.addEventListener('error',schedule);
- addEventListener('pagehide',()=>ambient.destroy());
- mobile.addEventListener('change',preloadPosters);preloadPosters();
- mobile.addEventListener('change',select);reduce.addEventListener('change',select);addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);document.addEventListener('visibilitychange',schedule);addEventListener('pagehide',()=>{generation++;controller.abort();cancelAnimationFrame(objectTick);fade?.cancel();cache.forEach(b=>b.close());cache.clear()});
- story.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>scrollPageTo(story.offsetTop+scrollProgress([.025,.26,.55,.72,.93][+b.dataset.jump],mobile.matches)*(story.offsetHeight-stage.offsetHeight)));select();
+ for(const event of ['loadeddata','seeked','playing','error'])ambient.video.addEventListener(event,schedule,{signal:lifecycle.signal});
+ preloadPosters();
+ reduce.addEventListener('change',select,{signal:lifecycle.signal});
+ addEventListener('scroll',schedule,{passive:true,signal:lifecycle.signal});
+ addEventListener('resize',schedule,{signal:lifecycle.signal});
+ document.addEventListener('visibilitychange',schedule,{signal:lifecycle.signal});
+ story.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>scrollPageTo(story.offsetTop+scrollProgress([.025,.26,.55,.72,.93][+b.dataset.jump],false)*(story.offsetHeight-stage.offsetHeight)),{signal:lifecycle.signal}));
+ select();
+ return ()=>{
+  disposed=true;generation++;lifecycle.abort();controller.abort();
+  cancelAnimationFrame(updateTick);cancelAnimationFrame(objectTick);fade?.cancel();
+  ambient.destroy();ambient.video.remove();blend.remove();
+  cache.forEach(b=>b.close());cache.clear();pending.clear();
+  posters.forEach(image=>image.removeAttribute('src'));posters.clear();
+  poster.removeAttribute('src');canvas.style.opacity='0';
+ };
 }

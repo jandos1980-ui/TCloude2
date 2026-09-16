@@ -1,0 +1,11 @@
+import {chromium} from 'playwright';import assert from 'node:assert/strict';import sharp from 'sharp';
+const browser=await chromium.launch({channel:'chrome',headless:true});const page=await browser.newPage({viewport:{width:320,height:568}});
+await page.goto('http://127.0.0.1:5173/');
+await page.addStyleTag({content:'.mobile-story h1{font-size:58px!important}.mobile-story a,.mobile-story-bottom{font-size:28px!important}'});
+await page.waitForTimeout(250);
+assert(await page.evaluate(()=>{const a=document.querySelector('.mobile-story-copy').getBoundingClientRect(),b=document.querySelector('.mobile-story-bottom').getBoundingClientRect();return a.bottom<=b.top&&document.documentElement.scrollWidth<=innerWidth}));
+await page.screenshot({path:'test-results/mobile-scroll/text-200.png',fullPage:true});
+await page.close();const failure=await browser.newPage({viewport:{width:390,height:844}});await failure.route('**/mobile-stills/*',r=>r.abort());await failure.goto('http://127.0.0.1:5173/');await failure.locator('.mobile-image-error').waitFor({state:'visible'});await failure.locator('.mobile-story-bottom a').click();await browser.close();
+const source=await sharp('C:/Users/JAKE/Desktop/Изображение Codex 16 сент. 2026 г., 10_42_35.png').resize(390,844,{fit:'contain',background:'#102432'}).toBuffer();
+await sharp({create:{width:780,height:844,channels:3,background:'#fff'}}).composite([{input:source,left:0,top:0},{input:'test-results/mobile-scroll/390-hero.png',left:390,top:0}]).png().toFile('test-results/mobile-scroll/comparison.png');
+console.log('PASS text enlargement, image failure, comparison saved');

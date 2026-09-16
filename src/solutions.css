@@ -1,0 +1,42 @@
+.solutions{padding-top:40px;padding-bottom:40px}
+.solutions .section-label{line-height:1.5;letter-spacing:1px;color:#49616e;margin-bottom:24px}
+.solutions .section-heading{align-items:center;gap:32px;margin-bottom:22px}
+.solutions .section-heading h2{line-height:1.18;letter-spacing:-.04em;max-width:760px;text-wrap:balance}
+.solutions .section-heading>p{line-height:1.6;color:#405865;max-width:380px}
+.solutions .service-tabs{gap:16px}
+.solutions .service-tabs button{font-weight:550;min-height:56px;padding:14px 8px 14px 0;color:#405865;line-height:1.4}
+.solutions .service-tabs button span{margin-right:12px;color:#49616e}
+.solutions .service-tabs button[aria-selected=true]{color:#135676;border-bottom-color:#177ca6}
+.solutions #service-panel{padding-top:26px;gap:5%;min-height:0;align-items:stretch}
+.solutions .service-copy{padding:0;align-self:center}
+.solutions #service-panel .service-copy .eyebrow{line-height:1.5;letter-spacing:.8px;margin-bottom:12px;color:#21617d}
+.solutions #service-panel .service-copy h3{line-height:1.15;letter-spacing:-1px}
+.solutions #service-panel .service-copy>p:not(.eyebrow){line-height:1.65;color:#405865;max-width:540px;margin-top:14px}
+.solutions .service-copy ul{margin:16px 0 20px;display:grid;gap:8px}
+.solutions #service-panel .service-copy li{line-height:1.5}
+.solutions .service-copy .button{min-height:48px;padding:12px 18px;background:#dcecf3;color:#15536d;border-color:#a8c5d3}
+.solutions .service-image{min-height:0;height:clamp(320px,43svh,450px);align-self:center}
+.solutions .service-image>div{letter-spacing:.5px;padding:14px}
+.solutions .service-image>div>span:last-child{display:none}
+@media(min-width:1001px) and (max-height:760px){
+ .solutions{padding-top:28px;padding-bottom:28px}
+ .solutions .section-label{margin-bottom:18px}
+ .solutions .section-heading{margin-bottom:14px}
+ .solutions #service-panel{padding-top:22px}
+ .solutions .service-image{height:340px}
+}
+@media(max-width:1000px){
+ .solutions .section-heading{display:block}
+ .solutions .section-heading>p{margin-top:14px;max-width:620px}
+ .solutions .service-tabs{gap:8px}
+ .solutions .service-tabs button span{display:none}
+ .solutions .service-image{height:360px}
+}
+@media(max-width:600px){
+ .solutions{padding-top:36px;padding-bottom:36px}
+ .solutions .service-tabs{gap:0 16px}
+ .solutions .service-tabs button{min-height:60px}
+ .solutions #service-panel{gap:24px}
+ .solutions .service-copy .button{display:flex;justify-content:space-between;width:100%}
+ .solutions .service-image{height:220px}
+}

@@ -1,0 +1,25 @@
+/* Clear reading order and a shared top edge for the company introduction. */
+.about .section-label{line-height:1.5;letter-spacing:1.2px;color:#49616e;margin-bottom:44px}
+.about .about-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(40px,6vw,100px);align-items:start}
+.about .about-grid h2{line-height:1.16;letter-spacing:-.045em;max-width:720px;text-wrap:balance}
+.about-title-accent{display:block;color:#496572}
+.about .about-copy>p{max-width:560px;line-height:1.75;font-weight:450;color:#405865;margin:0 0 20px;text-wrap:pretty}
+.about .about-copy>.about-lead{line-height:1.45;font-weight:600;letter-spacing:-.025em;color:#17272f;margin-bottom:22px}
+.about .about-link{min-height:52px;margin-top:10px;padding:13px 20px;gap:36px;border:1px solid #bad0db;background:#e3eff4;color:#15536d;font-weight:650}
+.about .about-link span{color:inherit}
+.about .about-link:focus-visible{outline:2px solid #176e92;outline-offset:4px}
+@media(hover:hover){.about .about-link:hover{background:#d1e6ef;border-color:#176e92;color:#123f54}}
+@media(max-width:1000px){
+ .about .about-grid{grid-template-columns:1fr;gap:28px}
+ .about .about-grid h2{max-width:720px;}
+ .about .about-copy>p{max-width:660px}
+ .about-desktop-break{display:none}
+}
+@media(max-width:600px){
+ .about .section-label{margin-bottom:28px}
+ .about .about-grid{gap:26px}
+ .about .about-grid h2{line-height:1.2}
+ .about .about-copy>.about-lead{line-height:1.45!important;color:#17272f;margin-bottom:18px}
+ .about .about-copy>p{margin-bottom:18px}
+ .about .about-link{display:flex;width:100%;justify-content:space-between;margin-top:24px;}
+}

@@ -2,6 +2,7 @@ import Lenis from '@studio-freight/lenis';
 
 export const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const reduced = reducedMotion;
+const mobileViewport = matchMedia('(max-width:600px)');
 let lenis, frame, locked = false;
 
 export function scrollPageTo(target, options = {}) {
@@ -30,7 +31,7 @@ export function initSmoothScroll() {
     lenis = undefined;
     window.tauSmoothScroll = undefined;
     document.documentElement.dataset.tauSmoothScroll = 'native';
-    if (reduced.matches) return;
+    if (reduced.matches || mobileViewport.matches) return;
     // Wheel interpolation follows changes of direction; touch keeps native inertia.
     lenis = new Lenis({lerp: .08, smoothWheel: true, syncTouch: false});
     window.tauSmoothScroll = lenis;
@@ -41,6 +42,7 @@ export function initSmoothScroll() {
   }
   configure();
   reduced.addEventListener('change', configure);
+  mobileViewport.addEventListener('change', configure);
   document.querySelectorAll('textarea, select').forEach(element => element.setAttribute('data-lenis-prevent', ''));
   document.addEventListener('click', event => {
     const link = event.target.closest('a[href^="#"]');
