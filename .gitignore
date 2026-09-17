@@ -10,3 +10,7 @@ public/media/energy-sequence*/playback.json
 public/media/.staging/
 
 .media-staging/
+
+.env
+.env.*
+!.env.example

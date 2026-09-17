@@ -1,0 +1,135 @@
+/* Shared visual language from the opening scene: Manrope, medium headings,
+   cyan actions, blue-grey surfaces, fine rules and a consistent spacing scale. */
+:root{
+  --brand-font:"Manrope Variable",Arial,sans-serif;
+  --brand-accent:#49bff0;
+  --brand-link:#155f80;
+  --brand-ink:#17272f;
+  --brand-copy:#405865;
+  --brand-surface:#eaf0f3;
+  --brand-card:#f3f7f9;
+  --brand-line:#bfd0d9;
+  --brand-title:clamp(32px,3.5vw,54px);
+  --brand-subtitle:clamp(24px,2.3vw,34px);
+  --brand-body:14px;
+  --brand-label:10px;
+  --brand-section-space:clamp(64px,6vw,96px);
+  --brand-gutter:max(6.2%,calc((100vw - 1480px)/2));
+  font-family:var(--brand-font);
+}
+.about,.solutions,.locations,#contact{
+  background:var(--brand-surface);color:var(--brand-ink);
+  --muted:var(--brand-copy);--line:var(--brand-line);
+}
+.section,.reliability{
+  padding-block:var(--brand-section-space);
+  padding-inline:var(--brand-gutter);
+}
+.about .about-grid h2,.solutions .section-heading h2,.locations .section-heading h2,
+.industries-heading h2,.reliability h2,#contact h2{
+  font-family:var(--brand-font);font-size:var(--brand-title);font-weight:500;
+  line-height:1.15;letter-spacing:-.04em;text-wrap:balance;
+}
+.section .section-label,.industry-subtitle,.reliability .eyebrow,#contact .eyebrow{
+  font-size:var(--brand-label);font-weight:650;line-height:1.6;
+  letter-spacing:1.5px;text-transform:uppercase;margin-bottom:24px;
+}
+.section .section-label,.industry-subtitle,#contact .eyebrow{color:var(--brand-link)}
+.section .section-label span:first-child{color:var(--brand-link)}
+.section .section-heading{gap:32px;margin-bottom:32px}
+.about .about-copy>p,.solutions .section-heading>p,.locations .section-heading>p,
+.solutions #service-panel .service-copy>p:not(.eyebrow),.industry-answer,
+.reliability .reliability-grid p,#contact .contact-intro,#contact .contact-steps p,
+#contact .contact-help p,#brief .brief-intro{
+  font-size:var(--brand-body);font-weight:400;line-height:1.75;
+}
+.about .about-copy>p,.solutions .section-heading>p,.locations .section-heading>p,
+.solutions #service-panel .service-copy>p:not(.eyebrow),#contact .contact-intro,
+#contact .contact-steps p,#contact .contact-help p,#brief .brief-intro{color:var(--brand-copy)}
+.about .about-copy>.about-closing{color:var(--brand-ink)}
+.solutions #service-panel .service-copy h3,.site-card h3{font-size:var(--brand-subtitle);font-weight:500;line-height:1.2;letter-spacing:-.035em}
+.solutions #service-panel .service-copy .eyebrow{font-size:var(--brand-label);letter-spacing:1.5px;color:var(--brand-link);margin-bottom:16px}
+.solutions #service-panel .service-copy li{font-size:var(--brand-body);line-height:1.75}
+.solutions .service-tabs button{font-size:13px;font-weight:500;line-height:1.5}
+.solutions .service-tabs button[aria-selected=true]{color:var(--brand-link);border-bottom-color:var(--brand-accent)}
+.about .about-link,.solutions .service-copy .button,#brief .button.primary{
+  min-height:50px;padding:14px 20px;border:1px solid var(--brand-accent);border-radius:0;
+  background:var(--brand-accent);color:#10222b;font-size:12px;font-weight:650;line-height:1.5;
+}
+#brief .button.primary span{color:inherit}
+.industries{
+  --faq-primary:var(--brand-link);--faq-muted:var(--brand-copy);--faq-border:var(--brand-line);
+  margin-top:64px;padding:48px 0 0;border-top:1px solid var(--brand-line);
+  background:transparent;color:var(--brand-ink);
+}
+.industry-subtitle{background:none;color:var(--brand-link)}
+.industries-heading{flex-direction:row;justify-content:space-between;align-items:flex-start;gap:32px;text-align:left;margin-bottom:32px}
+.industries-heading .industry-subtitle{order:2;flex-shrink:0;margin:0;white-space:nowrap;text-align:right}
+.industries-heading h2{order:1;margin:0;text-align:left}
+.industry-glow{display:none}
+.industry-tabs,.solutions .service-tabs{gap:12px}
+.solutions .service-tabs{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;border:0}
+.industry-tabs button,.solutions .service-tabs button{
+  min-height:44px;padding:10px 16px;border-radius:0;font-size:12px;font-weight:500;line-height:1.5;
+}
+.solutions .service-tabs button{border:1px solid var(--brand-line);background:transparent;color:var(--brand-copy);text-align:center;transition:background-color .5s,color .5s,border-color .5s}
+.solutions .service-tabs button span{display:none}
+.industry-tabs button[aria-selected=true],.solutions .service-tabs button[aria-selected=true]{border-color:var(--brand-accent);color:#10222b}
+.solutions .service-tabs button[aria-selected=true]{background:var(--brand-accent)}
+.solutions .service-tabs button:focus-visible{outline:2px solid var(--brand-link);outline-offset:4px}
+.industry-tab-fill{background:var(--brand-accent)}
+.industry-panels{max-width:880px;margin-top:32px}
+.industry-panel{gap:12px}
+.industry-question{border-radius:4px;background:transparent}
+.industry-question.is-open{background:var(--brand-card)}
+.industry-question h3{font-size:18px;line-height:1.4;font-weight:500;letter-spacing:-.02em}
+.industry-question h3 button{padding:20px 24px;border-radius:4px;color:var(--brand-ink)}
+.industry-question.is-open h3 button{color:var(--brand-link)}
+.industry-plus{color:var(--brand-link)}
+.industry-answer{padding-inline:24px;color:var(--brand-copy)}
+.industry-services li{border-radius:2px;background:#dcecf3;color:var(--brand-link);font-size:12px}
+.industry-cta{min-height:48px;font-size:12px;font-weight:650;color:var(--brand-link)}
+.industry-caption{font-size:12px;line-height:1.75;color:var(--brand-copy);margin-top:24px}
+.industries button:focus-visible,.industry-cta:focus-visible{outline-color:var(--brand-link)}
+.site-carousel{color:var(--brand-ink)}
+.site-carousel-viewport,.site-card{border-radius:4px}
+.site-card{padding:28px;border:1px solid var(--brand-line);background:var(--brand-card)}
+.site-card::before{display:none}
+.site-card-top,.site-card-status,.site-carousel-count{font-family:var(--brand-font);font-variant-numeric:tabular-nums}
+.site-card-top{font-size:var(--brand-label);letter-spacing:1px}
+.site-card-status{font-size:10px;color:var(--brand-copy)}
+.site-card-status.is-live{color:#17654d}
+.site-card-icon{color:var(--brand-link)}
+.site-card-tier,.site-card-address,.site-card-note{font-size:12px;line-height:1.65;color:var(--brand-copy)}
+.site-card-stats span{font-size:11px;line-height:1.6;color:var(--brand-copy)}
+.site-card a{min-height:48px;font-size:12px;font-weight:650;color:var(--brand-link)}
+.reliability .reliability-grid{gap:32px;margin-top:40px}
+.reliability .reliability-grid h3,#contact .contact-steps h3{font-size:20px;font-weight:500;line-height:1.4;letter-spacing:-.025em}
+.reliability .reliability-grid p{color:#c3cfd6}
+#brief{padding:32px;border-color:var(--brand-line);border-radius:4px;background:var(--brand-card);box-shadow:none}
+#brief h3{font-size:24px;font-weight:500;letter-spacing:-.025em}
+#contact>div{padding-block:32px}
+#contact .contact-help{border:1px solid var(--brand-line);border-radius:4px;background:transparent}
+footer{padding-inline:var(--brand-gutter);font-family:var(--brand-font)}
+@media(hover:hover){
+  .about .about-link:hover,.solutions .service-copy .button:hover,#brief .button.primary:hover{background:#82d5f7;border-color:#82d5f7;color:#10222b}
+  .industry-tabs button:not([aria-selected=true]):hover,.solutions .service-tabs button:not([aria-selected=true]):hover,.industry-question h3 button:hover{color:var(--brand-link)}
+}
+@media(max-width:600px){
+  :root{--brand-title:32px;--brand-subtitle:28px;--brand-section-space:48px;--brand-gutter:22px}
+  .section .section-heading{margin-bottom:24px}
+  .industries{margin-top:40px;padding-top:32px}
+  .industries-heading{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:24px}
+  .industries-heading .industry-subtitle{order:0;align-self:flex-end}
+.industries-heading h2{margin:0 0 0 auto;text-align:right}
+  .industry-tabs,.solutions .service-tabs{gap:8px}
+  .industry-tabs button,.solutions .service-tabs button{padding:10px 12px}
+  .industry-question h3{font-size:16px}
+  .industry-question h3 button{padding:18px 16px}
+  .industry-answer{padding-inline:16px}
+  .site-card{padding:24px;border-radius:4px}
+  #brief{padding:24px 20px}
+  #brief input,#brief select,#brief textarea{font-size:16px}
+  #contact>div{padding:0}
+  .reliability .reliability-grid{gap:24px;margin-top:32px}
+}

@@ -4,6 +4,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Building2, Server, Network } from 'lucide-react';
 import './services-card.css';
+import { WheelPagination } from './wheel-pagination';
 
 interface Site {
   city: string;
@@ -82,7 +83,8 @@ export function ServiceCarousel({ sites, onSelect }: { sites: Site[]; onSelect: 
             <motion.article className={`site-card site-card-${index}`} initial={reduced ? false : { opacity: 0, transform: 'translateY(24px)' }}
               whileInView={{ opacity: 1, transform: 'translateY(0px)' }} viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.45, delay: (index % 3) * 0.06, ease: [0.23, 1, 0.32, 1] }}>
-              <div className="site-card-top"><span>( TC {String(index + 1).padStart(2, '0')} )</span>{site.status && <span className={`site-card-status ${site.active ? 'is-live' : ''}`}><i />{site.status}</span>}</div>
+              <div className="site-card-top"><span>TC {String(index + 1).padStart(2, '0')}</span>{site.status && <span className={`site-card-status ${site.active ? 'is-live' : ''}`}><i />{site.status}</span>}</div>
+              <p className="site-card-tier">Спроектировано по Tier III</p>
               <Icon className="site-card-icon" size={44} strokeWidth={1.25} aria-hidden="true" />
               <div className="site-card-copy"><h3>{site.city}</h3><p className="site-card-address">{site.address || 'Каспийский регион'}</p>
                 <div className="site-card-stats"><div><strong>{site.power}<small> {site.powerUnit || 'МВт'}</small></strong><span>{site.active ? 'Подводимая' : 'Проектная'} мощность</span></div><div><strong>{site.racks}</strong><span>{index === 1 ? 'Стоек в 1-й очереди' : 'Серверных стоек'}</span></div></div>
@@ -95,7 +97,7 @@ export function ServiceCarousel({ sites, onSelect }: { sites: Site[]; onSelect: 
       </div>
     </div>
     <div className="site-carousel-footer"><span className="site-carousel-count" aria-live="polite" aria-atomic="true">{String(selected + 1).padStart(2, '0')} <span>/ {String(sites.length).padStart(2, '0')}</span></span>
-      <div className="site-carousel-dots">{sites.map((_, index) => <button key={index} type="button" aria-label={`Показать площадку TC ${String(index + 1).padStart(2, '0')}`} aria-current={selected === index ? 'true' : undefined} onClick={() => api?.scrollTo(index, !!reduced)}><span /></button>)}</div>
+      <WheelPagination count={sites.length} active={selected} onChange={(index, instant) => api?.scrollTo(index, instant || !!reduced)} />
     </div>
   </div>;
 }

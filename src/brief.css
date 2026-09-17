@@ -1,0 +1,102 @@
+.tier-note{max-width:880px;line-height:1.7;margin-top:32px}
+.tier-note h3{font-size:18px;color:#17272f;margin-bottom:12px}
+.tier-note p{margin:10px 0;font-size:13px;color:#405865}
+.brief-field-hint{font-size:11px;font-weight:400;line-height:1.5;color:#607581}
+.brief-alternatives{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:14px}
+.brief-alternatives button{font:inherit;font-size:13px;min-height:44px;padding:8px 0;background:transparent;color:inherit;border:0;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.brief-alternatives button:focus-visible{outline:2px solid #168dbd;outline-offset:4px}
+#brief input[type=date]{min-width:0;max-width:100%}
+
+/* Contact form presentation: quiet rules and a generous reading width like the reference. */
+#contact{align-items:start}
+#brief{max-width:470px}
+#brief h3{font-size:22px;line-height:1.25;font-weight:500;letter-spacing:-.4px}
+#brief .brief-intro{max-width:440px;font-size:11px;line-height:1.65;color:#607581;margin-top:-8px}
+#brief label{gap:8px}
+#brief input,#brief select,#brief textarea{transition:border-color 160ms ease,background-color 160ms ease}
+#brief input:focus,#brief select:focus,#brief textarea:focus{background:#ffffff35}
+#brief .button.primary{min-height:48px;justify-content:space-between}
+@media(max-width:600px){#brief{max-width:none}#brief h3{font-size:20px}}
+
+/* The section reveals as one calm, staggered composition when it enters the viewport. */
+#contact>div,#contact>form{opacity:0;transform:translateY(18px);transition:opacity 520ms var(--ease-out),transform 520ms var(--ease-out)}
+#contact>form{transition-delay:80ms}
+#contact.is-visible>div,#contact.is-visible>form{opacity:1;transform:translateY(0)}
+#brief>label,#brief>h3,#brief>.brief-intro,#brief>.button.primary,#brief>.brief-alternatives,#brief>.form-note{opacity:0;transform:translateY(8px);transition:opacity 360ms var(--ease-out),transform 360ms var(--ease-out)}
+#contact.is-visible #brief>h3{transition-delay:120ms}
+#contact.is-visible #brief>.brief-intro{transition-delay:150ms}
+#contact.is-visible #brief>label:nth-of-type(1){transition-delay:180ms}
+#contact.is-visible #brief>label:nth-of-type(2){transition-delay:215ms}
+#contact.is-visible #brief>label:nth-of-type(3){transition-delay:250ms}
+#contact.is-visible #brief>label:nth-of-type(4){transition-delay:285ms}
+#contact.is-visible #brief>label:nth-of-type(5){transition-delay:320ms}
+#contact.is-visible #brief>label:nth-of-type(6){transition-delay:355ms}
+#contact.is-visible #brief>label:nth-of-type(7){transition-delay:390ms}
+#contact.is-visible #brief>.button.primary{transition-delay:430ms}
+#contact.is-visible #brief>.brief-alternatives{transition-delay:465ms}
+#contact.is-visible #brief>.form-note{transition-delay:500ms}
+#contact.is-visible #brief>h3,#contact.is-visible #brief>.brief-intro,#contact.is-visible #brief>label,#contact.is-visible #brief>.button.primary,#contact.is-visible #brief>.brief-alternatives,#contact.is-visible #brief>.form-note{opacity:1;transform:translateY(0)}
+@media(hover:hover) and (pointer:fine){#brief .button.primary{position:relative;overflow:hidden}#brief .button.primary:after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,#ffffff26 50%,transparent 65%);transform:translateX(-120%);transition:transform 450ms var(--ease-in-out)}#brief .button.primary:hover:after{transform:translateX(120%)}}
+@media(prefers-reduced-motion:reduce){#contact>div,#contact>form,#brief>label,#brief>h3,#brief>.brief-intro,#brief>.button.primary,#brief>.brief-alternatives,#brief>.form-note{opacity:1;transform:none;transition:opacity 180ms ease}}
+
+/* Reference-inspired luminous card; fields stay steady while the customer types. */
+#brief{position:relative;isolation:isolate;max-width:550px;padding:30px;border:1px solid #bfd1d9;border-radius:18px;background:linear-gradient(145deg,#ffffffb8,#e5f1f5b3);box-shadow:0 18px 60px #17333e09}
+#brief:before{content:'';position:absolute;inset:-1px;border:1px solid #3db9eb;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity 200ms ease}
+#brief:focus-within:before{opacity:.7}
+#brief input,#brief select,#brief textarea{border-radius:6px 6px 0 0;padding-inline:10px}
+#brief input:focus-visible,#brief select:focus-visible,#brief textarea:focus-visible{outline:2px solid #168dbd;outline-offset:3px}
+#brief .brief-intro{font-size:13px;margin-top:0}
+#brief .form-note{font-size:11px}
+#brief .button.primary{border-radius:8px;transition:transform 140ms var(--ease-out),opacity 140ms ease}
+#brief .button.primary:active:not(:disabled){transform:scale(.98)}
+#brief .button.primary:disabled{cursor:default;opacity:.75}
+#brief[aria-busy=true] .button.primary:disabled{cursor:wait}
+#brief .brief-honeypot{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#brief #form-status{border-radius:8px;padding:12px 14px;background:#dceef5;font-size:13px;line-height:1.6}
+#brief #form-status[data-state=error]{color:#923c30;background:#fbe9e4}
+#brief #form-status[data-state=success]{color:#20634a;background:#e1f2e9}
+.brief-spinner{width:17px;height:17px;border:2px solid #ffffff50;border-top-color:#fff;border-radius:50%;animation:brief-spin .8s linear infinite}
+@keyframes brief-spin{to{transform:rotate(360deg)}}
+@media(hover:hover) and (pointer:fine){#brief:hover:before{opacity:.5}}
+@media(max-width:600px){#brief{padding:22px 18px;width:100%;max-width:100%;box-sizing:border-box}#brief input,#brief select,#brief textarea{font-size:16px}}
+@media(prefers-reduced-motion:reduce){#brief .button.primary:active:not(:disabled){transform:none}.brief-spinner{animation:none}#brief .button.primary:after{display:none}}
+
+/* Editorial guidance balances the contact form without adding more actions. */
+.contact-guide{max-width:440px;margin-top:48px}
+.contact-guide-label{margin:0 0 24px;font-size:10px;letter-spacing:1.6px;color:#527684}
+.contact-steps{list-style:none;padding:0;margin:0}
+.contact-steps li{display:grid;grid-template-columns:30px 1fr;gap:16px;padding:20px 0;border-top:1px solid #bdcfd7}
+.contact-step-number{padding-top:3px;font-size:11px;font-variant-numeric:tabular-nums;color:#168dbd}
+.contact-steps h3{margin:0 0 8px;font-size:18px;line-height:1.35;font-weight:500;letter-spacing:-.35px;color:#17272f}
+.contact-steps p{margin:0;font-size:13px;line-height:1.75;color:#607581}
+.contact-help{display:flex;gap:16px;margin-top:26px;padding:18px 20px;background:#ffffff65;border-radius:10px}
+.contact-help>span{font-size:22px;line-height:1.2;color:#168dbd}
+.contact-help p{margin:0;font-size:12px;line-height:1.75;color:#607581}
+.contact-help strong{display:block;margin-bottom:4px;font-size:13px;font-weight:500;color:#284550}
+@media(max-width:600px){.contact-guide{max-width:none;margin-top:30px}.contact-guide-label{margin-bottom:18px}.contact-steps li{padding:16px 0;gap:12px}.contact-steps h3{font-size:17px}.contact-help{margin-top:18px}}
+
+/* Shared spacing and type rhythm across the project introduction and form. */
+#contact{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,7vw,112px);align-items:stretch}
+#contact>div{display:flex;flex-direction:column;min-width:0;padding-block:30px}
+#contact .eyebrow{margin:0 0 24px}
+#contact h2{margin:0;font-size:clamp(32px,3.2vw,48px);line-height:1.15;letter-spacing:-1.8px;text-wrap:balance}
+#contact .contact-intro{margin:20px 0 0;font-size:13px;line-height:1.65;max-width:440px}
+#contact .contact-guide{display:flex;flex-direction:column;flex:1;max-width:none;margin-top:36px}
+#contact .contact-guide-label{margin:0 0 16px;font-size:10px;line-height:1.5}
+#contact .contact-steps li{grid-template-columns:24px 1fr;gap:16px;padding:20px 0}
+#contact .contact-steps h3{font-size:18px;line-height:1.4;margin:0 0 6px}
+#contact .contact-steps p{font-size:13px;line-height:1.65}
+#contact .contact-help{margin-top:auto;padding:16px 18px;gap:16px}
+#contact .contact-help p{font-size:13px;line-height:1.65}
+#contact .contact-help strong{font-size:13px;margin-bottom:2px}
+#brief{width:100%;max-width:none;box-sizing:border-box;gap:20px;align-content:start}
+#brief h3{margin:0;font-size:24px;line-height:1.3}
+#brief .brief-intro{margin:-8px 0 4px;font-size:13px;line-height:1.65}
+#brief>label{position:relative;margin:0;gap:8px;font-size:12px;line-height:1.5}
+#brief .brief-optional{position:absolute;right:0;top:0;font-size:11px;color:#607581}
+#brief input,#brief select,#brief textarea{font-size:14px;line-height:1.5;padding:10px 0;border-radius:0}
+#brief input,#brief select{min-height:44px;box-sizing:border-box}
+#brief textarea{min-height:100px}
+#brief .button.primary{margin:0;min-height:48px;font-size:13px}
+@media(max-width:900px) and (min-width:601px){#contact{gap:32px}#brief{padding:24px}#contact>div{padding-block:24px}#contact h2{font-size:34px}#contact .contact-steps li{padding:18px 0}}
+@media(max-width:600px){#contact{grid-template-columns:minmax(0,1fr);gap:28px}#contact>div{padding:0}#contact .eyebrow{margin-bottom:18px}#contact h2{font-size:34px}#contact .contact-intro{margin-top:16px}#contact .contact-guide{margin-top:28px}#contact .contact-steps li{padding:16px 0}#contact .contact-help{margin-top:16px}#brief{padding:24px 20px}#brief h3{font-size:22px}#brief input,#brief select,#brief textarea{font-size:16px}}
