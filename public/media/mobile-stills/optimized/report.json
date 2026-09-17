@@ -1,0 +1,50 @@
+[
+  {
+    "name": "astana-exterior",
+    "originalBytes": 1823446,
+    "optimizedBytes": 411484,
+    "width": 941,
+    "height": 1672,
+    "quality": 92
+  },
+  {
+    "name": "diesel-generator",
+    "originalBytes": 1804572,
+    "optimizedBytes": 414276,
+    "width": 941,
+    "height": 1672,
+    "quality": 92
+  },
+  {
+    "name": "ups-room-blue",
+    "originalBytes": 1484184,
+    "optimizedBytes": 263656,
+    "width": 941,
+    "height": 1672,
+    "quality": 92
+  },
+  {
+    "name": "server-capsule-angle",
+    "originalBytes": 1582430,
+    "optimizedBytes": 284508,
+    "width": 941,
+    "height": 1672,
+    "quality": 92
+  },
+  {
+    "name": "operations-room",
+    "originalBytes": 1397554,
+    "optimizedBytes": 206894,
+    "width": 941,
+    "height": 1672,
+    "quality": 92
+  },
+  {
+    "name": "engineer",
+    "originalBytes": 1528536,
+    "optimizedBytes": 283572,
+    "width": 941,
+    "height": 1672,
+    "quality": 92
+  }
+]

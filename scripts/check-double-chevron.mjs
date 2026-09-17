@@ -1,0 +1,14 @@
+import {chromium} from 'playwright';
+import assert from 'node:assert/strict';
+const browser=await chromium.launch({channel:'msedge',headless:true});
+const page=await browser.newPage({viewport:{width:390,height:844}});
+await page.goto('http://127.0.0.1:5173/?mobileVariant=dribbble');await page.locator('.mobile-story[data-scene="0"]').waitFor();
+assert.equal(await page.locator('.scroll-round>span').count(),4);
+assert.equal(await page.locator('.dribbble-scroll').evaluate(el=>getComputedStyle(el).opacity),'0');
+await page.evaluate(()=>scrollBy(0,90));await page.waitForTimeout(450);
+assert.equal(await page.locator('.dribbble-scroll').evaluate(el=>getComputedStyle(el).opacity),'1');
+await page.screenshot({path:'test-results/mobile-variants/double-chevron.png'});
+await page.locator('.dribbble-scroll').click();await page.locator('.mobile-story[data-scene="1"]').waitFor();
+await page.waitForTimeout(1100);assert.equal(await page.locator('.dribbble-scroll').evaluate(el=>getComputedStyle(el).opacity),'0');
+await page.emulateMedia({reducedMotion:'reduce'});assert.equal(await page.locator('.scroll-round>span').first().evaluate(el=>getComputedStyle(el).transitionDuration),'0s');
+await browser.close();console.log('PASS: scoped chevrons, scroll reveal, next scene, auto-hide, reduced motion');

@@ -1,5 +1,5 @@
 import {chapters} from './story-content.js';
-const base='/media/mobile-stills/';
+const base='/media/mobile-stills/optimized/';
 export const mobileScenes=[
  {file:'astana-exterior',title:'Ваши серверы. Наша забота.',text:'Разместите серверы в подготовленном дата-центре. Питание, охлаждение и физическая безопасность — на нашей стороне.',alt:'Фасад дата-центра TAU CLOUD в Астане'},
  {file:'diesel-generator',title:'ДГУ и ИБП',text:'Резервное питание поддерживает непрерывную работу оборудования.',alt:'Дизель-генераторная установка TAU CLOUD'},
@@ -12,7 +12,7 @@ const sceneChapters=[0,1,1,2,3,4];
 export function renderMobileStory(){
  const first=mobileScenes[0],mobile=matchMedia('(max-width:600px)').matches;
  return `<div class="mobile-story" aria-label="Инфраструктура TAU CLOUD"><div class="mobile-story-viewport">
- <div class="mobile-story-media"><img id="mobile-scene-image" ${mobile?`src="${base+first.file}.webp"`:''} width="941" height="1672" alt="${first.alt}" fetchpriority="high"><p class="mobile-image-error" hidden>Изображение недоступно. Продолжите к решениям ниже.</p></div>
+ <div class="mobile-story-media"><img id="mobile-scene-image" ${mobile?`src="${base+first.file}.webp"`:''} width="941" height="1672" alt="${first.alt}" fetchpriority="high"><div class="mobile-image-error" role="status" hidden>Не удалось загрузить фото. <button type="button" class="mobile-image-retry">Повторить</button></div></div>
  <div class="mobile-story-copy"><p class="mobile-scene-kicker"></p><h1 id="mobile-scene-title">${first.title}</h1><p id="mobile-scene-description" hidden></p><a class="button primary" id="mobile-story-cta" data-colocation-cta href="#contact">Обсудить размещение <span aria-hidden="true">↗</span></a></div>
  <div class="mobile-story-bottom"><span class="mobile-scroll-cue">Листайте, чтобы заглянуть внутрь ↓</span><span id="mobile-scene-count" aria-label="Сцена">1 / ${mobileScenes.length}</span></div>
  <nav class="mobile-story-progress" aria-label="Главы истории">${mobileScenes.map((scene,i)=>`<button type="button" data-scene="${i}" aria-label="${i+1}: ${scene.title}" ${i===0?'aria-current="step"':''}><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="progress-track" cx="12" cy="12" r="9"/><circle class="progress-fill" cx="12" cy="12" r="9" pathLength="1"/><circle class="progress-dot" cx="12" cy="12" r="3"/></svg></button>`).join('')}</nav>
@@ -20,62 +20,84 @@ export function renderMobileStory(){
 }
 export function initMobileStory(){
  const root=document.querySelector('.mobile-story'),img=root.querySelector('img'),error=root.querySelector('.mobile-image-error');
- const lifecycle=new AbortController(),signal=lifecycle.signal,reduced=matchMedia('(prefers-reduced-motion: reduce)');
- let index=-1,frame=0,request,version=0,objectUrl,transition;
- const buttons=[...root.querySelectorAll('[data-scene]')];
- async function show(next){
-  if(next===index)return;
-  index=next;const scene=mobileScenes[index],chapter=chapters[sceneChapters[index]],token=++version;
-  request?.abort();error.hidden=true;
-  root.dataset.scene=String(index);
-  root.querySelector('.mobile-scroll-cue').textContent=index===0?'Листайте, чтобы заглянуть внутрь ↓':index===mobileScenes.length-1?'Далее — решения для вашего бизнеса ↓':'Листайте дальше ↓';
+ const lifecycle=new AbortController(),{signal}=lifecycle;
+ const buttons=[...root.querySelectorAll('[data-scene]')],cache=new Map(),urls=new Set();
+ let requested=-1,frame=0,version=0;
+ function load(index){
+  if(cache.has(index))return cache.get(index);
+  const pending=(async()=>{
+   const response=await fetch(base+mobileScenes[index].file+'.webp',{signal});
+   if(!response.ok)throw new Error('Image unavailable');
+   const blob=await response.blob();
+   if(signal.aborted)throw new DOMException('Aborted','AbortError');
+   const url=URL.createObjectURL(blob);urls.add(url);
+   const decoded=new Image();decoded.src=url;
+   try{await decoded.decode();}catch(e){urls.delete(url);URL.revokeObjectURL(url);throw e;}
+   return url;
+  })();
+  cache.set(index,pending);
+  pending.catch(()=>{if(cache.get(index)===pending)cache.delete(index);});
+  return pending;
+ }
+ function commit(index,url){
+  const scene=mobileScenes[index],chapter=chapters[sceneChapters[index]];
+  img.src=url;img.alt=scene.alt;img.dataset.scene=String(index);root.dataset.scene=String(index);
+  root.querySelector('.mobile-scroll-cue').textContent=index===5?'Далее — решения для вашего бизнеса':'Листайте дальше';
   root.querySelector('#mobile-scene-title').innerHTML=index===0?'Ваши серверы.<br><em>Наша инфраструктура.</em>':index===2?'ИБП.<br><em>Бесперебойное питание.</em>':chapter.title;
   root.querySelector('.mobile-scene-kicker').textContent=chapter.kicker;
-  const description=root.querySelector('#mobile-scene-description');
-  description.textContent=scene.text;description.hidden=false;
+  const description=root.querySelector('#mobile-scene-description');description.textContent=scene.text;description.hidden=false;
   const cta=root.querySelector('#mobile-story-cta');
-  cta.hidden=index>0&&index<mobileScenes.length-1;cta.href=index<3?'#contact':'#solutions';
+  cta.hidden=index>0&&index<5;cta.href=index<3?'#contact':'#solutions';
   cta.innerHTML=(index<3?'Обсудить размещение':'Найти своё решение')+' <span aria-hidden="true">↗</span>';
   if(index<3)cta.setAttribute('data-colocation-cta','');else cta.removeAttribute('data-colocation-cta');
-  root.querySelector('#mobile-scene-count').textContent=`${String(index+1).padStart(2,'0')} / ${String(mobileScenes.length).padStart(2,'0')}`;
-  buttons.forEach((button,i)=>{if(i===index)button.setAttribute('aria-current','step');else button.removeAttribute('aria-current')});
-  if(index===0){if(objectUrl)URL.revokeObjectURL(objectUrl);objectUrl=undefined;img.src=base+scene.file+'.webp';img.alt=scene.alt;return;}
-  request=new AbortController();
-  try{
-   const response=await fetch(base+scene.file+'.webp',{signal:request.signal});if(!response.ok)throw new Error('Image unavailable');
-   const blob=await response.blob();if(signal.aborted||token!==version)return;
-   const url=URL.createObjectURL(blob),decoded=new Image();decoded.src=url;
-   try{await decoded.decode();}catch(e){URL.revokeObjectURL(url);throw e;}
-   if(signal.aborted||token!==version){URL.revokeObjectURL(url);return;}
-   const previous=objectUrl;objectUrl=url;img.src=url;img.alt=scene.alt;
-   transition?.cancel();
-   if(!reduced.matches)transition=img.animate([{opacity:.65},{opacity:1}],{duration:200,easing:'ease-out'});
-   if(previous)URL.revokeObjectURL(previous);
-  }catch(e){if(e.name!=='AbortError'&&token===version)error.hidden=false;}
+  root.querySelector('#mobile-scene-count').textContent=`${String(index+1).padStart(2,'0')} / 06`;
+  buttons.forEach((button,i)=>{
+   if(i===index)button.setAttribute('aria-current','step');else button.removeAttribute('aria-current');
+   button.style.setProperty('--chapter-progress',i<=index?1:0);
+  });
+  root.dispatchEvent(new CustomEvent('scenechange',{detail:{index}}));
  }
- function update(){frame=0;if(reduced.matches){transition?.cancel();img.style.transform='none';show(0);return;}
+ async function show(next,force=false){
+  if(next===requested&&!force)return;
+  requested=next;const token=++version;error.hidden=true;
+  root.dataset.requested=String(next);root.setAttribute('aria-busy','true');
+  try{
+   const url=await load(next);
+   if(signal.aborted||token!==version)return;
+   commit(next,url);
+   for(const neighbor of [next-1,next+1])if(neighbor>=0&&neighbor<6)load(neighbor).catch(()=>{});
+  }catch(e){if(!signal.aborted&&token===version)error.hidden=false;}
+  finally{if(token===version)root.setAttribute('aria-busy','false');}
+ }
+ function update(){
+  frame=0;img.style.transform='none';
   const rect=root.getBoundingClientRect(),travel=root.offsetHeight-root.querySelector('.mobile-story-viewport').offsetHeight;
   const progress=Math.max(0,Math.min(1,-rect.top/Math.max(1,travel)));
-  buttons.forEach((button,i)=>button.style.setProperty('--chapter-progress',Math.max(0,Math.min(1,progress*mobileScenes.length-i))));
-  const local=Math.max(0,Math.min(1,progress*mobileScenes.length-Math.max(0,index)));
-  img.style.transform='scale('+(1+local*.035)+')';
-  // A small dead band prevents flicker when a thumb pauses at a chapter boundary.
-  const candidate=Math.min(mobileScenes.length-1,Math.floor(progress*mobileScenes.length));
-  if(index<0||Math.abs(candidate-index)>1||candidate===index||
-    (candidate>index&&progress>candidate/mobileScenes.length+.018)||
-    (candidate<index&&progress<(index/mobileScenes.length)-.018))show(candidate);
+  root.style.setProperty('--scroll-progress',progress);
+  root.dataset.scrollProgress=String(progress);
+  root.dispatchEvent(new CustomEvent('storyprogress',{detail:{progress}}));
+  const candidate=Math.min(5,Math.floor(progress*6));
+  if(requested<0||Math.abs(candidate-requested)>1||candidate===requested||
+    (candidate>requested&&progress>candidate/6+.018)||
+    (candidate<requested&&progress<requested/6-.018))show(candidate);
  }
  function schedule(){if(!frame)frame=requestAnimationFrame(update);}
- buttons.forEach((button,i)=>button.addEventListener('click',()=>{
+ function interact(){root.dataset.interacted='true';}
+ function navigate(index){
   const travel=root.offsetHeight-root.querySelector('.mobile-story-viewport').offsetHeight;
-  window.scrollTo({top:window.scrollY+root.getBoundingClientRect().top+travel*(i===0?0:(i+.15)/mobileScenes.length),behavior:'instant'});
- },{signal}));
- img.addEventListener('error',()=>{error.hidden=false;},{signal});
- img.addEventListener('load',()=>{error.hidden=true;},{signal});
+  window.scrollTo({top:window.scrollY+root.getBoundingClientRect().top+travel*(index===0?0:(index+.25)/6),behavior:'instant'});
+  interact();show(index);
+ }
+ buttons.forEach((button,i)=>button.addEventListener('click',()=>navigate(i),{signal}));
+ root.addEventListener('navigate-scene',e=>navigate(Math.max(0,Math.min(5,e.detail.index))),{signal});
+ root.querySelector('.mobile-image-retry').addEventListener('click',()=>show(requested,true),{signal});
+ root.addEventListener('touchmove',interact,{passive:true,signal});root.addEventListener('wheel',interact,{passive:true,signal});root.addEventListener('keydown',interact,{signal});
  const copy=root.querySelector('.mobile-story-copy');
- const observer=new ResizeObserver(()=>root.style.setProperty('--story-min-height',`${document.querySelector('header').offsetHeight+copy.offsetHeight+180}px`));
- observer.observe(copy);
- addEventListener('scroll',schedule,{passive:true,signal});addEventListener('resize',schedule,{signal});reduced.addEventListener('change',schedule,{signal});
+ const observer=new ResizeObserver(()=>root.style.setProperty('--story-min-height',`${document.querySelector('header').offsetHeight+copy.offsetHeight+210}px`));observer.observe(copy);
+ addEventListener('scroll',()=>{interact();schedule();},{passive:true,signal});addEventListener('resize',schedule,{signal});
  update();
- return ()=>{lifecycle.abort();observer.disconnect();transition?.cancel();request?.abort();cancelAnimationFrame(frame);version++;img.removeAttribute('src');if(objectUrl)URL.revokeObjectURL(objectUrl);};
+ return ()=>{lifecycle.abort();observer.disconnect();cancelAnimationFrame(frame);version++;img.removeAttribute('src');urls.forEach(url=>URL.revokeObjectURL(url));cache.clear();};
 }
+
+
+

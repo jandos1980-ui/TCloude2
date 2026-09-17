@@ -1,8 +1,13 @@
+.reliability {
+  background: var(--bg);
+  color: var(--text);
+}
+
 .reliability .reliability-background {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: #000000;
+  background: var(--bg);
   pointer-events: none;
 }
 
@@ -16,15 +21,24 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle, #00000000 60%, #000000 100%),
-    radial-gradient(circle, #000000cc 0%, #00000000 60%);
+  background: radial-gradient(circle, #10151800 60%, #101518 100%),
+    radial-gradient(circle, #10151899 0%, #10151800 60%);
 }
 
 .reliability::after {
-  background: linear-gradient(90deg, #eef4f7cc, #e5eff4b8);
+  background: linear-gradient(90deg, #10151840, #10151814);
   pointer-events: none;
 }
 
 .reliability .reliability-grid p {
-  color: #35505e;
+  color: #c3cfd6;
+}
+
+.reliability .eyebrow,
+.reliability .reliability-grid span {
+  color: var(--cyan);
+}
+
+.reliability .reliability-grid > div {
+  border-color: #ffffff42;
 }

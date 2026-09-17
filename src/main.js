@@ -50,3 +50,17 @@ import './mobile-refinement.css';
 import './about.css';
 import './solutions.css';
 import './reliability-background.css';
+
+import {initMobileVariants} from './mobile-variants.js';
+initMobileVariants();
+
+// A separate URL previews the supplied brand asset without replacing the live logo.
+if(new URLSearchParams(location.search).get('logoPreview')==='new'){
+ document.documentElement.dataset.logoPreview='new';
+ document.querySelectorAll('.brand img').forEach(img=>{
+  img.closest('picture')?.querySelectorAll('source').forEach(source=>source.remove());
+  img.removeAttribute('srcset');img.removeAttribute('sizes');
+  img.removeAttribute('width');img.removeAttribute('height');
+  img.src='/media/logo-preview-wide.png';
+ });
+}
