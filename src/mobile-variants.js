@@ -1,5 +1,4 @@
 import './mobile-variants.css';
-import {initPreviewSound} from './preview-sound.js';
 const allowed=['bottom','right','capsule','dribbble'];
 export function initMobileVariants(){
  const variant=new URLSearchParams(location.search).get('mobileVariant');
@@ -68,7 +67,6 @@ export function initMobileVariants(){
   hideTimer=setTimeout(()=>delete root.dataset.scrolling,700);
  },{passive:true});
  addEventListener('pagehide',()=>{clearTimeout(hideTimer);delete root.dataset.scrolling;});
- initPreviewSound(root);
  const [previous,next]=capsule.querySelectorAll('button');
  function sync(){const index=Number(root.dataset.scene||0);capsule.querySelector('span').textContent=`${String(index+1).padStart(2,'0')} / 06`;previous.disabled=index===0;next.disabled=index===5;animated.setAttribute('aria-label',index===5?'Перейти к решениям':'Следующая сцена');}
  previous.onclick=()=>root.dispatchEvent(new CustomEvent('navigate-scene',{detail:{index:Number(root.dataset.requested||0)-1}}));

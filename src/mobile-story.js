@@ -1,4 +1,5 @@
 import {chapters} from './story-content.js';
+import {initPreviewSound} from './preview-sound.js';
 const base='/media/mobile-stills/optimized/';
 export const mobileScenes=[
  {file:'astana-exterior',title:'Ваши серверы. Наша забота.',text:'Разместите серверы в подготовленном дата-центре. Питание, охлаждение и физическая безопасность — на нашей стороне.',alt:'Фасад дата-центра TAU CLOUD в Астане'},
@@ -20,6 +21,7 @@ export function renderMobileStory(){
 }
 export function initMobileStory(){
  const root=document.querySelector('.mobile-story'),img=root.querySelector('img'),error=root.querySelector('.mobile-image-error');
+ initPreviewSound(root);
  const lifecycle=new AbortController(),{signal}=lifecycle;
  const buttons=[...root.querySelectorAll('[data-scene]')],cache=new Map(),urls=new Set();
  let requested=-1,frame=0,version=0;
