@@ -8,6 +8,10 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
+    "clean": "node scripts/clean.mjs",
+    "clean:all": "node scripts/clean.mjs --all",
+    "typecheck": "tsc --noEmit",
+    "check:visual": "node scripts/check.mjs",
     "predev": "node scripts/pack-sequence.mjs",
     "prebuild": "node scripts/pack-sequence.mjs"
   },
