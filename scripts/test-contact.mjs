@@ -13,7 +13,7 @@ test('sends all fields to fixed recipient without requiring customer email',asyn
 });
 test('rejects invalid fields and spam before SMTP',async()=>{
  const handler=createContactHandler({env,createTransport:()=>{throw new Error('must not connect');}});
- for(const data of [{...valid,name:' '},{...valid,bin:'123'},{...valid,website:'spam'},{...valid,service:'unknown'},{...valid,message:'x'.repeat(3001)},{...valid,name:42}]) assert.equal((await handler(request(data))).status,400);
+ for(const data of [{...valid,name:' '},{...valid,bin:''},{...valid,bin:'123'},{...valid,website:'spam'},{...valid,service:'unknown'},{...valid,message:'x'.repeat(3001)},{...valid,name:42}]) assert.equal((await handler(request(data))).status,400);
  assert.equal((await handler(request({...valid,message:'x'.repeat(21000)}))).status,413);
 });
 test('no credentials never produces success',async()=>assert.equal((await createContactHandler({env:{}})(request())).status,503));

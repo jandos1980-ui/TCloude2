@@ -72,10 +72,13 @@
 .industry-tabs button,.solutions .service-tabs button{
   min-height:44px;padding:10px 16px;border-radius:0;font-size:12px;font-weight:500;line-height:1.5;
 }
-.solutions .service-tabs button{border:1px solid var(--brand-line);background:transparent;color:var(--brand-copy);text-align:center;transition:background-color .5s,color .5s,border-color .5s}
-.solutions .service-tabs button span{display:none}
+.solutions .service-tabs button{position:relative;isolation:isolate;overflow:hidden;border:1px solid var(--brand-line);background:transparent;color:var(--brand-copy);text-align:center;transition:color 220ms var(--ease-out),border-color 220ms var(--ease-out),transform 160ms var(--ease-out)}
+.solutions .service-tabs button::before{position:absolute;z-index:0;inset:0;content:'';background:var(--brand-accent);transform:translateY(100%);transition:transform 220ms var(--ease-out)}
+.solutions .service-tabs button[aria-selected=true]::before{transform:translateY(0)}
+.solutions .service-tabs button .service-tab-number{display:none}
+.solutions .service-tabs button .service-tab-label{position:relative;z-index:1;display:inline}
 .industry-tabs button[aria-selected=true],.solutions .service-tabs button[aria-selected=true]{border-color:var(--brand-accent);color:#10222b}
-.solutions .service-tabs button[aria-selected=true]{background:var(--brand-accent)}
+.solutions .service-tabs button[aria-selected=true]{background:transparent}
 .solutions .service-tabs button:focus-visible{outline:2px solid var(--brand-link);outline-offset:4px}
 .industry-tab-fill{background:var(--brand-accent)}
 .industry-panels{max-width:880px;margin-top:32px}
@@ -133,3 +136,28 @@ footer{padding-inline:var(--brand-gutter);font-family:var(--brand-font)}
   #contact>div{padding:0}
   .reliability .reliability-grid{gap:24px;margin-top:32px}
 }
+
+@media(prefers-reduced-motion:reduce){
+  .solutions .service-tabs button,.solutions .service-tabs button::before{transition:none}
+}
+
+/* The project request is a focused dark surface within the light contact section. */
+#brief{
+  background:#17272f;
+  border-color:#2d4651;
+  color:#f2f7f9;
+}
+#brief h3{color:#f2f7f9}
+#brief .brief-intro{color:#b6c6cd}
+#brief>label{color:#d7e2e6}
+#brief input,#brief select,#brief textarea{
+  border-bottom-color:#5a707a;
+  color:#f2f7f9;
+}
+#brief input::placeholder,#brief textarea::placeholder{color:#a7b7be;opacity:1}
+#brief select{background-color:#17272f}
+#brief input:focus,#brief select:focus,#brief textarea:focus{background:#213842}
+#brief .button.primary{background:var(--brand-accent);border-color:var(--brand-accent);color:#10222b}
+#brief #form-status{background:#213842;color:#d4eef9}
+#brief #form-status[data-state=error]{background:#4a2d2a;color:#ffd9d3}
+#brief #form-status[data-state=success]{background:#1e473b;color:#d5f4e7}

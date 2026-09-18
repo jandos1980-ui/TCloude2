@@ -28,7 +28,7 @@ try{
  await page.locator('.mobile-story-progress button').nth(1).click();
  await page.waitForFunction(()=>document.querySelector('.mobile-story').dataset.scene==='1');
  await page.waitForTimeout(60);
- assert.equal(await page.locator('header .brand').isVisible(),false);
+ assert.equal(await page.locator('header .brand').isVisible(),true);
  for(const [selector,theme] of [['#about','light'],['#solutions','light'],['.reliability','dark'],['#locations','light'],['#contact','light']]){
   await page.locator(selector).evaluate(el=>scrollTo(0,scrollY+el.getBoundingClientRect().top));
   await page.waitForTimeout(120);

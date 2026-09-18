@@ -31,7 +31,7 @@ export function createContactHandler({env=process.env,createTransport=nodemailer
       fields[key]=value.trim();
     }
     if (fields.website) return reply(400,{error:'Не удалось отправить форму.'});
-    if (!fields.name || (fields.bin && !/^\d{12}$/.test(fields.bin)) || !services.includes(fields.service) || (fields.phone && !/^[+\d\s().-]{7,40}$/.test(fields.phone))) return reply(400,{error:'Проверьте имя, телефон и БИН (12 цифр).'});
+    if (!fields.name || !/^\d{12}$/.test(fields.bin) || !services.includes(fields.service) || (fields.phone && !/^[+\d\s().-]{7,40}$/.test(fields.phone))) return reply(400,{error:'Проверьте имя, телефон и БИН (12 цифр).'});
     const port=Number(env.SMTP_PORT||587);
     if (!env.SMTP_HOST || !env.SMTP_USER || !env.SMTP_PASSWORD || !emailPattern.test(env.SMTP_FROM||'') || ![465,587].includes(port)) return reply(503,{error:'Отправка временно недоступна. Напишите на info@taucloud.kz или позвоните +7 7172 251344.'});
     const transport=createTransport({host:env.SMTP_HOST,port,secure:port===465,requireTLS:port!==465,auth:{user:env.SMTP_USER,pass:env.SMTP_PASSWORD},connectionTimeout:10000,greetingTimeout:10000,socketTimeout:20000,disableFileAccess:true,disableUrlAccess:true});

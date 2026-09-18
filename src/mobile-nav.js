@@ -14,8 +14,7 @@ export function initMobileNav(){
   headerFrame=0;
   if(!media.matches){header.removeAttribute('data-hide-brand');header.removeAttribute('data-surface');brand.inert=false;return;}
   const rect=story.getBoundingClientRect();
-  const firstScene=Number(story.dataset.requested??story.dataset.scene??0)===0;
-  const showBrand=firstScene&&rect.bottom>header.offsetHeight&&rect.top<=header.offsetHeight;
+  const showBrand=rect.bottom>header.offsetHeight&&rect.top<=header.offsetHeight;
   header.toggleAttribute('data-hide-brand',!showBrand);brand.inert=!showBrand;
   const buttonRect=toggle.getBoundingClientRect();
   const x=buttonRect.left+buttonRect.width/2,y=buttonRect.top+buttonRect.height/2;

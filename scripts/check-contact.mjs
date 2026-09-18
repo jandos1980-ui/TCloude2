@@ -8,6 +8,7 @@ for(const width of [1440,390]) {
  await page.goto('http://127.0.0.1:5179/',{waitUntil:'domcontentloaded'});
  await page.locator('#brief').scrollIntoViewIfNeeded();
  await page.locator('#brief [name=name]').fill('Тестовый клиент');
+ await page.locator('#brief [name=bin]').fill('123456789012');
  assert.equal(await page.locator('#brief [name=email], #download-brief, #copy-brief, #brief .form-note, #contact .contact-actions, #contact .contact-address').count(),0);
  await page.locator('#brief [name=message]').fill('Тест: две стойки');
  await page.locator('#brief [type=submit]').click();

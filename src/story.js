@@ -5,6 +5,7 @@ import {desktopMoment, storyStops, sourceProgress, scrollProgress, travelFactor,
 import {sceneStarts,sceneCopies,sceneForFrame} from './story-scenes.js';
 import {drawObjectMotion} from './story-objects.js';
 import {createAmbientVideo} from './story-ambient.js';
+import {initDesktopStoryControls} from './desktop-story-controls.js';
 
 export function initDesktopStory(){
  const lifecycle=new AbortController();
@@ -92,7 +93,9 @@ export function initDesktopStory(){
  document.addEventListener('visibilitychange',schedule,{signal:lifecycle.signal});
  story.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>scrollPageTo(story.offsetTop+scrollProgress([.025,.26,.55,.72,.93][+b.dataset.jump],false)*(story.offsetHeight-stage.offsetHeight)),{signal:lifecycle.signal}));
  select();
+ const disposeControls=initDesktopStoryControls(stage);
  return ()=>{
+  disposeControls();
   disposed=true;generation++;lifecycle.abort();controller.abort();
   cancelAnimationFrame(updateTick);cancelAnimationFrame(objectTick);fade?.cancel();
   ambient.destroy();ambient.video.remove();blend.remove();

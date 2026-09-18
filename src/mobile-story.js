@@ -24,7 +24,7 @@ export function initMobileStory(){
  initPreviewSound(root);
  const lifecycle=new AbortController(),{signal}=lifecycle;
  const buttons=[...root.querySelectorAll('[data-scene]')],cache=new Map(),urls=new Set();
- let requested=-1,frame=0,version=0;
+ let requested=-1,frame=0,version=0,preloading=false;
  function load(index){
   if(cache.has(index))return cache.get(index);
   const pending=(async()=>{
@@ -35,7 +35,8 @@ export function initMobileStory(){
    const url=URL.createObjectURL(blob);urls.add(url);
    const decoded=new Image();decoded.src=url;
    try{await decoded.decode();}catch(e){urls.delete(url);URL.revokeObjectURL(url);throw e;}
-   return url;
+   // Retain decoded images so a fast scroll does not need another decode.
+   return decoded;
   })();
   cache.set(index,pending);
   pending.catch(()=>{if(cache.get(index)===pending)cache.delete(index);});
@@ -64,10 +65,14 @@ export function initMobileStory(){
   requested=next;const token=++version;error.hidden=true;
   root.dataset.requested=String(next);root.setAttribute('aria-busy','true');
   try{
-   const url=await load(next);
+   const decoded=await load(next);
    if(signal.aborted||token!==version)return;
-   commit(next,url);
-   for(const neighbor of [next-1,next+1])if(neighbor>=0&&neighbor<6)load(neighbor).catch(()=>{});
+   commit(next,decoded.src);
+   // Give the initial photo priority, then prepare every frame before scrolling.
+   if(!preloading){
+    preloading=true;
+    mobileScenes.forEach((_,index)=>load(index).catch(()=>{}));
+   }
   }catch(e){if(!signal.aborted&&token===version)error.hidden=false;}
   finally{if(token===version)root.setAttribute('aria-busy','false');}
  }

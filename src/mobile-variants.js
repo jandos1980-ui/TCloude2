@@ -37,16 +37,7 @@ export function initMobileVariants(){
  root.addEventListener('scenechange',event=>moveIndicator(event.detail.index));
  reduced.addEventListener('change',()=>moveIndicator(Number(root.dataset.scene||0),true));
  addEventListener('pagehide',()=>cancelAnimationFrame(motionFrame));
-  const animated=document.createElement('button');animated.type='button';animated.className='dribbble-scroll';
- animated.setAttribute('aria-label','Следующая сцена');
- animated.innerHTML='<span class="scroll-bounce" aria-hidden="true"><span class="scroll-pulse"></span><span class="scroll-circle"></span><span class="scroll-arrow">&#8593;</span></span>';
- root.querySelector('.mobile-story-viewport').append(animated);
- animated.onclick=()=>{
-  const index=Number(root.dataset.requested||0);
-  if(index<5)root.dispatchEvent(new CustomEvent('navigate-scene',{detail:{index:index+1}}));
-  else document.querySelector('#solutions').scrollIntoView({behavior:'instant'});
- };
-  let hideTimer,lastScroll=window.scrollY;
+ let hideTimer,lastScroll=window.scrollY;
  addEventListener('scroll',()=>{
   const current=window.scrollY;
   if(current===lastScroll)return;
@@ -59,8 +50,6 @@ export function initMobileVariants(){
   hideTimer=setTimeout(()=>delete root.dataset.scrolling,700);
  },{passive:true});
  addEventListener('pagehide',()=>{clearTimeout(hideTimer);delete root.dataset.scrolling;});
- function sync(){const index=Number(root.dataset.scene||0);animated.setAttribute('aria-label',index===5?'Перейти к решениям':'Следующая сцена');}
- root.addEventListener('scenechange',sync);sync();
 }
 
 
