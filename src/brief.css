@@ -93,7 +93,6 @@
 #brief h3{margin:0;font-size:24px;line-height:1.3}
 #brief .brief-intro{margin:-8px 0 4px;font-size:13px;line-height:1.65}
 #brief>label{position:relative;margin:0;gap:8px;font-size:12px;line-height:1.5}
-#brief .brief-optional{position:absolute;right:0;top:0;font-size:11px;color:#607581}
 #brief input,#brief select,#brief textarea{font-size:14px;line-height:1.5;padding:10px 0;border-radius:0}
 #brief input,#brief select{min-height:44px;box-sizing:border-box}
 #brief textarea{min-height:100px}

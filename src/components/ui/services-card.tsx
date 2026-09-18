@@ -17,8 +17,9 @@ interface Site {
   racks?: string;
   note?: string;
   project?: {
-    title: string; subtitle: string; summary: string; paragraphs: string[];
-    images: { src: string; alt: string; width: number; height: number }[];
+    title: string; cardTitle?: string; subtitle: string; summary: string; paragraphs: string[];
+    sections?: { title: string; text: string }[];
+    images: { src: string; alt: string; caption: string; width: number; height: number }[];
   };
 }
 
@@ -41,8 +42,8 @@ function ProjectDetails({ site, onClose }: { site: Site; onClose: () => void }) 
     <div className="site-project-body">
       <p className="site-project-status">{site.status}</p>
       <h2 id="site-project-title">{project.title}<span>{project.subtitle}</span></h2>
-      <div className="site-project-description">{project.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div>
-      <div className="site-project-gallery">{project.images.map((photo, index) => <figure key={photo.src}><img {...photo} loading="lazy" decoding="async" /><figcaption>{index === 0 ? 'Вычислительная инфраструктура и открытая рабочая среда' : 'Meta Computing Center · БЦ «Асылтау», Астана'}</figcaption></figure>)}</div>
+      <div className="site-project-description">{project.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}{project.sections?.map(section => <section className="site-project-section" key={section.title}><h3>{section.title}</h3><p>{section.text}</p></section>)}</div>
+      <div className="site-project-gallery">{project.images.map(photo => { const { caption, ...image } = photo; return <figure key={photo.src}><img {...image} loading="lazy" decoding="async" /><figcaption>{caption}</figcaption></figure>; })}</div>
     </div>
   </dialog>, document.body);
 }
@@ -119,10 +120,10 @@ export function ServiceCarousel({ sites, onSelect }: { sites: Site[]; onSelect: 
               transition={{ duration: 0.45, delay: (index % 3) * 0.06, ease: [0.23, 1, 0.32, 1] }}>
               <div className="site-card-top"><span>TC {String(index + 1).padStart(2, '0')}</span>{site.status && <span className={`site-card-status ${site.active ? 'is-live' : ''}`}><i />{site.status}</span>}</div>
               {site.project ? <>
-                <img className="site-card-project-image" {...site.project.images[0]} loading="lazy" decoding="async" />
+                {(() => { const { caption: _caption, ...image } = site.project.images[0]; return <img className="site-card-project-image" {...image} loading="lazy" decoding="async" />; })()}
                 <div className="site-card-project-copy">
                   <p className="site-card-project-location">{site.city} · {site.address}</p>
-                  <h3>{site.project.title}<span>{site.project.subtitle}</span></h3>
+                  <h3>{site.project.cardTitle ?? site.project.title}<span>{site.project.subtitle}</span></h3>
                   <p className="site-card-project-summary">{site.project.summary}</p>
                 </div>
                 <button type="button" className="site-card-project-action" aria-haspopup="dialog" onPointerEnter={() => setOverLink(true)} onPointerLeave={() => setOverLink(false)} onClick={event => { projectTrigger.current = event.currentTarget; setProjectSite(site); }}>Подробнее о проекте<ArrowUpRight size={18} aria-hidden="true" /></button>

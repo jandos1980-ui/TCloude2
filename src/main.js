@@ -11,6 +11,16 @@ import {optimizeImages} from './images.js';
 import '@fontsource-variable/manrope';
 const arrow='<span aria-hidden="true">↗</span>';
 document.querySelector('#app').innerHTML=optimizeImages(renderPage(arrow));
+[
+ ['#solutions .section-heading h2','Инфраструктура'],
+ ['#reliability-title','Всё'],
+ ['#locations .section-heading h2','Ближе'],
+ ['#contact h2','Обсудим'],
+ ['#brief h3','Заявка']
+].forEach(([selector,word])=>{
+ const heading=document.querySelector(selector);
+ if(heading) heading.innerHTML=heading.innerHTML.replace(word,`<span class="title-highlight">${word}</span>`);
+});
 ['company','launch'].forEach(name=>document.querySelector(`#brief [name="${name}"]`)?.closest('label')?.remove());
 document.querySelector('#solutions').insertAdjacentHTML('beforeend',renderIndustries());
 initReliabilityBackground();

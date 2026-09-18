@@ -3,6 +3,7 @@
 .about .about-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(40px,6vw,100px);align-items:start}
 .about .about-grid h2{line-height:1.16;letter-spacing:-.045em;max-width:720px;text-wrap:balance}
 .about-title-accent{display:block;color:#496572}
+.about-title-highlight,.title-highlight{color:var(--cyan)}
 .about .about-copy>.about-closing{color:#17272f;line-height:1.5}
 .about .about-copy>p{max-width:560px;line-height:1.75;font-weight:450;color:#405865;margin:0 0 20px;text-wrap:pretty}
 .about .about-copy>.about-lead{line-height:1.45;font-weight:600;letter-spacing:-.025em;color:#17272f;margin-bottom:22px}
