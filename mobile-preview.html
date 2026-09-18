@@ -1,24 +1,13 @@
 <!doctype html>
-<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TAU CLOUD — выбор мобильной навигации</title>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TAU CLOUD — мобильная версия</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#e8eef1;color:#173443;font:14px Arial,sans-serif;display:grid;justify-items:center;gap:14px;padding:20px 12px}h1{font-size:20px;margin:0}p{margin:0;text-align:center;max-width:560px;line-height:1.5;color:#4c6572}.options{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}button,select{font:inherit;min-height:44px;padding:10px 16px;border:1px solid #b7cad4;border-radius:12px;background:#fff;color:#173443;cursor:pointer}button[aria-pressed=true]{background:#173443;color:#fff;border-color:#173443}button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #087da8;outline-offset:3px}iframe{width:390px;max-width:100%;height:844px;border:1px solid #b7cad4;border-radius:22px;background:#fff;box-shadow:0 15px 50px #17344220}a{color:#156482}.toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}@media(max-width:450px){body{padding:12px 0}h1{font-size:18px}p{padding:0 12px}iframe{border-radius:0}}
+*{box-sizing:border-box}body{margin:0;background:#e8eef1;color:#173443;font:14px Arial,sans-serif;display:grid;justify-items:center;gap:14px;padding:20px 12px}h1{font-size:20px;margin:0}p{margin:0;text-align:center;line-height:1.5}select{font:inherit;min-height:44px;padding:10px;border:1px solid #b7cad4;border-radius:12px;background:#fff;color:#173443}iframe{width:390px;max-width:100%;height:844px;border:1px solid #b7cad4;border-radius:22px;background:#fff;box-shadow:0 15px 50px #17344220}a{color:#156482}.toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}@media(max-width:450px){body{padding:12px 0}iframe{border-radius:0}}
 </style></head><body>
-<h1>Выберите навигацию</h1><p>Прокрутите сайт внутри телефона или нажимайте на индикаторы. Вариант можно менять на любой сцене.</p>
-<div class="options" role="group" aria-label="Вариант навигации"><button data-variant="bottom" aria-pressed="true">01 · Полоски снизу</button><button data-variant="right" aria-pressed="false">02 · Шкала справа</button><button data-variant="capsule" aria-pressed="false">03 · Капсула</button><button data-variant="dribbble" aria-pressed="false">04 · Скролл-навигатор</button></div>
-<div class="toolbar"><button id="replay" type="button">Повторить анимацию</button><label>Экран <select id="size"><option value="390,844">390 × 844</option><option value="360,640">360 × 640</option><option value="430,932">430 × 932</option></select></label><a id="full" href="/?mobileVariant=bottom" target="_blank" rel="noopener">Открыть на телефоне ↗</a></div>
-<iframe src="/?mobileVariant=bottom" title="Интерактивный мобильный сайт TAU CLOUD"></iframe>
+<h1>04 · Скролл-навигатор</h1><p>Прокрутите внутри телефона, чтобы увидеть индикаторы и анимацию.</p>
+<div class="toolbar"><label>Экран <select id="size"><option value="390,844">390 × 844</option><option value="360,640">360 × 640</option><option value="430,932">430 × 932</option></select></label><a href="/" target="_blank" rel="noopener">Открыть сайт ↗</a></div>
+<iframe src="/" title="Мобильный сайт TAU CLOUD — скролл-навигатор 04"></iframe>
 <script type="module">
 const frame=document.querySelector('iframe');
-const initial=new URLSearchParams(location.search).get('variant');
-document.querySelector('#replay').hidden=initial==='dribbble';
-if(['bottom','right','capsule','dribbble'].includes(initial)){frame.src='/?mobileVariant='+initial;document.querySelector('#full').href=frame.src;document.querySelectorAll('[data-variant]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.variant===initial)));}
-document.querySelectorAll('[data-variant]').forEach(button=>button.onclick=()=>{
- document.querySelectorAll('[data-variant]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
- frame.contentWindow.postMessage({mobileVariant:button.dataset.variant},location.origin);
- document.querySelector('#replay').hidden=button.dataset.variant==='dribbble';
- document.querySelector('#full').href='/?mobileVariant='+button.dataset.variant;
-});
-document.querySelector('#replay').onclick=()=>frame.contentWindow.postMessage({replayAnimation:true},location.origin);
 document.querySelector('#size').onchange=event=>{const [w,h]=event.target.value.split(',');frame.style.width=w+'px';frame.style.height=h+'px';};
 </script></body></html>
 

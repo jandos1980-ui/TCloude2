@@ -16,7 +16,7 @@ export function renderMobileStory(){
  <div class="mobile-story-media"><img id="mobile-scene-image" ${mobile?`src="${base+first.file}.webp"`:''} width="941" height="1672" alt="${first.alt}" fetchpriority="high"><div class="mobile-image-error" role="status" hidden>Не удалось загрузить фото. <button type="button" class="mobile-image-retry">Повторить</button></div></div>
  <div class="mobile-story-copy"><p class="mobile-scene-kicker"></p><h1 id="mobile-scene-title">${first.title}</h1><p id="mobile-scene-description" hidden></p><a class="button primary" id="mobile-story-cta" data-colocation-cta href="#contact">Обсудить размещение <span aria-hidden="true">↗</span></a></div>
  <div class="mobile-story-bottom"><span class="mobile-scroll-cue">Листайте, чтобы заглянуть внутрь ↓</span><span id="mobile-scene-count" aria-label="Сцена">1 / ${mobileScenes.length}</span></div>
- <nav class="mobile-story-progress" aria-label="Главы истории">${mobileScenes.map((scene,i)=>`<button type="button" data-scene="${i}" aria-label="${i+1}: ${scene.title}" ${i===0?'aria-current="step"':''}><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="progress-track" cx="12" cy="12" r="9"/><circle class="progress-fill" cx="12" cy="12" r="9" pathLength="1"/><circle class="progress-dot" cx="12" cy="12" r="3"/></svg></button>`).join('')}</nav>
+ <nav class="mobile-story-progress" aria-label="Главы истории">${mobileScenes.map((scene,i)=>`<button type="button" data-scene="${i}" aria-label="${i+1}: ${scene.title}" ${i===0?'aria-current="step"':''}><span class="variant-segment" aria-hidden="true"></span></button>`).join('')}</nav>
  </div></div>`;
 }
 export function initMobileStory(){
