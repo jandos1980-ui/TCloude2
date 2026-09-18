@@ -1,0 +1,4 @@
+/* Keep the original control sizes and layout; retain focus and heading contrast fixes. */
+.desktop-story-dots button:focus-visible { outline:2px solid #fff; outline-offset:-2px; }
+.about .about-title-highlight, .solutions .title-highlight,
+.locations .title-highlight, #contact h2 .title-highlight { color:#08799f; }

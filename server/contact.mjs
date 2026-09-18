@@ -2,8 +2,10 @@ import nodemailer from 'nodemailer';
 const recipient = 'info@taucloud.kz';
 const services = ['Colocation','Облачная инфраструктура','Платформы и сервисы','Строительство ЦОД'];
 const emailPattern = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
-const reply = (status,body) => Response.json(body,{status,headers:{'Cache-Control':'no-store'}});
-export function createContactHandler({env=process.env,createTransport=nodemailer.createTransport}={}) {
+const reply = (status,body) => Response.json(body,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
+export function createContactHandler({env=process.env,createTransport=nodemailer.createTransport,logger=console}={}) {
+  // Log only fixed event names, never request fields, credentials or SMTP errors.
+  const log = event => { try { logger.error({event}); } catch {} };
   return async function contact(request) {
     if (request.method!=='POST') return new Response(null,{status:405,headers:{Allow:'POST'}});
     const origin=request.headers.get('origin');
@@ -13,13 +15,16 @@ export function createContactHandler({env=process.env,createTransport=nodemailer
     if (!reader) return reply(400,{error:'Заполните форму.'});
     let size=0;
     const chunks=[];
-    while (true) {
+    try { while (true) {
       const {done,value}=await reader.read();
       if (done) break;
       size+=value.byteLength;
       if (size>20000) { await reader.cancel(); return reply(413,{error:'Заявка слишком большая.'}); }
       chunks.push(value);
-    }
+    } } catch {
+      log('contact_body_read_failed');
+      return reply(400,{error:'Не удалось прочитать заявку. Попробуйте ещё раз.'});
+    } finally { reader.releaseLock(); }
     let data;
     try { data=JSON.parse(Buffer.concat(chunks).toString('utf8')); }
     catch { return reply(400,{error:'Не удалось прочитать заявку.'}); }
@@ -31,11 +36,13 @@ export function createContactHandler({env=process.env,createTransport=nodemailer
       fields[key]=value.trim();
     }
     if (fields.website) return reply(400,{error:'Не удалось отправить форму.'});
-    if (!fields.name || !/^\d{12}$/.test(fields.bin) || !services.includes(fields.service) || (fields.phone && !/^[+\d\s().-]{7,40}$/.test(fields.phone))) return reply(400,{error:'Проверьте имя, телефон и БИН (12 цифр).'});
+    const phoneDigits=fields.phone.replace(/\D/g,'');
+    if (!fields.name || /[\r\n]/.test(fields.name) || !/^\d{12}$/.test(fields.bin) || !services.includes(fields.service) || !/^[+\d ().-]+$/.test(fields.phone) || phoneDigits.length<7 || phoneDigits.length>15) return reply(400,{error:'Проверьте имя, телефон (от 7 до 15 цифр) и БИН (12 цифр).'});
     const port=Number(env.SMTP_PORT||587);
     if (!env.SMTP_HOST || !env.SMTP_USER || !env.SMTP_PASSWORD || !emailPattern.test(env.SMTP_FROM||'') || ![465,587].includes(port)) return reply(503,{error:'Отправка временно недоступна. Напишите на info@taucloud.kz или позвоните +7 7172 251344.'});
-    const transport=createTransport({host:env.SMTP_HOST,port,secure:port===465,requireTLS:port!==465,auth:{user:env.SMTP_USER,pass:env.SMTP_PASSWORD},connectionTimeout:10000,greetingTimeout:10000,socketTimeout:20000,disableFileAccess:true,disableUrlAccess:true});
+    let transport;
     try {
+      transport=createTransport({host:env.SMTP_HOST,port,secure:port===465,requireTLS:port!==465,auth:{user:env.SMTP_USER,pass:env.SMTP_PASSWORD},connectionTimeout:10000,greetingTimeout:10000,socketTimeout:20000,disableFileAccess:true,disableUrlAccess:true});
       const result=await transport.sendMail({
         from:{name:'TAU CLOUD — заявки с сайта',address:env.SMTP_FROM},to:recipient,
         subject:`Заявка TAU CLOUD — ${fields.service}`,
@@ -44,8 +51,11 @@ export function createContactHandler({env=process.env,createTransport=nodemailer
       if (!result.accepted?.some(address=>String(address).toLowerCase()===recipient)) throw new Error('Recipient rejected');
       return reply(200,{ok:true});
     } catch {
+      log('contact_delivery_failed');
       return reply(502,{error:'Не удалось подтвердить отправку. Попробуйте позже или напишите на info@taucloud.kz.'});
-    } finally { transport.close(); }
+    } finally {
+      try { transport?.close(); } catch { log('contact_transport_close_failed'); }
+    }
   };
 }
 export default createContactHandler();

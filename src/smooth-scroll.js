@@ -55,6 +55,12 @@ export function initSmoothScroll() {
     event.preventDefault();
     const offset = target === 0 ? 0 : -(parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0);
     scrollPageTo(target, {offset});
+    // Keep keyboard navigation with the destination, including the skip link.
+    const focusTarget = target === 0 ? document.querySelector('header .brand') : target;
+    if (focusTarget) {
+      if (!focusTarget.hasAttribute('tabindex') && !focusTarget.matches('a,button,input,select,textarea')) focusTarget.tabIndex = -1;
+      focusTarget.focus({preventScroll:true});
+    }
     if (location.hash !== hash) history.pushState(null, '', hash);
   });
 }

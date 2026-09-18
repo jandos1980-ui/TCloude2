@@ -18,6 +18,7 @@ export function initBrief() {
   } else contact.classList.add('is-visible');
   form.addEventListener('input', () => {
     form.elements.name.setCustomValidity('');
+    form.elements.phone.setCustomValidity('');
     if (sent) { sent=false; button.disabled=false; button.innerHTML=original; show('', 'idle'); }
   });
   form.addEventListener('submit', async event => {
@@ -25,6 +26,8 @@ export function initBrief() {
     if (pending || sent || !form.reportValidity()) return;
     const data = Object.fromEntries(new FormData(form));
     if (!data.name.trim()) { form.elements.name.setCustomValidity('Укажите контактное лицо.'); form.elements.name.reportValidity(); return; }
+    const phoneDigits=data.phone.replace(/\D/g,'');
+    if (phoneDigits.length<7 || phoneDigits.length>15) { form.elements.phone.setCustomValidity('Укажите телефон: от 7 до 15 цифр.'); form.elements.phone.reportValidity(); return; }
     pending = true;
     form.setAttribute('aria-busy','true');
     const controls = [...form.querySelectorAll('input, select, textarea, button')];

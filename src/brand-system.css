@@ -161,3 +161,45 @@ footer{padding-inline:var(--brand-gutter);font-family:var(--brand-font)}
 #brief #form-status{background:#213842;color:#d4eef9}
 #brief #form-status[data-state=error]{background:#4a2d2a;color:#ffd9d3}
 #brief #form-status[data-state=success]{background:#1e473b;color:#d5f4e7}
+
+/* Shared typography for text actions and the two solution selectors. */
+:root{--button-font-size:14px}
+body .button,body .header-cta,body .about .about-link,
+body .solutions .service-tabs button,body .industry-tabs button,
+body .industry-cta,body .site-card a,body .site-card-project-action,
+body .site-project-header button,body #brief .button.primary,
+body .mobile-story #mobile-story-cta{
+  font-size:var(--button-font-size);line-height:1.5;
+}
+body .solutions .service-tabs button .service-tab-label{font-size:inherit;color:inherit;margin-right:0}
+body .button.primary,body .button.primary:hover,
+body .about .about-link,body .about .about-link:hover,
+body .solutions .service-copy .button,body .solutions .service-copy .button:hover,
+body #brief .button.primary,body #brief .button.primary:hover,
+body .mobile-story #mobile-story-cta,
+body .industry-tabs button[aria-selected=true],
+body .solutions .service-tabs button[aria-selected=true]{color:#fff}
+body .button.primary span,body .about .about-link span,
+body .solutions .service-copy .button span{color:inherit}
+
+.industries .industry-tabs{
+  display:grid;grid-template-columns:repeat(7,minmax(0,1fr));align-items:stretch;gap:8px;
+}
+.industries .industry-tabs button{
+  min-width:0;width:100%;height:100%;white-space:normal;padding:10px;
+  overflow-wrap:anywhere;hyphens:auto;
+}
+@media(max-width:600px){
+  .industries .industry-tabs{
+    display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
+    grid-template-rows:repeat(3,auto);grid-auto-flow:row;gap:8px;
+    padding:4px;overflow:visible;
+  }
+  .industries .industry-tabs button{
+    grid-column:span 3;max-width:none;white-space:normal;padding:10px 8px;
+    overflow-wrap:anywhere;hyphens:auto;
+  }
+  .industries .industry-tabs button:nth-child(-n+3){grid-column:span 2}
+  .solutions .service-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+  .solutions .service-tabs button{min-width:0;padding:10px 8px}
+}

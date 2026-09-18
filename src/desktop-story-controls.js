@@ -28,6 +28,7 @@ export function initDesktopStoryControls(stage) {
  }
  function sync(){
   const index=Number(stage.dataset.chapter||0);
+  dotButtons.forEach((dot,i)=>dot.setAttribute('aria-pressed',String(i===index)));
   moveIndicator(index);
  }
  let context,lastChapter=stage.dataset.chapter,lastTick=-Infinity;
@@ -59,6 +60,7 @@ export function initDesktopStoryControls(stage) {
   const rect=stage.getBoundingClientRect();if(rect.bottom<=0||rect.top>=innerHeight)return;
   stage.dataset.scrolling='true';clearTimeout(hideTimer);hideTimer=setTimeout(()=>delete stage.dataset.scrolling,700);
  },{passive:true,signal:lifecycle.signal});
+ sync();
  moveIndicator(Number(stage.dataset.chapter||0),true);
  return ()=>{lifecycle.abort();observer.disconnect();clearTimeout(hideTimer);cancelAnimationFrame(motionFrame);dots.remove();context?.close().catch(()=>{});};
 }
