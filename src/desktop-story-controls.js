@@ -13,6 +13,9 @@ export function initDesktopStoryControls(stage) {
  const motion=document.createElementNS(svgNS,'svg');motion.classList.add('desktop-indicator-motion');
  motion.setAttribute('viewBox',`0 0 44 ${buttons.length*44}`);motion.setAttribute('aria-hidden','true');
  const pill=document.createElementNS(svgNS,'path');motion.append(pill);dots.append(motion);
+ const scrollNote=stage.querySelector('.scroll-note');
+ const scrollNoteParent=scrollNote.parentElement;
+ dots.append(scrollNote);
  stage.append(dots);
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  let motionFrame=0,startY=22,endY=22;
@@ -31,13 +34,16 @@ export function initDesktopStoryControls(stage) {
   dotButtons.forEach((dot,i)=>dot.setAttribute('aria-pressed',String(i===index)));
   moveIndicator(index);
  }
- let context,lastChapter=stage.dataset.chapter,lastTick=-Infinity;
+ let context,lastChapter=stage.dataset.chapter,lastTick=-Infinity,pendingTick=false;
  function unlock(){
   const Audio=window.AudioContext||window.webkitAudioContext;
-  if(!Audio)return;
-  try{context??=new Audio();context.resume().catch(()=>{});}catch{}
+  if(!Audio||context?.state==='running')return;
+  try{
+   context??=new Audio();
+   context.resume().then(()=>{if(pendingTick){pendingTick=false;tick();}}).catch(()=>{});
+  }catch{}
  }
- for(const event of ['pointerdown','keydown','wheel'])document.addEventListener(event,unlock,{passive:true,signal:lifecycle.signal});
+ for(const event of ['pointerdown','pointerup','click','keydown','wheel'])document.addEventListener(event,unlock,{capture:true,passive:true,signal:lifecycle.signal});
  function tick(){
   const rect=stage.getBoundingClientRect();
   if(context?.state!=='running'||document.hidden||rect.bottom<=0||rect.top>=innerHeight)return;
@@ -50,17 +56,17 @@ export function initDesktopStoryControls(stage) {
  }
  const observer=new MutationObserver(()=>{
   const next=stage.dataset.chapter;
-  if(next!==lastChapter){if(lastChapter!==undefined)tick();lastChapter=next;sync();}
+  if(next!==lastChapter){
+   if(lastChapter!==undefined){
+    if(context?.state==='running')tick();
+    else{pendingTick=true;unlock();}
+   }
+   lastChapter=next;sync();
+  }
  });
  observer.observe(stage,{attributes:true,attributeFilter:['data-chapter']});
  reduced.addEventListener('change',()=>moveIndicator(Number(stage.dataset.chapter||0),true),{signal:lifecycle.signal});
- let lastScroll=scrollY,hideTimer;
- addEventListener('scroll',()=>{
-  if(scrollY===lastScroll)return;lastScroll=scrollY;
-  const rect=stage.getBoundingClientRect();if(rect.bottom<=0||rect.top>=innerHeight)return;
-  stage.dataset.scrolling='true';clearTimeout(hideTimer);hideTimer=setTimeout(()=>delete stage.dataset.scrolling,700);
- },{passive:true,signal:lifecycle.signal});
  sync();
  moveIndicator(Number(stage.dataset.chapter||0),true);
- return ()=>{lifecycle.abort();observer.disconnect();clearTimeout(hideTimer);cancelAnimationFrame(motionFrame);dots.remove();context?.close().catch(()=>{});};
+ return ()=>{pendingTick=false;lifecycle.abort();observer.disconnect();scrollNoteParent.prepend(scrollNote);cancelAnimationFrame(motionFrame);dots.remove();context?.close().catch(()=>{});};
 }

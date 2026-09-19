@@ -77,7 +77,6 @@ export function initDesktopStory(){
   active=copy>=0?copy:3;
   story.querySelectorAll('.chapter').forEach((e,i)=>{e.classList.toggle('active',i===copy);e.inert=i!==copy;});
   stage.dataset.copy=String(copy);stage.dataset.chapter=String(active);stage.dataset.scene=String(scene);stage.dataset.reveal=String(scene>=4);
-  story.querySelector('.chapter-counter').innerHTML=`0${active+1} <span>/ 05</span>`;
   const navStops=mobile.matches?[0,.212,.46,.63,.857,1]:[0,.2,.454,.644,.774,1];
   story.querySelectorAll('[data-jump]').forEach((b,i)=>{b.classList.toggle('current',i===active);b.setAttribute('aria-pressed',String(i===active));b.querySelector('i').style.transform=`scaleX(${Math.max(0,Math.min(1,(progress-navStops[i])/(navStops[i+1]-navStops[i])))})`;});
   if(manifest&&!reduce.matches){draw();if(!ambient.active)queue();if(!objectTick&&visible&&!document.hidden)objectTick=requestAnimationFrame(animateObjects);}

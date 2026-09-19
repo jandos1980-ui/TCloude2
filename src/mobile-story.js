@@ -2,7 +2,7 @@ import {chapters} from './story-content.js';
 import {initPreviewSound} from './preview-sound.js';
 const base='/media/mobile-stills/optimized/';
 export const mobileScenes=[
- {file:'astana-exterior',title:'Ваши серверы. Наша забота.',text:'Разместите серверы в подготовленном дата-центре. Питание, охлаждение и физическая безопасность — на нашей стороне.',alt:'Фасад дата-центра TAU CLOUD в Астане'},
+ {file:'astana-exterior',title:'Ваши серверы. Наша инфраструктура.',text:'Разместите серверы в подготовленном дата-центре. Питание, охлаждение и физическая безопасность — на нашей стороне.',alt:'Фасад дата-центра TAU CLOUD в Астане'},
  {file:'diesel-generator',title:'ДГУ и ИБП',text:'Резервное питание поддерживает непрерывную работу оборудования.',alt:'Дизель-генераторная установка TAU CLOUD'},
  {file:'ups-room-blue',title:'Источники бесперебойного питания',text:'ИБП и батарейные ряды обеспечивают резервное питание серверного оборудования.',alt:'Источники бесперебойного питания TAU CLOUD'},
  {file:'server-capsule-angle',title:'Серверные зоны',text:'Изолированные серверные зоны, стойки и охлаждение для вашего оборудования.',alt:'Серверная капсула TAU CLOUD, вид под углом'},
@@ -10,11 +10,12 @@ export const mobileScenes=[
  {file:'engineer',title:'Команда инженеров',text:'Помогаем с подключением, эксплуатацией и развитием сервисов.',alt:'Инженер TAU CLOUD у серверной стойки'}
 ];
 const sceneChapters=[0,1,1,2,3,4];
+const openingTitle='<span class="hero-title-line">Ваши серверы.</span><em class="hero-title-line">Наша инфраструктура.</em>';
 export function renderMobileStory(){
  const first=mobileScenes[0],mobile=matchMedia('(max-width:600px)').matches;
  return `<div class="mobile-story" aria-label="Инфраструктура TAU CLOUD"><div class="mobile-story-viewport">
  <div class="mobile-story-media"><img id="mobile-scene-image" ${mobile?`src="${base+first.file}.webp"`:''} width="941" height="1672" alt="${first.alt}" fetchpriority="high"><div class="mobile-image-error" role="status" hidden>Не удалось загрузить фото. <button type="button" class="mobile-image-retry">Повторить</button></div></div>
- <div class="mobile-story-copy"><p class="mobile-scene-kicker"></p><h1 id="mobile-scene-title">${first.title}</h1><p id="mobile-scene-description" hidden></p><a class="button primary" id="mobile-story-cta" data-colocation-cta href="#contact">Обсудить размещение <span aria-hidden="true">↗</span></a></div>
+ <div class="mobile-story-copy"><p class="mobile-scene-kicker"></p><h1 id="mobile-scene-title">${openingTitle}</h1><p id="mobile-scene-description" hidden></p><a class="button primary" id="mobile-story-cta" data-colocation-cta href="#contact">Обсудить размещение <span aria-hidden="true">↗</span></a></div>
  <div class="mobile-story-bottom"><span class="mobile-scroll-cue">Листайте, чтобы заглянуть внутрь ↓</span><span id="mobile-scene-count" aria-label="Сцена">1 / ${mobileScenes.length}</span></div>
  <nav class="mobile-story-progress" aria-label="Главы истории">${mobileScenes.map((scene,i)=>`<button type="button" data-scene="${i}" aria-label="${i+1}: ${scene.title}" ${i===0?'aria-current="step"':''}><span class="variant-segment" aria-hidden="true"></span></button>`).join('')}</nav>
  </div></div>`;
@@ -46,7 +47,7 @@ export function initMobileStory(){
   const scene=mobileScenes[index],chapter=chapters[sceneChapters[index]];
   img.src=url;img.alt=scene.alt;img.dataset.scene=String(index);root.dataset.scene=String(index);
   root.querySelector('.mobile-scroll-cue').textContent=index===5?'Далее — решения для вашего бизнеса':'Листайте дальше';
-  root.querySelector('#mobile-scene-title').innerHTML=index===0?'Ваши серверы.<br><em>Наша инфраструктура.</em>':index===2?'ИБП.<br><em>Бесперебойное питание.</em>':chapter.title;
+  root.querySelector('#mobile-scene-title').innerHTML=index===0?openingTitle:index===2?'ИБП.<br><em>Бесперебойное питание.</em>':chapter.title;
   root.querySelector('.mobile-scene-kicker').textContent=chapter.kicker;
   const description=root.querySelector('#mobile-scene-description');description.textContent=scene.text;description.hidden=false;
   const cta=root.querySelector('#mobile-story-cta');

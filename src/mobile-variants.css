@@ -14,7 +14,8 @@
  [data-mobile-variant] .mobile-scroll-cue{font-size:12px}
  [data-mobile-variant] .mobile-story[data-scene] .mobile-story-copy{bottom:calc(140px + env(safe-area-inset-bottom,0px));right:44px;padding-right:8px}
  [data-mobile-variant] .dribbble-scroll{display:grid;place-items:center;position:absolute;top:calc(var(--mobile-header) + 284px);right:max(8px,env(safe-area-inset-right,0px));width:44px;height:44px;padding:0;background:transparent;border:0;border-radius:0;color:#fff;cursor:pointer;z-index:3;overflow:visible;filter:drop-shadow(0 1px 3px #10243290)}
- [data-mobile-variant] .mobile-story-progress,[data-mobile-variant] .dribbble-scroll{opacity:0;pointer-events:none;transition:opacity 180ms var(--ease-out)}
+ [data-mobile-variant] .mobile-story-progress{opacity:1;pointer-events:auto}
+ [data-mobile-variant] .dribbble-scroll{opacity:0;pointer-events:none;transition:opacity 180ms var(--ease-out)}
  [data-mobile-variant] .mobile-story[data-scrolling] .mobile-story-progress,
  [data-mobile-variant] .mobile-story[data-scrolling] .dribbble-scroll,
  [data-mobile-variant] .mobile-story-progress:has(:focus-visible),
@@ -27,7 +28,6 @@
  [data-mobile-variant] .mobile-story[data-scrolling] .scroll-circle{animation:mobile-scroll-circle 1s linear infinite}
  [data-mobile-variant] .mobile-story[data-scrolling] .scroll-arrow{animation:mobile-scroll-arrow 1s linear infinite}
  [data-mobile-variant] .mobile-story[data-scrolling] .scroll-pulse{animation:mobile-scroll-pulse 1s linear .3s infinite}
- [data-mobile-variant] header .brand img{filter:brightness(0) invert(1)}
  [data-mobile-variant] header[data-hide-brand]>.brand{visibility:hidden;pointer-events:none}
  [data-mobile-variant] header .menu-button{color:#f0f4f7}
  [data-mobile-variant] header[data-surface="light"] .menu-button,
