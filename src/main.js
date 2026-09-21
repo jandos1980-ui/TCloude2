@@ -33,7 +33,7 @@ const contactHints=[
  'Расскажите о приложениях и задачах миграции.',
  'Укажите площадку, мощность и сроки запуска ЦОД.'
 ];
-function setContactService(index){document.querySelector('select').selectedIndex=index;updateContactHint();}
+function setContactService(index){const select=document.querySelector('#brief select');select.selectedIndex=index;select.dispatchEvent(new Event('input',{bubbles:true}));updateContactHint();}
 function updateContactHint(){document.querySelector('.contact-intro').textContent=contactHints[document.querySelector('select').selectedIndex];}
 document.querySelector('select').addEventListener('change',updateContactHint);
 updateContactHint();
