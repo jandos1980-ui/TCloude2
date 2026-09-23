@@ -1,17 +1,18 @@
 /** Always enabled; browser audio is unlocked by the first user gesture. */
 export function initPreviewSound(root){
+ const lifecycle=new AbortController(),{signal}=lifecycle;
  let context,lastTick=-Infinity,lastScene=root.dataset.scene,pendingTick=false;
  function unlock(){
   const Audio=window.AudioContext||window.webkitAudioContext;
-  if(!Audio||context?.state==='running')return;
+  if(signal.aborted||!Audio||context?.state==='running')return;
   try{
    context??=new Audio();
    context.resume().then(()=>{if(pendingTick){pendingTick=false;tick();}}).catch(()=>{});
   }catch{}
  }
- for(const event of ['pointerdown','pointerup','touchstart','touchend','keydown','click','wheel'])document.addEventListener(event,unlock,{capture:true,passive:true});
+ for(const event of ['pointerdown','pointerup','touchstart','touchend','keydown','click','wheel'])document.addEventListener(event,unlock,{capture:true,passive:true,signal});
  function tick(){
-  if(context?.state!=='running'||document.hidden)return;
+  if(signal.aborted||context?.state!=='running'||document.hidden)return;
   const time=context.currentTime;if(time-lastTick<.08)return;lastTick=time;
   const oscillator=context.createOscillator(),gain=context.createGain();
   oscillator.type='sine';oscillator.frequency.setValueAtTime(1750,time);oscillator.frequency.exponentialRampToValueAtTime(620,time+.022);
@@ -26,7 +27,8 @@ export function initPreviewSound(root){
    else{pendingTick=true;unlock();}
   }
   lastScene=next;
- });
- addEventListener('pagehide',()=>{pendingTick=false;context?.suspend();});
- document.addEventListener('visibilitychange',()=>{if(!document.hidden&&context)unlock();});
+ },{signal});
+ addEventListener('pagehide',()=>{pendingTick=false;context?.suspend().catch(()=>{});},{signal});
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&context)unlock();},{signal});
+ return ()=>{lifecycle.abort();pendingTick=false;context?.close().catch(()=>{});};
 }

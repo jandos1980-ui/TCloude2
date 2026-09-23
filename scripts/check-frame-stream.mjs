@@ -20,16 +20,16 @@ try {
     const draw = context.drawImage.bind(context);
     context.drawImage = (...args) => {drawnFrames.add(args[0]); return draw(...args);};
   });
-  for (let i = 0; i < 15; i++) {
-    await page.mouse.wheel(0, 200);
-    await page.waitForTimeout(100);
+  for (let i = 0; i < 30; i++) {
+    await page.mouse.wheel(0, 120);
+    await page.waitForTimeout(150);
   }
   await page.waitForTimeout(1000);
   const uniqueFrames = await page.evaluate(() => drawnFrames.size);
   assert(uniqueFrames > 30, `Animation stalled: only ${uniqueFrames} frames`);
-  await page.mouse.wheel(0, -3000);
-  await page.waitForTimeout(1100);
-  assert(await page.evaluate(() => scrollY < 3), 'Reverse scrolling failed');
+  await page.mouse.wheel(0, -5000);
+  // Lenis settles over animation frames; wait for the result, not a fixed delay.
+  await page.waitForFunction(() => scrollY < 3, null, {timeout: 5000});
   assert(requests.filter(url => /\d{4}\.webp/.test(url)).length <= 12, 'Too many priority frame requests');
   assert.equal(requests.filter(url => url.endsWith('.bin')).length, 1);
   assert.deepEqual(errors, []);
@@ -41,7 +41,9 @@ try {
   fallback.on('request', request => {if (/\d{4}\.webp/.test(request.url())) individualFrames++;});
   await fallback.route('**/*.bin', route => route.abort());
   await fallback.goto(process.env.TAU_TEST_URL || 'http://127.0.0.1:5173/');
-  await fallback.waitForFunction(() => getComputedStyle(document.querySelector('#film')).opacity === '1');
+  // The opening scene is ambient video; the generator scene uses the frame stream.
+  await fallback.locator('.desktop-story-dots [data-dot="1"]').click();
+  await fallback.waitForFunction(() => document.querySelector('.stage').dataset.scene === '1' && getComputedStyle(document.querySelector('#film')).opacity === '1');
   assert(individualFrames > 0, 'Interrupted stream did not fall back to individual frames');
   console.log(JSON.stringify({uniqueFrames, streamRequests: 1, reverse: true, fallback: true, errors}));
 } finally {

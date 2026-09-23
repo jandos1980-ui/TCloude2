@@ -1,0 +1,24 @@
+header .language-picker{display:grid;place-items:center;margin-left:auto;flex-shrink:0;position:relative;isolation:isolate;min-width:44px;min-height:44px;padding:6px;border:0;background:transparent;color:inherit;font-size:12px;font-weight:600;letter-spacing:.04em}
+.language-picker:focus-visible{outline:2px solid var(--brand-accent,#49bff0);outline-offset:3px}
+@media(min-width:601px){header>nav:not(#mobile-nav){position:absolute;left:50%;transform:translateX(-50%)}}
+html:not([lang=ru]) .hero-title-line{white-space:normal}
+@media(max-width:600px){
+  header .language-picker{position:relative;z-index:2;margin-right:8px;color:#fff}
+  header[data-surface=light] .language-picker,header:has(.menu-button[aria-expanded=true]) .language-picker{color:#183343}
+}
+
+@keyframes language-outline-pulse{0%,100%{opacity:.2}50%{opacity:1}}
+
+.language-picker .language-hand{position:absolute;right:0;bottom:-1px;pointer-events:none;transform:rotate(-18deg);animation:language-outline-pulse 2s ease-in-out infinite}
+
+@media(prefers-reduced-motion:reduce){.language-picker .language-hand{animation:none;opacity:.65}}
+
+.language-picker .language-frame{position:absolute;inset:6px;pointer-events:none;animation:language-outline-pulse 2s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.language-picker .language-frame{animation:none;opacity:.65}}
+
+@media(max-width:600px){
+  header .language-picker{font-size:10px}
+  .language-picker .language-frame{width:24px;height:24px;inset:10px}
+  .language-picker .language-hand{width:13px;height:13px;right:5px;bottom:4px}
+  header[data-hide-brand] .language-picker{visibility:hidden;pointer-events:none}
+}

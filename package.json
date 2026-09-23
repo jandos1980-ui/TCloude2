@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test scripts/test-contact.mjs test/sites.test.mjs",
+    "test": "node --test scripts/test-contact.mjs test/sites.test.mjs test/i18n.test.mjs test/preview-sound.test.mjs",
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",

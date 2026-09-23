@@ -1,3 +1,4 @@
+import {initLanguages,t} from './i18n.js';
 import {mountLocationCarousel} from './components/ui/services-card.tsx';
 import {initSmoothScroll} from './smooth-scroll.js';
 import {services,sites,renderPage,serviceImages} from './content.js';
@@ -21,7 +22,6 @@ document.querySelector('#app').innerHTML=optimizeImages(renderPage(arrow));
  const heading=document.querySelector(selector);
  if(heading) heading.innerHTML=heading.innerHTML.replace(word,`<span class="title-highlight">${word}</span>`);
 });
-['company','launch'].forEach(name=>document.querySelector(`#brief [name="${name}"]`)?.closest('label')?.remove());
 document.querySelector('#solutions').insertAdjacentHTML('beforeend',renderIndustries());
 initReliabilityBackground();
 let currentService=0;
@@ -55,7 +55,7 @@ document.querySelectorAll('[data-service]').forEach(button=>{
 });
 initSmoothScroll();
 initMobileNav();
-mountLocationCarousel(document.querySelector('#location-carousel'), sites, index=>{setContactService(0);const field=document.querySelector('textarea');const siteText=`Интересует площадка: TC ${String(index+1).padStart(2,'0')} — ${[sites[index].city,sites[index].address].filter(Boolean).join(', ')}. `;if(!field.value.includes(siteText))field.value=siteText+field.value;});
+mountLocationCarousel(document.querySelector('#location-carousel'), sites, index=>{setContactService(0);const field=document.querySelector('textarea');const siteText=t(`Интересует площадка: TC ${String(index+1).padStart(2,'0')} — ${[sites[index].city,sites[index].address].filter(Boolean).join(', ')}. `);if(!field.value.includes(siteText))field.value=siteText+field.value;});
 initBrief();
 initStory();
 
@@ -74,3 +74,5 @@ import {initMobileVariants} from './mobile-variants.js';
 initMobileVariants();
 
 import './hero.css';
+
+initLanguages();

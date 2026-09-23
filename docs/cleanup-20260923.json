@@ -1,0 +1,44 @@
+[
+  {
+    "path": "src/cloud-finale.js",
+    "bytes": 2078,
+    "sha256": "8D5B592CC28D03BD3ECB34F0729D308226A33692EDE7F56C75E9797712A0B7CB",
+    "reason": "Unreachable from all application entry points"
+  },
+  {
+    "path": "src/desktop-story-controls.css",
+    "bytes": 3157,
+    "sha256": "B8F1C368E5EC2957E3707890969915193D7FF31C3548B87E4A9564DAF6A4E6FF",
+    "reason": "Unreachable from all application entry points"
+  },
+  {
+    "path": "public/media/sequence/frames-369757518f97.bin",
+    "bytes": 18346954,
+    "sha256": "369757518F97036BF671288C9775699A219003EE0DB1DBAC8536FBBCF15CA4F5",
+    "reason": "Superseded generated pack; not referenced by playback.json"
+  },
+  {
+    "path": "public/media/sequence/frames-8faa785938c4.bin",
+    "bytes": 8640935,
+    "sha256": "8FAA785938C4F004D3E5209C1D12286CB55713E202017C534838B39AC79B9D46",
+    "reason": "Superseded generated pack; not referenced by playback.json"
+  },
+  {
+    "path": "public/media/sequence-mobile/frames-c263082ce3aa.bin",
+    "bytes": 2514637,
+    "sha256": "C263082CE3AA949993502F37600BFCE47ACF3B84E6BEB4128A21BB46685C1428",
+    "reason": "Superseded generated pack; not referenced by playback.json"
+  },
+  {
+    "path": "public/media/optimized/logo-126.avif",
+    "bytes": 3388,
+    "sha256": "BDACE99C92449B8838BDC8618B22335BD4D926B1D688D170BF31958D5012F4D3",
+    "reason": "Unused derivatives of a removed logo; current logo-preview-wide.png retained"
+  },
+  {
+    "path": "public/media/optimized/logo-126.webp",
+    "bytes": 3210,
+    "sha256": "9987F8BBA549031ABCA640D7CFE018DFCA966FDD3C30B1AF3193B34A16E7FB94",
+    "reason": "Unused derivatives of a removed logo; current logo-preview-wide.png retained"
+  }
+]

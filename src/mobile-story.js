@@ -22,7 +22,7 @@ export function renderMobileStory(){
 }
 export function initMobileStory(){
  const root=document.querySelector('.mobile-story'),img=root.querySelector('img'),error=root.querySelector('.mobile-image-error');
- initPreviewSound(root);
+ const disposeSound=initPreviewSound(root);
  const lifecycle=new AbortController(),{signal}=lifecycle;
  const buttons=[...root.querySelectorAll('[data-scene]')],cache=new Map(),urls=new Set();
  let requested=-1,frame=0,version=0,preloading=false;
@@ -104,7 +104,7 @@ export function initMobileStory(){
  const observer=new ResizeObserver(()=>root.style.setProperty('--story-min-height',`${document.querySelector('header').offsetHeight+copy.offsetHeight+210}px`));observer.observe(copy);
  addEventListener('scroll',()=>{interact();schedule();},{passive:true,signal});addEventListener('resize',schedule,{signal});
  update();
- return ()=>{lifecycle.abort();observer.disconnect();cancelAnimationFrame(frame);version++;img.removeAttribute('src');urls.forEach(url=>URL.revokeObjectURL(url));cache.clear();};
+ return ()=>{disposeSound();lifecycle.abort();observer.disconnect();cancelAnimationFrame(frame);version++;img.removeAttribute('src');urls.forEach(url=>URL.revokeObjectURL(url));cache.clear();};
 }
 
 

@@ -1,3 +1,4 @@
+import {t} from './i18n.js';
 export function initBrief() {
   const form = document.querySelector('#brief');
   const status = document.querySelector('#form-status');
@@ -16,6 +17,10 @@ export function initBrief() {
     }, {threshold:.1});
     observer.observe(contact);
   } else contact.classList.add('is-visible');
+  document.addEventListener('languagechange', () => {
+    form.elements.name.setCustomValidity('');
+    form.elements.phone.setCustomValidity('');
+  });
   form.addEventListener('input', () => {
     form.elements.name.setCustomValidity('');
     form.elements.phone.setCustomValidity('');
@@ -25,9 +30,9 @@ export function initBrief() {
     event.preventDefault();
     if (pending || sent || !form.reportValidity()) return;
     const data = Object.fromEntries(new FormData(form));
-    if (!data.name.trim()) { form.elements.name.setCustomValidity('Укажите контактное лицо.'); form.elements.name.reportValidity(); return; }
+    if (!data.name.trim()) { form.elements.name.setCustomValidity(t('Укажите контактное лицо.')); form.elements.name.reportValidity(); return; }
     const phoneDigits=data.phone.replace(/\D/g,'');
-    if (phoneDigits.length<7 || phoneDigits.length>15) { form.elements.phone.setCustomValidity('Укажите телефон: от 7 до 15 цифр.'); form.elements.phone.reportValidity(); return; }
+    if (phoneDigits.length<7 || phoneDigits.length>15) { form.elements.phone.setCustomValidity(t('Укажите телефон: от 7 до 15 цифр.')); form.elements.phone.reportValidity(); return; }
     pending = true;
     form.setAttribute('aria-busy','true');
     const controls = [...form.querySelectorAll('input, select, textarea, button')];

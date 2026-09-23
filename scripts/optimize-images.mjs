@@ -1,12 +1,12 @@
 import sharp from 'sharp';
 import {mkdir, writeFile} from 'node:fs/promises';
-const names=['logo.png','capsule-angle.webp','cloud-infrastructure-blue.webp','platform-services.webp','datacenter-construction.webp','ups-blue.webp'];
+const names=['capsule-angle.webp','cloud-infrastructure-blue.webp','platform-services.webp','datacenter-construction.webp','ups-blue.webp'];
 await mkdir('public/media/optimized',{recursive:true});
 const manifest={};
 for(const name of names){
  const input=`public/media/${name}`,meta=await sharp(input).metadata();
  const stem=name.replace(/\.[^.]+$/,'');
- const widths=name==='logo.png'?[Math.min(meta.width,354)]:[480,800,meta.width].filter((w,i,a)=>w<=meta.width&&a.indexOf(w)===i);
+ const widths=[480,800,meta.width].filter((w,i,a)=>w<=meta.width&&a.indexOf(w)===i);
  const variants=[];
  for(const width of widths){
   const base=`/media/optimized/${stem}-${width}`;

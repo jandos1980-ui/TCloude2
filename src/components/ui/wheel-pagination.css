@@ -5,10 +5,12 @@
 .site-wheel-arrow svg{width:14px;height:14px}
 .site-carousel .site-wheel-arrow:disabled{opacity:.25;cursor:default}
 .site-wheel-window{display:flex;align-items:center;gap:2px;padding:0;background:transparent;touch-action:pan-y;user-select:none;cursor:ew-resize}
-.site-carousel .site-wheel-number{display:grid;place-items:center;width:32px;height:44px;background:transparent;font-family:inherit;font-size:10px;line-height:1.2;font-weight:500;font-variant-numeric:tabular-nums;color:#627782;border-radius:50%}
-.site-wheel-number span{display:grid;place-items:center;width:26px;height:26px;border:1px solid #d7e1e5;border-radius:50%;background:transparent}
+.site-carousel .site-wheel-number{display:grid;place-items:center;width:40px;height:48px;background:transparent;font-family:inherit;font-size:12px;line-height:1.2;font-weight:500;font-variant-numeric:tabular-nums;color:#627782;border-radius:50%}
+.site-wheel-number span{display:grid;place-items:center;width:32px;height:32px;border:1px solid #d7e1e5;border-radius:50%;background:transparent}
 .site-carousel .site-wheel-number[aria-current=true]{color:#177ca6;font-weight:650}
 .site-wheel-number[aria-current=true] span{border-color:#177ca6;background:#177ca608}
 .site-wheel-number:focus-visible{outline-offset:3px}
 @media(hover:hover) and (pointer:fine){.site-wheel-arrow:not(:disabled):hover{color:#117fa8}.site-wheel-number:hover span{border-color:#117fa8}}
 @media(max-width:600px){.site-carousel .site-carousel-footer{margin-top:14px;padding-bottom:22px}.site-carousel-count{left:50%;bottom:0;transform:translateX(-50%);font-size:10px}}
+
+@media(max-width:600px){.site-wheel{gap:0}.site-carousel .site-wheel-arrow{width:24px}.site-carousel .site-wheel-number{width:clamp(30px,8vw,40px)}.site-wheel-window{gap:0}.site-wheel-number span{width:28px;height:28px}}

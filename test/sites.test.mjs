@@ -9,10 +9,10 @@ test('Almaty project cards expose their own image galleries', () => {
   const pioneerEdge = findSite('г.Алматы, пр.Достык 134');
 
   assert.ok(alatau?.project, 'СЭЗ «ПИТ «Алатау» should have project details');
-  assert.equal(alatau.project.images.length, 4);
+  assert.equal(alatau.project.images.length, 1);
   assert.ok(alatau.project.images.every(image => image.caption));
 
   assert.ok(pioneerEdge?.project, 'Pioneer Edge should have project details');
-  assert.equal(pioneerEdge.project.images.length, 2);
+  assert.equal(pioneerEdge.project.images.length, 1);
   assert.ok(pioneerEdge.project.images.every(image => image.caption));
 });

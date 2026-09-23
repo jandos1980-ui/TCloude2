@@ -1,3 +1,4 @@
+import {t} from './i18n.js';
 import {mountIndustryTabs} from './components/ui/industry-tabs.tsx';
 export const industries = [
   {name:'Бизнес', title:'Расти без собственной серверной', task:'Серверам тесно в офисе, а приложениям нужны дополнительные ресурсы.', result:'Разместите своё оборудование в ЦОД или подберите облачные ресурсы для приложений и корпоративных файлов.', services:['Colocation','VPS','СХД'], service:0},
@@ -18,8 +19,8 @@ export function initIndustries(setContactService){
     const item=industries[index];
     setContactService(item.service);
     const field=document.querySelector('#brief textarea');
-    const selection=`Отрасль: ${item.name}. Интересуют: ${item.services.join(', ')}.`;
-    const existing=field.value.replace(/^Отрасль: [^\n]*\n?/, '');
+    const selection=t(`Отрасль: ${item.name}. Интересуют: ${item.services.join(', ')}.`);
+    const existing=field.value.replace(/^(?:Отрасль|Сала|Industry): [^\n]*\n?/, '');
     field.value=`${selection}\n${existing}`;
     document.querySelector('.contact-intro').textContent=`Расскажите о задаче для отрасли «${item.name}», требуемых ресурсах и сроках запуска.`;
   });

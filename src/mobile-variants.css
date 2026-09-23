@@ -1,5 +1,5 @@
 /* The selected 04 scroll navigator is the only mobile navigation. */
-.dribbble-scroll,.page-indicator-motion,.story-scroll-meter{display:none}
+.page-indicator-motion,.story-scroll-meter{display:none}
 @media(max-width:600px){
  [data-mobile-variant] header{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
  [data-mobile-variant] .mobile-story-media{top:0}
@@ -13,21 +13,9 @@
  [data-mobile-variant] #mobile-scene-count{margin-left:auto;font-size:12px}
  [data-mobile-variant] .mobile-scroll-cue{font-size:12px}
  [data-mobile-variant] .mobile-story[data-scene] .mobile-story-copy{bottom:calc(140px + env(safe-area-inset-bottom,0px));right:44px;padding-right:8px}
- [data-mobile-variant] .dribbble-scroll{display:grid;place-items:center;position:absolute;top:calc(var(--mobile-header) + 284px);right:max(8px,env(safe-area-inset-right,0px));width:44px;height:44px;padding:0;background:transparent;border:0;border-radius:0;color:#fff;cursor:pointer;z-index:3;overflow:visible;filter:drop-shadow(0 1px 3px #10243290)}
  [data-mobile-variant] .mobile-story-progress{opacity:1;pointer-events:auto}
- [data-mobile-variant] .dribbble-scroll{opacity:0;pointer-events:none;transition:opacity 180ms var(--ease-out)}
  [data-mobile-variant] .mobile-story[data-scrolling] .mobile-story-progress,
- [data-mobile-variant] .mobile-story[data-scrolling] .dribbble-scroll,
- [data-mobile-variant] .mobile-story-progress:has(:focus-visible),
- [data-mobile-variant] .dribbble-scroll:focus-visible{opacity:1;pointer-events:auto}
- .dribbble-scroll .scroll-bounce{position:absolute;left:50%;top:50%;width:120px;height:120px;transform:translate(-50%,-50%) scale(.3);pointer-events:none}
- .scroll-bounce>span{position:absolute;box-sizing:border-box;display:block}
- .scroll-circle{inset:0;border:5px solid #ffffff70;border-radius:100px;background:transparent;transform-origin:center bottom;z-index:1}
- .scroll-arrow{left:0;top:0;width:120px;height:120px;display:grid!important;place-items:center;color:#ffffff70;font:42px/1 Arial,sans-serif;z-index:2}
- .scroll-pulse{left:5px;top:5px;width:110px;height:110px;border:10px solid #ffffff70;border-radius:100px;opacity:0;z-index:0}
- [data-mobile-variant] .mobile-story[data-scrolling] .scroll-circle{animation:mobile-scroll-circle 1s linear infinite}
- [data-mobile-variant] .mobile-story[data-scrolling] .scroll-arrow{animation:mobile-scroll-arrow 1s linear infinite}
- [data-mobile-variant] .mobile-story[data-scrolling] .scroll-pulse{animation:mobile-scroll-pulse 1s linear .3s infinite}
+ [data-mobile-variant] .mobile-story-progress:has(:focus-visible){opacity:1;pointer-events:auto}
  [data-mobile-variant] header[data-hide-brand]>.brand{visibility:hidden;pointer-events:none}
  [data-mobile-variant] header .menu-button{color:#f0f4f7}
  [data-mobile-variant] header[data-surface="light"] .menu-button,
@@ -38,6 +26,5 @@
 @keyframes mobile-scroll-arrow{0%,100%{transform:translateY(27px)}75%{transform:translateY(-63px)}}
 @keyframes mobile-scroll-pulse{0%,8%{transform:scale(0);opacity:0}15%{transform:scale(.1);opacity:1}30%{transform:scale(.5);opacity:1}100%{transform:scale(1.5);opacity:0}}
 @media(prefers-reduced-motion:reduce){
- [data-mobile-variant] .mobile-story[data-scrolling] .scroll-bounce>span{animation:none}
- [data-mobile-variant] .mobile-story-progress,[data-mobile-variant] .dribbble-scroll{transition:none}
+ [data-mobile-variant] .mobile-story-progress{transition:none}
 }

@@ -1,14 +1,4 @@
 {
-  "/media/logo.png": {
-    "width": 126,
-    "height": 64,
-    "variants": [
-      {
-        "width": 126,
-        "base": "/media/optimized/logo-126"
-      }
-    ]
-  },
   "/media/capsule-angle.webp": {
     "width": 1672,
     "height": 942,

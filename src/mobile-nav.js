@@ -5,6 +5,7 @@ export function initMobileNav(){
  const media=matchMedia('(max-width:600px)');let restoreScroll='';
  const story=document.querySelector('.mobile-story');
  const brand=header.querySelector('.brand');
+ const languagePicker=header.querySelector('.language-picker');
  const photo=story.querySelector('#mobile-scene-image');
  const sample=document.createElement('canvas');sample.width=sample.height=64;
  const sampleContext=sample.getContext('2d',{willReadFrequently:true});
@@ -12,10 +13,10 @@ export function initMobileNav(){
  let headerFrame=0;
  function updateHeader(){
   headerFrame=0;
-  if(!media.matches){header.removeAttribute('data-hide-brand');header.removeAttribute('data-surface');brand.inert=false;return;}
+  if(!media.matches){header.removeAttribute('data-hide-brand');header.removeAttribute('data-surface');brand.inert=false;languagePicker.inert=false;return;}
   const rect=story.getBoundingClientRect();
   const showBrand=rect.bottom>header.offsetHeight&&rect.top<=header.offsetHeight;
-  header.toggleAttribute('data-hide-brand',!showBrand);brand.inert=!showBrand;
+  header.toggleAttribute('data-hide-brand',!showBrand);brand.inert=!showBrand;languagePicker.inert=!showBrand;
   const buttonRect=toggle.getBoundingClientRect();
   const x=buttonRect.left+buttonRect.width/2,y=buttonRect.top+buttonRect.height/2;
   const surface=document.elementsFromPoint(x,y).find(el=>!header.contains(el)&&el.closest('main,footer'));
@@ -59,6 +60,6 @@ export function initMobileNav(){
  function open(){lockPageScroll(true);restoreScroll=document.body.style.overflow;nav.hidden=false;toggle.setAttribute('aria-expanded','true');toggle.setAttribute('aria-label','Закрыть меню');document.body.style.overflow='hidden';document.querySelector('main').inert=true;document.querySelector('footer').inert=true;nav.querySelector('a').focus()}
  toggle.onclick=()=>nav.hidden?open():close(true);
  nav.onclick=e=>{const link=e.target.closest('a');if(link){close();const target=document.querySelector(link.hash);if(target){target.tabIndex=-1;target.focus({preventScroll:true})}}};
- header.addEventListener('keydown',e=>{if(nav.hidden)return;if(e.key==='Escape'){e.preventDefault();close(true)}if(e.key==='Tab'){const controls=[toggle,...nav.querySelectorAll('a')];const first=controls[0],last=controls.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+ header.addEventListener('keydown',e=>{if(nav.hidden)return;if(e.key==='Escape'){e.preventDefault();close(true)}if(e.key==='Tab'){const controls=[...header.querySelectorAll('[data-language]:not([inert])'),toggle,...nav.querySelectorAll('a')];const first=controls[0],last=controls.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
  media.addEventListener('change',()=>{if(!media.matches)close()});
 }
