@@ -37,7 +37,7 @@ export function createContactHandler({env=process.env,createTransport=nodemailer
     }
     if (fields.website) return reply(400,{error:'Не удалось отправить форму.'});
     const phoneDigits=fields.phone.replace(/\D/g,'');
-    if (!fields.name || /[\r\n]/.test(fields.name) || !/^\d{12}$/.test(fields.bin) || !services.includes(fields.service) || !/^[+\d ().-]+$/.test(fields.phone) || phoneDigits.length<7 || phoneDigits.length>15) return reply(400,{error:'Проверьте имя, телефон (от 7 до 15 цифр) и БИН (12 цифр).'});
+    if (!/\p{L}/u.test(fields.name) || !/^[\p{L}\p{M} -]+$/u.test(fields.name) || !/^\d{12}$/.test(fields.bin) || !services.includes(fields.service) || !/^[+\d ().-]+$/.test(fields.phone) || !/^77\d{9}$/.test(phoneDigits)) return reply(400,{error:'Проверьте имя, телефон (+7 (7XX) XXX-XX-XX) и БИН (12 цифр).'});
     const port=Number(env.SMTP_PORT||587);
     if (!env.SMTP_HOST || !env.SMTP_USER || !env.SMTP_PASSWORD || !emailPattern.test(env.SMTP_FROM||'') || ![465,587].includes(port)) return reply(503,{error:'Отправка временно недоступна. Напишите на info@taucloud.kz или позвоните +7 7172 251344.'});
     let transport;

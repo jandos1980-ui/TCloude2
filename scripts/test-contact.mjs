@@ -32,11 +32,11 @@ test('rejects cross-origin, malformed and wrong-method requests',async()=>{
 
 test('requires a usable callback number and rejects multiline identity',async()=>{
  const handler=createContactHandler({env,createTransport:()=>{throw new Error('must not connect');}});
- for(const phone of ['', '       ', '-------', '123456', '1'.repeat(16), '+7\n7172251344', 'abcdefg']) assert.equal((await handler(request({...valid,phone}))).status,400);
+ for(const phone of ['', '       ', '-------', '123456', '1'.repeat(16), '+7\n7172251344', 'abcdefg', '+7 (677) 123-45-67', '+7 (777) 123-45-6', '+7 (777) 123-45-678']) assert.equal((await handler(request({...valid,phone}))).status,400);
  assert.equal((await handler(request({...valid,name:'Client\nInjected label'}))).status,400);
 });
-test('accepts phone boundary lengths and TLS port 465',async()=>{
- for(const phone of ['1234567','+'+'1'.repeat(15)]) {
+test('accepts fixed-prefix phone numbers and TLS port 465',async()=>{
+ for(const phone of ['+7 (777) 123-45-67','77771234567']) {
   let options;
   const handler=createContactHandler({env:{...env,SMTP_PORT:'465'},createTransport:config=>{
    options=config;return {sendMail:async()=>({accepted:['info@taucloud.kz']}),close(){}};
@@ -73,4 +73,10 @@ test('transport setup and cleanup errors cannot leak secrets or override deliver
  assert.deepEqual(events,[{event:'contact_delivery_failed'},{event:'contact_transport_close_failed'}]);
  const badLogger=createContactHandler({env,logger:{error(){throw new Error('logger down');}},createTransport:()=>{throw new Error('smtp down');}});
  assert.equal((await badLogger(request())).status,502);
+});
+
+test('accepts multilingual names and rejects digits, symbols and separator-only names',async()=>{
+ const handler=createContactHandler({env:{}});
+ for(const name of ['Әлия Нұр-Сұлтан','Анна-Мария','Jean Luc']) assert.equal((await handler(request({...valid,name}))).status,503);
+ for(const name of ['Иван123','Client@','---','😀']) assert.equal((await handler(request({...valid,name}))).status,400);
 });

@@ -827,9 +827,9 @@
     "kk": "Байланыс тұлғасын көрсетіңіз.",
     "en": "Enter a contact name."
   },
-  "Укажите телефон: от 7 до 15 цифр.": {
-    "kk": "Телефонды көрсетіңіз: 7–15 сан.",
-    "en": "Enter a phone number with 7–15 digits."
+  "Укажите телефон в формате +7 (7XX) XXX-XX-XX.": {
+    "kk": "Телефонды +7 (7XX) XXX-XX-XX пішімінде көрсетіңіз.",
+    "en": "Enter a phone number in the format +7 (7XX) XXX-XX-XX."
   },
   "Отправляем заявку": {
     "kk": "Өтінім жіберілуде",
@@ -867,9 +867,9 @@
     "kk": "Жіберуді растау мүмкін болмады. Кейінірек қайталаңыз немесе info@taucloud.kz мекенжайына жазыңыз.",
     "en": "Could not confirm submission. Try later or email info@taucloud.kz."
   },
-  "Проверьте имя, телефон (от 7 до 15 цифр) и БИН (12 цифр).": {
-    "kk": "Атыңызды, телефонды (7–15 сан) және БСН-ді (12 сан) тексеріңіз.",
-    "en": "Check your name, phone (7–15 digits) and business ID (12 digits)."
+  "Проверьте имя, телефон (+7 (7XX) XXX-XX-XX) и БИН (12 цифр).": {
+    "kk": "Атыңызды, телефонды (+7 (7XX) XXX-XX-XX) және БСН-ді (12 сан) тексеріңіз.",
+    "en": "Check your name, phone (+7 (7XX) XXX-XX-XX) and business ID (12 digits)."
   },
   "Закрыть описание проекта": {
     "kk": "Жоба сипаттамасын жабу",
